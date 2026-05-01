@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('queue_sessions', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')
+            $table->foreignId('created_by')
                 ->constrained('users')
                 ->cascadeOnDelete();
 
@@ -22,6 +22,8 @@ return new class extends Migration
                 ->constrained('companies')
                 ->cascadeOnDelete();
 
+
+            $table->string('queue_status');
             $table->string('name');
             $table->string('description');
 

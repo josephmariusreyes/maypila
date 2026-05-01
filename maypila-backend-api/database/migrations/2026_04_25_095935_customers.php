@@ -13,8 +13,8 @@ return new class extends Migration
     {
           Schema::create('customers', function(Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')
-                ->constrained('events')
+            $table->foreignId('queue_session_id')
+                ->constrained('queue_sessions')
                 ->cascadeOnDelete();    
 
             $table->string('first_name');
@@ -25,10 +25,7 @@ return new class extends Migration
             $table->timestamp('accepted_on');
             $table->timestamp('ended_on');
             $table->integer('que_number');
-
-            $table->foreignId('customer_status')
-                ->constrained('lookup.customer_status', 'value')
-                ->cascadeOnDelete();
+            $table->string('customer_status');
           });
     }
 
