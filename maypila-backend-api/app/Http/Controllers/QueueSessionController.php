@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-class EventsController extends Controller
+/**
+ * Class EventsController
+ *
+ * Responsible for handling HTTP requests related to events where customer queuing occurs.
+ * Manages creation, retrieval, updating, and deletion of events, which can represent
+ * various scenarios such as hospital operations, government relief efforts, or any
+ * business process requiring a queue.
+ */
+class QueueSessionController extends Controller
 {
     // Display a listing of events
     public function index()
@@ -36,5 +43,13 @@ class EventsController extends Controller
     public function destroy($id)
     {
         // ...delete the event by $id
+    }
+
+    public function addQueueUser() {
+
+    }
+
+    public function removeQueueUser() {
+
     }
 }

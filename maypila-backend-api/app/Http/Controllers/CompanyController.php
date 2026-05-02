@@ -1,16 +1,10 @@
 <?php
 
-
-/**
- * Manages customers that will be added to or updated in the queue.
- * Handles listing, showing, creating, updating, and deleting customer records
- * relevant to the queue system.
- */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class CompanyController extends Controller
 {
     // Display a listing of events
     public function index()

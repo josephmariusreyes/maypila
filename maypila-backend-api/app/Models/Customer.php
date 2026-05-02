@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    public function event()
+    public function queueSession()
     {
-        return $this->belongsTo(Events::class);
+        return $this->belongsTo(QueueSession::class);
     }
     public function status()
     {
