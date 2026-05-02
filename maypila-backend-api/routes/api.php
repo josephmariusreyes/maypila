@@ -1,15 +1,22 @@
 <?php
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccessControlController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\QueueSessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::prefix('public')->group(function () {
+    Route::get('/get-que-status', [AccessControlController::class, 'getQueStatus']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    //user CRUD actions
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index']);
         Route::get('/{id}', [UserController::class, 'show']);
@@ -17,4 +24,35 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
     });
+
+    Route::prefix('companies')->group(function () {
+        Route::get('/', [CompanyController::class, 'index']);
+        Route::get('/{id}', [CompanyController::class, 'show']);
+        Route::post('/', [CompanyController::class, 'store']);
+        Route::put('/{id}', [CompanyController::class, 'update']);
+        Route::delete('/{id}', [CompanyController::class, 'destroy']);
+    });
+
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index']);
+        Route::get('/{id}', [CustomerController::class, 'show']);
+        Route::post('/', [CustomerController::class, 'store']);
+        Route::put('/{id}', [CustomerController::class, 'update']);
+        Route::delete('/{id}', [CustomerController::class, 'destroy']);
+    });
+
+    Route::prefix('queue-sessions')->group(function () {
+        Route::get('/', [QueueSessionController::class, 'index']);
+        Route::get('/{id}', [QueueSessionController::class, 'show']);
+        Route::post('/', [QueueSessionController::class, 'store']);
+        Route::put('/{id}', [QueueSessionController::class, 'update']);
+        Route::delete('/{id}', [QueueSessionController::class, 'destroy']);
+        Route::post('/{id}/queue-users', [QueueSessionController::class, 'addQueueUser']);
+        Route::delete('/{id}/queue-users/{userId}', [QueueSessionController::class, 'removeQueueUser']);
+    });
+
+    Route::prefix('access-control')->group(function () {
+        Route::get('/app-menu', [AccessControlController::class, 'getAppMenu']);
+    });
+
 });
