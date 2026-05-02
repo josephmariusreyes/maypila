@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+    //php artisan db:seed
     public function run(): void
     {
         // Seed companies
@@ -22,9 +23,6 @@ class DatabaseSeeder extends Seeder
 
         // Seed users
         $this->call(UserSeeder::class);
-
-        // Seed users
-        //$this->call(CustomerStatusSeeder::class);
 
         //Will use factory seeding later on
         //Seed 3 users of different type

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use App\Enum\UserRole;
 
 class UserSeeder extends Seeder
 {
@@ -17,22 +18,22 @@ class UserSeeder extends Seeder
                 'name' => 'Super Admin',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('password'),
-                'company' => 'super_admin',
-                'role' => 'SuperAdmin'
+                'company' => 'Maypila',
+                'role' => UserRole::SuperAdmin
             ],
             [
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password'),
                 'company' => 'Acme Corporation',
-                'role' => 'EventOrganizer'
+                'role' => UserRole::CompanyAdmin
             ],
             [
                 'name' => 'Jane Smith',
                 'email' => 'jane@example.com',
                 'password' => Hash::make('password'),
                 'company' => 'Globex Inc.',
-                'role' => 'QueAdmin'
+                'role' => UserRole::QueAdmin
             ],
         ];
 

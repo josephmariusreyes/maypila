@@ -24,7 +24,7 @@ class CompanySeeder extends Seeder
                 'description' => 'Innovators in global logistics and supply chain.',
             ],
             [
-                'name' => 'super_admin',
+                'name' => 'Maypila',
                 'description' => 'Super admin',
             ],
         ];
