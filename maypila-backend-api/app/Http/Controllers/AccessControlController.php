@@ -9,4 +9,8 @@ class AccessControlController extends Controller
     public function getAppMenu() {
 
     }
+
+    public function createCompanyAndUser() {
+        
+    }
 }

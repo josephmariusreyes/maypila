@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUpdateUserRequest;
 
-use App\DTO\CreateUserDto;
-use App\DTO\UpdateUserDto;
-use App\Http\Requests\User\StoreUserRequest;
 use App\Services\UserService\IUserService;
+use App\Http\Resources\ApiBaseResponse;
+use App\Http\Resources\User\UserResource;
 
+use App\DTO\User\{
+	CreateUserDto,
+	UpdateUserDto,
+	GetAllUserDto
+};
+
+use App\Http\Requests\User\{
+    ShowUserRequest,
+    StoreUserRequest,
+    IndexUserRequest
+};
 /**
  * Class UserController
  *
@@ -25,19 +35,34 @@ class UserController extends Controller
 		$this->userService = $userService;
 	}
 
-	// Show a single user (details)
-	public function show(int $id)
+	public function show(ShowUserRequest $request)
 	{
-		return response()->json($this->userService->getUserById($id));
+		$validated = $request->validated();
+		return ApiBaseResponse::success(
+			new UserResource($this->userService->getUserById($validated['id'])),
+			'User fetched successfully'
+		);
+
+		// note: sample of how to use the base response with meta data
+		// return ApiResponse::success(
+		//     UserResource::collection($users),
+		//     'Users retrieved successfully',
+		//     200,
+		//     [
+		//         'total' => $users->total(),
+		//         'page' => $users->currentPage(),
+		//     ]
+		// );
 	}
 
-
-	// List all users
-	// params:
-	//, RoleId, 
-	public function index(int $companyId, ?int $roleId = null)
+	public function index(IndexUserRequest $request)
 	{
-		return response()->json($this->userService->getAllUser());
+		$validated = $request->validated();
+		$getAllUserDto = new GetAllUserDto(
+			companyId:'',
+			role:''
+		);
+		return response()->json($this->userService->getAllUser($getAllUserDto));
 	}
 
 
