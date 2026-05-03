@@ -5,14 +5,14 @@ namespace App\Http\Requests\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexUserRequest extends FormRequest
+class ShowUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,8 +23,7 @@ class IndexUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'companyId' => ['required', 'integer'],
-            'role' => ['nullable', 'string']
+            'id' => ['required', 'integer'],
         ];
     }
 }
