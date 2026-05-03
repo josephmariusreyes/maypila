@@ -1,5 +1,5 @@
 <?php
-namespace App\DTO;
+namespace App\DTO\User;
 
 class UpdateUserDto
 {
@@ -10,12 +10,5 @@ class UpdateUserDto
         public readonly ?string $password = null,
     ) {}
 
-    public function toArray(): array
-    {
-        return array_filter([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => $this->password,
-        ], fn ($value) => $value !== null);
-    }
+
 }

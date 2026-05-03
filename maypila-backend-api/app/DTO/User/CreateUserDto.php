@@ -1,5 +1,5 @@
 <?php
-namespace App\DTO;
+namespace App\DTO\User;
 
 class CreateUserDto
 {
