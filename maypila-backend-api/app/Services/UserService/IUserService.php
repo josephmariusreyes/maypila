@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Services\UserService;
-use App\DTO\CreateUserDto;
-use App\DTO\UpdateUserDto;
+use App\DTO\User\{
+	CreateUserDto,
+	UpdateUserDto,
+	GetAllUserDto
+};
+
 use App\Models\User;
 
 interface IUserService
@@ -11,5 +15,5 @@ interface IUserService
     public function updateUser(UpdateUserDto $updateUserDto): User;
     public function deleteUser(int $id);
     public function getUserById(int $id);
-    public function getAllUser();
+    public function getAllUser(GetAllUserDto $getAllUserDto);
 }

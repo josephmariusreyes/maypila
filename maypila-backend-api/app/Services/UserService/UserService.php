@@ -1,8 +1,13 @@
 <?php
 namespace App\Services\UserService;
 use App\Models\User;
-use App\DTO\CreateUserDto;
-use App\DTO\UpdateUserDto;
+use Illuminate\Support\Facades\Hash;
+
+use App\DTO\User\{
+	CreateUserDto,
+	UpdateUserDto,
+	GetAllUserDto
+};
 
 // all methods in this service will do CRUD on the userModel
 class UserService implements IUserService
@@ -16,10 +21,20 @@ class UserService implements IUserService
         ]);
     }
 
-    public function updateUser(UpdateUserDto $updateUserDto): User
+    public function updateUser(UpdateUserDto $dto): User
     {
-        $user = User::findOrFail($updateUserDto->id);
-        $user->update($updateUserDto->toArray());
+        $user = User::findOrFail($dto->id);
+        $data = array_filter([
+            'name' => $dto->name,
+            'email' => $dto->email,
+            'password' => $dto->password,
+        ], fn ($value) => $value !== null);
+
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $user->update($data);
         return $user->refresh();
     }
 
@@ -29,13 +44,27 @@ class UserService implements IUserService
         return $user->delete();
     }
 
-    public function getUserById(int $id)
+    public function getUserById(int $id) : User
     {
         return User::find($id);
     }
 
-    public function getAllUser()
+    public function getAllUser(GetAllUserDto $getAllUserDto)
     {
-        return User::all();
+        $query = User::query();
+        
+        // Filter by company
+        $query->whereHas('companies', function ($q) use ($getAllUserDto) {
+            $q->where('companies.id', $getAllUserDto->companyId);
+        });
+        
+        // Filter by role if provided
+        if ($getAllUserDto->role !== null) {
+            $query->whereHas('roles', function ($q) use ($getAllUserDto) {
+                $q->where('roles.name', $getAllUserDto->role);
+            });
+        }
+        
+        return $query->get();
     }
 }
