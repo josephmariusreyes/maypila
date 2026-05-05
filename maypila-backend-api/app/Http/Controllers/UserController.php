@@ -38,12 +38,13 @@ class UserController extends Controller
 	public function show(ShowUserRequest $request)
 	{
 		$validated = $request->validated();
-		return ApiBaseResponse::success(
-			new UserResource($this->userService->getUserById($validated['id'])),
-			'User fetched successfully'
-		);
+		$user = $this->userService->getUserById($validated['id']);
 
-		// note: sample of how to use the base response with meta data
+		//NOTE
+		//If you want roles, companies, and queue_sessions to appear, you need to load those relations before wrapping the model, because your resource uses whenLoaded(...):
+		//$user = User::with(['roles', 'companies', 'queueSession'])->findOrFail($id);
+
+		// NOTE: sample of how to use the base response with meta data
 		// return ApiResponse::success(
 		//     UserResource::collection($users),
 		//     'Users retrieved successfully',
@@ -53,16 +54,25 @@ class UserController extends Controller
 		//         'page' => $users->currentPage(),
 		//     ]
 		// );
+		
+		return ApiBaseResponse::success(
+			new UserResource($user),
+			'User fetched successfully'
+		);
 	}
 
 	public function index(IndexUserRequest $request)
 	{
 		$validated = $request->validated();
 		$getAllUserDto = new GetAllUserDto(
-			companyId:'',
-			role:''
+			companyId:$validated['companyId'],
+			role:$validated['role']
 		);
-		return response()->json($this->userService->getAllUser($getAllUserDto));
+		$users = $this->userService->getAllUser($getAllUserDto);
+		return ApiBaseResponse::success(
+			UserResource::collection($users),
+			'Users fetched successfully'
+		);
 	}
 
 
