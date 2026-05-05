@@ -14,6 +14,6 @@ interface IUserService
     public function createUser(CreateUserDto $createUserDto): User;
     public function updateUser(UpdateUserDto $updateUserDto): User;
     public function deleteUser(int $id);
-    public function getUserById(int $id);
+    public function getUserById(int $id) : User;
     public function getAllUser(GetAllUserDto $getAllUserDto);
 }

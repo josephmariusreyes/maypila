@@ -9,6 +9,8 @@ use App\DTO\User\{
 	GetAllUserDto
 };
 
+use App\QueryFilters\UserFilter;
+
 // all methods in this service will do CRUD on the userModel
 class UserService implements IUserService
 {
@@ -51,20 +53,6 @@ class UserService implements IUserService
 
     public function getAllUser(GetAllUserDto $getAllUserDto)
     {
-        $query = User::query();
-        
-        // Filter by company
-        $query->whereHas('companies', function ($q) use ($getAllUserDto) {
-            $q->where('companies.id', $getAllUserDto->companyId);
-        });
-        
-        // Filter by role if provided
-        if ($getAllUserDto->role !== null) {
-            $query->whereHas('roles', function ($q) use ($getAllUserDto) {
-                $q->where('roles.name', $getAllUserDto->role);
-            });
-        }
-        
-        return $query->get();
+        return (new UserFilter($getAllUserDto))->apply(User::query())->get();
     }
 }
