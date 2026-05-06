@@ -18,12 +18,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::middleware('rrole.check:' . implode(',', [
+    Route::middleware('role.check:' . implode(',', [
         UserRole::SuperAdmin->value,
         UserRole::CompanyAdmin->value
     ]))->group(function () {
 
-        // Your protected routes here
         Route::prefix('users')->group(function () {
             Route::get('/', [UserController::class, 'index']);
             Route::get('/{id}', [UserController::class, 'show']);

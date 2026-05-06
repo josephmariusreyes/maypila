@@ -7,17 +7,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Auth\LoginAuthRequest;
 
 class AuthController extends Controller
 {
-	public function login(LoginRequest $request): JsonResponse
+	public function login(LoginAuthRequest $request): JsonResponse
 	{
 		//jephtodo: move this logic to service
 		
 		$credentials = $request->validated();
 		$user = User::where('email', $credentials['email'])->first();
 		$companies = $user->companies;
+		$roles = $user->roles;
 
 		if (!$user || !Hash::check($credentials['password'], $user->password)) {
 			return response()->json([
@@ -32,7 +33,6 @@ class AuthController extends Controller
 			'message' => 'Login successful.',
 			'token' => $token,
 			'user' => $user,
-			'companies' => $companies
 		]);
 	}
 

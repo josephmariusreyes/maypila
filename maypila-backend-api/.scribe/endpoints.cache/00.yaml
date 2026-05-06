@@ -123,8 +123,32 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      companyId:
+        custom: []
+        name: companyId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      companyId: 16
+      role: architecto
     fileParameters: []
     responses:
       -
@@ -175,8 +199,20 @@ endpoints:
       id: architecto
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      id:
+        custom: []
+        name: id
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      id: 16
     fileParameters: []
     responses:
       -
@@ -271,12 +307,40 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      company_id:
+        custom: []
+        name: company_id
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: true
+        example: QueEncoder
+        type: string
+        enumValues:
+          - SuperAdmin
+          - CompanyAdmin
+          - QueAdmin
+          - QueEncoder
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
     cleanBodyParameters:
       id: 16
       name: 'n'
       email: ashly64@example.com
       password: pBNvYg
       mobile_number: '8225697751'
+      company_id: 16
+      role: QueEncoder
     fileParameters: []
     responses: []
     responseFields: []
@@ -374,12 +438,40 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      company_id:
+        custom: []
+        name: company_id
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: true
+        example: QueEncoder
+        type: string
+        enumValues:
+          - SuperAdmin
+          - CompanyAdmin
+          - QueAdmin
+          - QueEncoder
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
     cleanBodyParameters:
       id: 16
       name: 'n'
       email: ashly64@example.com
       password: pBNvYg
       mobile_number: '8225697751'
+      company_id: 16
+      role: QueEncoder
     fileParameters: []
     responses: []
     responseFields: []

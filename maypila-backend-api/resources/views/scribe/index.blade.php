@@ -157,7 +157,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 1, 2026</li>
+        <li>Last updated: May 6, 2026</li>
     </ul>
 </div>
 
@@ -466,7 +466,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost/api/users" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"companyId\": 16,
+    \"role\": \"architecto\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -479,10 +484,15 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "companyId": 16,
+    "role": "architecto"
+};
 
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -576,7 +586,32 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="companyId"                data-endpoint="GETapi-users"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="role"                data-endpoint="GETapi-users"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>Example: <code>architecto</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-GETapi-users--id-">GET api/users/{id}</h2>
 
@@ -593,7 +628,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost/api/users/architecto" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"id\": 16
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -606,10 +645,14 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "id": 16
+};
 
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -716,7 +759,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the user. Example: <code>architecto</code></p>
             </div>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-users--id-"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-POSTapi-users">POST api/users</h2>
 
@@ -739,7 +795,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"n\",
     \"email\": \"ashly64@example.com\",
     \"password\": \"pBNvYg\",
-    \"mobile_number\": \"8225697751\"
+    \"mobile_number\": \"8225697751\",
+    \"company_id\": 16,
+    \"role\": \"QueEncoder\"
 }"
 </code></pre></div>
 
@@ -759,7 +817,9 @@ let body = {
     "name": "n",
     "email": "ashly64@example.com",
     "password": "pBNvYg",
-    "mobile_number": "8225697751"
+    "mobile_number": "8225697751",
+    "company_id": 16,
+    "role": "QueEncoder"
 };
 
 fetch(url, {
@@ -904,6 +964,32 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Must be 10 digits. Example: <code>8225697751</code></p>
         </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company_id"                data-endpoint="POSTapi-users"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="role"                data-endpoint="POSTapi-users"
+               value="QueEncoder"
+               data-component="body">
+    <br>
+<p>Example: <code>QueEncoder</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
+        </div>
         </form>
 
                     <h2 id="endpoints-PUTapi-users--id-">PUT api/users/{id}</h2>
@@ -927,7 +1013,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"n\",
     \"email\": \"ashly64@example.com\",
     \"password\": \"pBNvYg\",
-    \"mobile_number\": \"8225697751\"
+    \"mobile_number\": \"8225697751\",
+    \"company_id\": 16,
+    \"role\": \"QueEncoder\"
 }"
 </code></pre></div>
 
@@ -947,7 +1035,9 @@ let body = {
     "name": "n",
     "email": "ashly64@example.com",
     "password": "pBNvYg",
-    "mobile_number": "8225697751"
+    "mobile_number": "8225697751",
+    "company_id": 16,
+    "role": "QueEncoder"
 };
 
 fetch(url, {
@@ -1104,6 +1194,32 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>Must be 10 digits. Example: <code>8225697751</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company_id"                data-endpoint="PUTapi-users--id-"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="role"                data-endpoint="PUTapi-users--id-"
+               value="QueEncoder"
+               data-component="body">
+    <br>
+<p>Example: <code>QueEncoder</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
         </form>
 

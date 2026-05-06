@@ -66,7 +66,7 @@ class UserController extends Controller
 		$validated = $request->validated();
 		$getAllUserDto = new GetAllUserDto(
 			companyId:$validated['companyId'],
-			role:$validated['role']
+			role:$validated['role'] ?? null
 		);
 		$users = $this->userService->getAllUser($getAllUserDto);
 		return ApiBaseResponse::success(
@@ -93,7 +93,7 @@ class UserController extends Controller
 
 		return response()->json($this->userService->createUser($createdUserDto, $loggedInUser));
 	}
-
+	
 
 	// Update an existing user
 	public function update(StoreUserRequest $request, int $id)
