@@ -80,17 +80,18 @@ class UserController extends Controller
 	public function store(StoreUserRequest $request)
 	{
 		$validated = $request->validated();
+		$loggedInUser = $request->user();
+
 		$createdUserDto = new CreateUserDto(
 			name: $validated['name'],
 			email: $validated['email'],
 			password: $validated['password'],
+			mobile_number:$validated['mobile_number'],
+			role: $validated['role'],
+			companyId:$validated['company_id']
 		);
 
-		//jephtodo: add role
-
-		//jephtodo: add capability for superadmin to associate a different company
-
-		return response()->json($this->userService->createUser($createdUserDto));
+		return response()->json($this->userService->createUser($createdUserDto, $loggedInUser));
 	}
 
 
@@ -103,6 +104,8 @@ class UserController extends Controller
 			name: $validated['name'],
 			email: $validated['email'],
 			password: $validated['password'],
+			mobile_number:$validated['mobile_number'],
+			role:$validated['role']
 		);
 		$updatedUser = $this->userService->updateUser($updateUserDto);
 		return response()->json($updatedUser);

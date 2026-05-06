@@ -1,7 +1,10 @@
 <?php
 namespace App\Services\UserService;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Company;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 use App\DTO\User\{
 	CreateUserDto,
@@ -14,13 +17,26 @@ use App\QueryFilters\UserFilter;
 // all methods in this service will do CRUD on the userModel
 class UserService implements IUserService
 {
-    public function createUser(CreateUserDto $createUserDto): User
+    public function createUser(CreateUserDto $createUserDto, User $actor): User
     {
-        return User::create([
-            'name' => $createUserDto->name,
-            'email' => $createUserDto->email,
-            'password' => $createUserDto->password,
-        ]);
+        $loggedInUser = User::with(['roles:id,name', 'companies:id,name'])->find($actor->user()->id);
+
+        return DB::transaction(function () use ($createUserDto) {
+            $user = User::create([
+                'name' => $createUserDto->name,
+                'email' => $createUserDto->email,
+                'password' => Hash::make($createUserDto->password),
+                'mobile_number' => $createUserDto->mobile_number
+            ]);
+
+            $role = Role::where('name', $createUserDto->role)->firstOrFail();
+            $company = Company::findOrFail($createUserDto->companyId);
+
+            $user->roles()->syncWithoutDetaching([$role->id]);
+            $user->companies()->syncWithoutDetaching([$company->id]);
+
+            return $user->load(['roles', 'companies']);
+        });
     }
 
     public function updateUser(UpdateUserDto $dto): User

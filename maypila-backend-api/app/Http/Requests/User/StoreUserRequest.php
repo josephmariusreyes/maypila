@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\User;
 
+use App\Enum\UserRole;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -36,6 +38,8 @@ class StoreUserRequest extends FormRequest
                 ? ['nullable', 'string', 'min:8']
                 : ['required', 'string', 'min:8'],
             'mobile_number' => ['required', 'digits:10'],
+            'company_id' => ['required', 'integer'],
+            'role' => ['required', Rule::in(array_map(fn (UserRole $role) => $role->value, UserRole::cases()))],
         ];
     }
 }
