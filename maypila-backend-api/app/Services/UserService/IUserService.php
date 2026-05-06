@@ -12,7 +12,7 @@ use App\Models\User;
 interface IUserService
 {
     public function createUser(CreateUserDto $createUserDto, User $actor): User;
-    public function updateUser(UpdateUserDto $updateUserDto): User;
+    public function updateUser(UpdateUserDto $updateUserDto, User $actor): User;
     public function deleteUser(int $id);
     public function getUserById(int $id) : User;
     public function getAllUser(GetAllUserDto $getAllUserDto);

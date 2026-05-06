@@ -37,7 +37,11 @@ class StoreUserRequest extends FormRequest
             'password' => $userId
                 ? ['nullable', 'string', 'min:8']
                 : ['required', 'string', 'min:8'],
-            'mobile_number' => ['required', 'digits:10'],
+            'mobile_number' => [
+                'required',
+                'digits:10',
+                Rule::unique('users', 'mobile_number')->ignore($userId),
+            ],
             'company_id' => ['required', 'integer'],
             'role' => ['required', Rule::in(array_map(fn (UserRole $role) => $role->value, UserRole::cases()))],
         ];

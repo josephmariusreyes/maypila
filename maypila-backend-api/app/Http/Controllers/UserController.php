@@ -100,14 +100,15 @@ class UserController extends Controller
 	{
 		$validated = $request->validated();
 		$updateUserDto = new UpdateUserDto(
-			id:$id,
+			id: $id,
 			name: $validated['name'],
 			email: $validated['email'],
 			password: $validated['password'],
-			mobile_number:$validated['mobile_number'],
-			role:$validated['role']
+			mobile_number: $validated['mobile_number'],
+			role: $validated['role'],
+			companyId: $validated['company_id'],
 		);
-		$updatedUser = $this->userService->updateUser($updateUserDto);
+		$updatedUser = $this->userService->updateUser($updateUserDto, $request->user());
 		return response()->json($updatedUser);
 	}
 

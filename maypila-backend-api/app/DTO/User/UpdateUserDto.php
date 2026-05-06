@@ -9,7 +9,8 @@ class UpdateUserDto
         public readonly ?string $email,
         public readonly ?string $password,
         public readonly ?string $role,
-        public readonly int $mobile_number
+        public readonly ?int $companyId,
+        public readonly ?string $mobile_number,
     ) {}
 
 
