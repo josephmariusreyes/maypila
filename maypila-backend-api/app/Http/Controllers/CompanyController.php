@@ -2,39 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\DTO\Company\CreateCompanyDto;
+use App\DTO\Company\UpdateCompanyDto;
+use App\Http\Resources\Company\CompanyResource;
+use App\Http\Requests\Company\StoreCompanyRequest;
+use App\Services\CompanyService\ICompanyService;
 
 class CompanyController extends Controller
 {
-    // Display a listing of events
+    private ICompanyService $companyService;
+
+    public function __construct(ICompanyService $companyService)
+    {
+        $this->companyService = $companyService;
+    }
+
     public function index()
     {
-        // ...fetch and return all events
-
-        // filter by company
+        return CompanyResource::collection($this->companyService->getAllCompany());
     }
 
-    // Show a single event
-    public function show($id)
+    public function show(string $id)
     {
-        // ...fetch and return a single event by $id
+        return new CompanyResource($this->companyService->getCompanyById((int) $id));
     }
 
-    // Store a new event
-    public function store(Request $request)
+    public function store(StoreCompanyRequest $request)
     {
-        // ...validate and create a new event
+        $validated = $request->validated();
+        $createCompanyDto = new CreateCompanyDto(
+            name: $validated['name'],
+            description: $validated['description'],
+        );
+
+        return new CompanyResource(
+            $this->companyService->createCompany($createCompanyDto, $request->user())
+        );
     }
 
-    // Update an existing event
-    public function update(Request $request, $id)
+    public function update(StoreCompanyRequest $request, $id)
     {
-        // ...validate and update the event by $id
+        $validated = $request->validated();
+        $updateCompanyDto = new UpdateCompanyDto(
+            id: (string) $id,
+            name: $validated['name'],
+            description: $validated['description'],
+        );
+
+        return new CompanyResource(
+            $this->companyService->updateCompany($updateCompanyDto, $request->user())
+        );
     }
 
-    // Delete an event
-    public function destroy($id)
-    {
-        // ...delete the event by $id
-    }
 }

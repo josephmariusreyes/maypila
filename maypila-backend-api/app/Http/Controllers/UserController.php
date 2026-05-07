@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUpdateUserRequest;
-
 use App\Services\UserService\IUserService;
 use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\User\UserResource;
@@ -34,6 +32,20 @@ class UserController extends Controller
 	{
 		$this->userService = $userService;
 	}
+	
+	public function index(IndexUserRequest $request)
+	{
+		$validated = $request->validated();
+		$getAllUserDto = new GetAllUserDto(
+			companyId:$validated['companyId'],
+			role:$validated['role'] ?? null
+		);
+		$users = $this->userService->getAllUser($getAllUserDto);
+		return ApiBaseResponse::success(
+			UserResource::collection($users),
+			'Users fetched successfully'
+		);
+	}
 
 	public function show(ShowUserRequest $request)
 	{
@@ -60,21 +72,6 @@ class UserController extends Controller
 			'User fetched successfully'
 		);
 	}
-
-	public function index(IndexUserRequest $request)
-	{
-		$validated = $request->validated();
-		$getAllUserDto = new GetAllUserDto(
-			companyId:$validated['companyId'],
-			role:$validated['role'] ?? null
-		);
-		$users = $this->userService->getAllUser($getAllUserDto);
-		return ApiBaseResponse::success(
-			UserResource::collection($users),
-			'Users fetched successfully'
-		);
-	}
-
 
 	// Store a new user
 	public function store(StoreUserRequest $request)
