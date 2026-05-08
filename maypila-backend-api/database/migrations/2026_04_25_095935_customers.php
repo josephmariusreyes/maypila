@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('mobile_number');
             $table->index('mobile_number');
             $table->timestamps();
-            $table->timestamp('accepted_on');
-            $table->timestamp('ended_on');
+                        $table->timestamp('accepted_on')->nullable();
+                        $table->timestamp('ended_on')->nullable();
             $table->integer('que_number');
             $table->string('customer_status');
           });

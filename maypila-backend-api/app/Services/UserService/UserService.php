@@ -29,7 +29,7 @@ class UserService implements IUserService
                 'name' => $createUserDto->name,
                 'email' => $createUserDto->email,
                 'password' => Hash::make($createUserDto->password),
-                'mobile_number' => $createUserDto->mobile_number,
+                'mobile_number' => $createUserDto->mobileNumber,
             ]);
 
             $this->syncRoleAndCompany(
@@ -54,7 +54,7 @@ class UserService implements IUserService
                 'name' => $dto->name,
                 'email' => $dto->email,
                 'password' => $dto->password,
-                'mobile_number' => $dto->mobile_number,
+                'mobileNumber' => $dto->mobileNumber,
             ], fn($value) => $value !== null);
 
             if (isset($data['password'])) {
