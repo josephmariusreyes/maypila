@@ -9,6 +9,6 @@ class CreateUserDto
         public readonly ?string $password,
         public readonly ?string $role,
         public readonly int $companyId,
-        public readonly ?string $mobile_number
+        public readonly ?string $mobileNumber
     ) {}
 }
