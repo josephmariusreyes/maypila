@@ -1,14 +1,16 @@
 <?php
+namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\{
+    StoreCustomerRequest
+};
+use Illuminate\Http\Request;
 
 /**
  * Manages customers that will be added to or updated in the queue.
  * Handles listing, showing, creating, updating, and deleting customer records
  * relevant to the queue system.
  */
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -27,13 +29,13 @@ class CustomerController extends Controller
     }
 
     // Store a new event
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
         // ...validate and create a new event
     }
 
     // Update an existing event
-    public function update(Request $request, $id)
+    public function update(StoreCustomerRequest $request, $id)
     {
         // ...validate and update the event by $id
     }

@@ -83,7 +83,7 @@ class UserController extends Controller
 			name: $validated['name'],
 			email: $validated['email'],
 			password: $validated['password'],
-			mobile_number:$validated['mobile_number'],
+			mobileNumber:$validated['mobileNumber'],
 			role: $validated['role'],
 			companyId:$validated['company_id']
 		);
@@ -101,7 +101,7 @@ class UserController extends Controller
 			name: $validated['name'],
 			email: $validated['email'],
 			password: $validated['password'],
-			mobile_number: $validated['mobile_number'],
+			mobileNumber: $validated['mobileNumber'],
 			role: $validated['role'],
 			companyId: $validated['company_id'],
 		);
