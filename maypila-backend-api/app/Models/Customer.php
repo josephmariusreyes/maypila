@@ -11,12 +11,4 @@ class Customer extends Model
     {
         return $this->belongsTo(QueueSession::class);
     }
-    public function status()
-    {
-        return $this->belongsTo(
-            CustomerStatus::class,
-            'customer_status', // foreign key in customers table
-            'value'            // referenced column in lookup.customer_status
-        );
-    }    
 }

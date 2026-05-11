@@ -15,4 +15,9 @@ class Company extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function eventLogs()
+    {
+        return $this->hasMany(EventLog::class);
+    }
 }

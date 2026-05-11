@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class EventLog extends Model
+{
+    protected $table = 'event_logs';
+
+    protected $fillable = [
+        'user_id',
+        'company_id',
+        'event_type',
+        'event_description',
+        'metadata',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+}

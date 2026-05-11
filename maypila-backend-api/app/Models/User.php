@@ -33,12 +33,17 @@ class User extends Authenticatable
     
     public function companies()
     {
-        return $this->belongsToMany(Company::class);
+        return $this->belongsTo(Company::class);
     }
 
     public function queueSession()
     {
-        return $this->belongsToMany(QueueSession::class);
+        return $this->belongsTo(QueueSession::class);
+    }
+
+    public function eventLogs()
+    {
+        return $this->hasMany(EventLog::class);
     }
 
     // NOTE: in scenarios that the pivot table did not follow the larvel naming convention
