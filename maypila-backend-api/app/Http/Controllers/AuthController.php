@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
 	public function login(LoginAuthRequest $request): JsonResponse
 	{
-		//jephtodo: move this logic to service
+		//todojeph: move this logic to service
 		
 		$credentials = $request->validated();
 		$user = User::where('email', $credentials['email'])->first();

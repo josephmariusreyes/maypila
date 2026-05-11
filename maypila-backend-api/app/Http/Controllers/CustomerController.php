@@ -1,48 +1,64 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Customer\{
-    StoreCustomerRequest
-};
-use Illuminate\Http\Request;
-
-/**
- * Manages customers that will be added to or updated in the queue.
- * Handles listing, showing, creating, updating, and deleting customer records
- * relevant to the queue system.
- */
+use App\DTO\Customer\AddCustomerToQueDto;
+use App\DTO\Customer\UpdateCustomerDto;
+use App\Http\Requests\Customer\StoreCustomerRequest;
+use App\Http\Requests\Customer\UpdateCustomerRequest;
+use App\Http\Resources\Customer\CustomerResource;
+use App\Services\Customer\ICustomerService;
 
 class CustomerController extends Controller
 {
-    // Display a listing of events
+    private ICustomerService $customerService;
+
+    public function __construct(ICustomerService $customerService)
+    {
+        $this->customerService = $customerService;
+    }
+
     public function index()
     {
-        // ...fetch and return all events
-
-        // filter by company
+        return CustomerResource::collection(
+            $this->customerService->getAllCustomer()
+        );
     }
 
-    // Show a single event
-    public function show($id)
+    public function show(int $id)
     {
-        // ...fetch and return a single event by $id
+        return new CustomerResource(
+            $this->customerService->getCustomerById((int) $id)
+        );
     }
 
-    // Store a new event
     public function store(StoreCustomerRequest $request)
     {
-        // ...validate and create a new event
+        $validated = $request->validated();
+
+        $addCustomerToQueDto = new AddCustomerToQueDto(
+            firstName: $validated['firstName'],
+            lastName: $validated['lastName'],
+            mobileNumber: $validated['mobileNumber'],
+        );
+
+        return new CustomerResource(
+            $this->customerService->addCustomerToQue($addCustomerToQueDto, $request->user())
+        );
     }
 
-    // Update an existing event
-    public function update(StoreCustomerRequest $request, $id)
+    public function update(UpdateCustomerRequest $request)
     {
-        // ...validate and update the event by $id
+        $validated = $request->validated();
+
+        $updateCustomerDto = new UpdateCustomerDto(
+            id: (int) $validated['id'],
+            customerStatus:$validated['customerStatus'],
+        );
+
+        return new CustomerResource(
+            $this->customerService->updateCustomer($updateCustomerDto, $request->user())
+        );
     }
 
-    // Delete an event
-    public function destroy($id)
-    {
-        // ...delete the event by $id
-    }
 }
