@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Customer;
 
+use App\Enum\CustomerStatus;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCustomerRequest extends FormRequest
+class UpdateCustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +25,8 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => ['required', 'string', 'max:255'],
-            'lastName' => ['required', 'string', 'max:255'],
-            'mobileNumber' => ['required', 'digits:10'],
+            'id' => ['required', 'integer', 'exists:companies,id'],
+            'customerStatus' => ['required', Rule::enum(CustomerStatus::class)],
         ];
     }
 }
