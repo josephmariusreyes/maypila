@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Services\Customer;
-use App\Models\User;
-
-use app\DTO\customer\{
-    CreateCustomerDto,
-    UpdateCUstomerDto
+use App\DTO\Customer\{
+    AddCustomerToQueDto,
+    UpdateCustomerDto
 };
+use App\Models\Customer;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ICustomerService
 {
-    public function createCustomer(CreateCustomerDto $createCustomerDto, User $actor);
-    public function updateCustomer(UpdateCUstomerDto $updateCustomerDto, User $actor);
-    public function getCustomerById(int $id);
-    public function getAllCustomer();
+    public function addCustomerToQue(AddCustomerToQueDto $addCustomerDto, User $actor): Customer;
+    public function updateCustomer(UpdateCustomerDto $updateCustomerDto, User $actor): Customer;
+    public function getCustomerById(int $id): Customer;
+    public function getAllCustomer(): Collection;
 }
