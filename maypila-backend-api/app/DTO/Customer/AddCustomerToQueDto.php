@@ -2,7 +2,7 @@
 
 namespace App\DTO\Customer;
 
-class CreateCustomerDto
+class AddCustomerToQueDto
 {
     public function __construct(
         public readonly string $firstName,
