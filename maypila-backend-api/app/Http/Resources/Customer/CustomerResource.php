@@ -17,6 +17,11 @@ class CustomerResource extends JsonResource
         return [
             'que_number' => $this->que_number,
             'customer_status' => $this->customer_status,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'mobile_number' => $this->mobile_number,
+            'accepted_on' => $this->accepted_on,
+            'ended_on' => $this->ended_on,
         ];
     }
 }
