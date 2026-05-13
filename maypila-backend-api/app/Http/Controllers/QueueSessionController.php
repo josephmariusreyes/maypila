@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\QueueSession\AddUserQueueSessionRequest;
+use App\Http\Requests\QueueSession\IndexQueueSessionRequest;
+use App\Http\Requests\QueueSession\RemoveUserQueueSessionRequest;
+use App\Http\Requests\QueueSession\ShowQueueSessionRequest;
+use App\Http\Requests\QueueSession\StoreQueueSessionRequest;
 /**
  * Class EventsController
  *
@@ -13,22 +17,18 @@ use Illuminate\Http\Request;
  */
 class QueueSessionController extends Controller
 {
-    // Display a listing of events
-    public function index()
+    public function index(IndexQueueSessionRequest $request)
     {
-        // ...fetch and return all events
-
-        // filter by company
     }
 
     // Show a single event
-    public function show($id)
+    public function show(ShowQueueSessionRequest $request, $id)
     {
         // ...fetch and return a single event by $id
     }
 
     // Store a new event
-    public function store(Request $request)
+    public function store(StoreQueueSessionRequest $request)
     {
         // ...validate and create a new event
     }
@@ -45,11 +45,13 @@ class QueueSessionController extends Controller
         // ...delete the event by $id
     }
 
-    public function addQueueUser() {
+    public function addQueueUser(AddUserQueueSessionRequest $request, $id)
+    {
 
     }
 
-    public function removeQueueUser() {
+    public function removeQueueUser(RemoveUserQueueSessionRequest $request, $id, $userId)
+    {
 
     }
 }
