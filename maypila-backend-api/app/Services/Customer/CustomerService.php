@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Events\CustomerQueue\CustomerQueued;
 
 class CustomerService implements ICustomerService
 {
@@ -16,17 +17,18 @@ class CustomerService implements ICustomerService
 	{
 		$actor->loadMissing('queue_session');
 		$queueSessionId = $actor->queue_session?->id;
+		$actorId = $actor->id;
 
 		if (!$queueSessionId) {
 			throw new \RuntimeException('Actor has no active queue session.');
 		}
 
-		return DB::transaction(function () use ($addCustomerDto, $queueSessionId) {
+		$customerDbTransaction = DB::transaction(function () use ($addCustomerDto, $queueSessionId, $actorId) {
 			$nextQueNumber = Customer::where('queue_session_id', $queueSessionId)
 				->lockForUpdate()
 				->max('que_number');
 
-			return Customer::create([
+			$customer = Customer::create([
 				'queue_session_id' => $queueSessionId,
 				'first_name' => $addCustomerDto->firstName,
 				'last_name' => $addCustomerDto->lastName,
@@ -35,8 +37,19 @@ class CustomerService implements ICustomerService
 				'que_number' => ($nextQueNumber ?? 0) + 1,
 			]);
 
-			//todojeph: log an event here, i will events
+			DB::afterCommit(function () use ($customer, $actorId) {
+				CustomerQueued::dispatch(
+					customer: $customer,
+					metadata: [
+						'queued_by' => $actorId,
+					]
+				);
+			});
+
+			return $customer;
 		});
+
+		return $customerDbTransaction;
 	}
 
 	public function updateCustomer(UpdateCustomerDto $updateCustomerDto, User $actor): Customer
