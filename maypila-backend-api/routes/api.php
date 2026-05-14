@@ -54,8 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/', [QueueSessionController::class, 'store']);
             Route::put('/{id}', [QueueSessionController::class, 'update']);
             Route::delete('/{id}', [QueueSessionController::class, 'destroy']);
-            Route::post('/{id}/queue-users', [QueueSessionController::class, 'addQueueUser']);
-            Route::delete('/{id}/queue-users/{userId}', [QueueSessionController::class, 'removeQueueUser']);
+            Route::post('/add-queue-users', [QueueSessionController::class, 'addQueueUser']);
+            Route::delete('/remove-queue-user', [QueueSessionController::class, 'removeQueueUser']);
         });
 
     });

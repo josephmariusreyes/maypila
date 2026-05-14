@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('created_by')
+                ->nullable()
                 ->constrained('users')
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->foreignId('company_id')
+                ->nullable()
                 ->constrained('companies')
-                ->cascadeOnDelete();
-
+                ->nullOnDelete();
 
             $table->string('queue_status');
             $table->string('name');
