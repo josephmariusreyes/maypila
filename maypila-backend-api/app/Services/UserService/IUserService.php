@@ -4,8 +4,7 @@ namespace App\Services\UserService;
 
 use App\DTO\User\{
 	CreateUserDto,
-	UpdateUserDto,
-	GetAllUserDto
+    UpdateUserDto
 };
 use App\Models\User;
 
@@ -15,5 +14,5 @@ interface IUserService
     public function updateUser(UpdateUserDto $updateUserDto, User $actor): User;
     public function deleteUser(int $id);
     public function getUserById(int $id) : User;
-    public function getAllUser(GetAllUserDto $getAllUserDto);
+    public function getAllUser(array $filters);
 }

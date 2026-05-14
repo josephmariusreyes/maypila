@@ -3,21 +3,18 @@
 namespace App\QueryFilters;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\DTO\User\{
-	GetAllUserDto
-};
 
 class UserFilter
 {
-    public function __construct(private GetAllUserDto $dto) {}
+    public function __construct(private array $filters) {}
 
     public function apply(Builder $query)
     {
-        if ($this->dto->companyId) {
+        if (!empty($this->filters['companyId'])) {
             $this->company($query);
         }
 
-        if ($this->dto->role) {
+        if (!empty($this->filters['role'])) {
             $this->role($query);
         }
 
@@ -27,14 +24,14 @@ class UserFilter
     private function company(Builder $query)
     {
         $query->whereHas('companies', function ($q) {
-            $q->whereKey($this->dto->companyId);
+            $q->whereKey($this->filters['companyId']);
         });
     }
 
     private function role(Builder $query)
     {
         $query->whereHas('roles', function ($q) {
-            $q->where('roles.name', $this->dto->role);
+            $q->where('roles.name', $this->filters['role']);
         });
     }
 }

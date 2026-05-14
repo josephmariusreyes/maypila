@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'mobile_number'];
+    protected $fillable = ['name', 'email', 'password', 'mobile_number', 'queue_session_id'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -33,7 +33,7 @@ class User extends Authenticatable
     
     public function companies()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsToMany(Company::class);
     }
 
     public function queueSession()

@@ -8,8 +8,7 @@ use App\Http\Resources\User\UserResource;
 
 use App\DTO\User\{
 	CreateUserDto,
-	UpdateUserDto,
-	GetAllUserDto
+	UpdateUserDto
 };
 
 use App\Http\Requests\User\{
@@ -35,12 +34,7 @@ class UserController extends Controller
 	
 	public function index(IndexUserRequest $request)
 	{
-		$validated = $request->validated();
-		$getAllUserDto = new GetAllUserDto(
-			companyId:$validated['companyId'],
-			role:$validated['role'] ?? null
-		);
-		$users = $this->userService->getAllUser($getAllUserDto);
+		$users = $this->userService->getAllUser($request->validated());
 		return ApiBaseResponse::success(
 			UserResource::collection($users),
 			'Users fetched successfully'

@@ -5,14 +5,14 @@ namespace App\Http\Requests\QueueSession;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddUserQueueSessionRequest extends FormRequest
+class AddRemoveUserQueueSessionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,9 @@ class AddUserQueueSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'userId' => ['required', 'integer'],
+            'queueSessionId' => ['required', 'integer'],
         ];
     }
+
 }

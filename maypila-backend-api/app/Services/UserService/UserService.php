@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Gate;
 
 use App\DTO\User\{
     CreateUserDto,
-    UpdateUserDto,
-    GetAllUserDto
+	UpdateUserDto
 };
 
 use App\QueryFilters\UserFilter;
@@ -125,8 +124,8 @@ class UserService implements IUserService
         return User::find($id);
     }
 
-    public function getAllUser(GetAllUserDto $getAllUserDto)
+    public function getAllUser(array $filters)
     {
-        return (new UserFilter($getAllUserDto))->apply(User::query())->get();
+        return (new UserFilter($filters))->apply(User::query())->get();
     }
 }

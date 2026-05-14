@@ -5,6 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $created_by
+ * @property int $company_id
+ * @property string $queue_status
+ * @property string $name
+ * @property string $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class QueueSession extends Model
 {
     use HasFactory;
@@ -17,6 +27,7 @@ class QueueSession extends Model
     protected $fillable = [
         'created_by',
         'company_id',
+        'queue_status',
         'name',
         'description',
     ];

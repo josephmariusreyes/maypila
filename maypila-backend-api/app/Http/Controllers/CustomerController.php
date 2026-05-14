@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DTO\Customer\AddCustomerToQueDto;
-use App\DTO\Customer\UpdateCustomerDto;
 use App\Http\Requests\Customer\StoreCustomerRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Http\Resources\Customer\CustomerResource;
@@ -27,6 +26,8 @@ class CustomerController extends Controller
 
     public function show(int $id)
     {
+        //jephnote: for now i am just passing ID here but this can potentially grow
+        //when it does thats when i will use a request OBJ
         return new CustomerResource(
             $this->customerService->getCustomerById((int) $id)
         );
@@ -36,6 +37,7 @@ class CustomerController extends Controller
     {
         $validated = $request->validated();
 
+        //jephnote: customer will likely grow, opting to use DTOs here for now
         $addCustomerToQueDto = new AddCustomerToQueDto(
             firstName: $validated['firstName'],
             lastName: $validated['lastName'],
@@ -51,13 +53,11 @@ class CustomerController extends Controller
     {
         $validated = $request->validated();
 
-        $updateCustomerDto = new UpdateCustomerDto(
-            id: (int) $validated['id'],
-            customerStatus:$validated['customerStatus'],
-        );
-
         return new CustomerResource(
-            $this->customerService->updateCustomer($updateCustomerDto, $request->user())
+            $this->customerService->updateCustomer(
+                $validated,
+                $request->user()
+            )
         );
     }
 

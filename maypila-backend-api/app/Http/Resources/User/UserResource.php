@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'mobile_number' => $this->mobile_number,
+            'queue_session_id' => $this->queue_session_id,
             'email_verified_at' => $this->email_verified_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -37,16 +38,16 @@ class UserResource extends JsonResource
                 'created_at' => $company->created_at,
                 'updated_at' => $company->updated_at,
             ])->values()->all()),
-            'queue_sessions' => $this->whenLoaded('queueSession', fn () => $this->queueSession->map(fn ($queueSession) => [
-                'id' => $queueSession->id,
-                'created_by' => $queueSession->created_by,
-                'company_id' => $queueSession->company_id,
-                'name' => $queueSession->name ?? null,
-                'description' => $queueSession->description ?? null,
-                'queue_status' => $queueSession->queue_status ?? null,
-                'created_at' => $queueSession->created_at,
-                'updated_at' => $queueSession->updated_at,
-            ])->values()->all()),
+            'queue_session' => $this->whenLoaded('queueSession', fn () => $this->queueSession ? [
+                'id' => $this->queueSession->id,
+                'created_by' => $this->queueSession->created_by,
+                'company_id' => $this->queueSession->company_id,
+                'name' => $this->queueSession->name ?? null,
+                'description' => $this->queueSession->description ?? null,
+                'queue_status' => $this->queueSession->queue_status ?? null,
+                'created_at' => $this->queueSession->created_at,
+                'updated_at' => $this->queueSession->updated_at,
+            ] : null),
         ];
     }
 }

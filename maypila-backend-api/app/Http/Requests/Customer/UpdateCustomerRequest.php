@@ -25,7 +25,7 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'integer', 'exists:companies,id'],
+            'id' => ['required', 'integer', 'exists:customer,id'],
             'customerStatus' => ['required', Rule::enum(CustomerStatus::class)],
         ];
     }

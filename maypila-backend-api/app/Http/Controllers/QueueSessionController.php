@@ -2,56 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\QueueSession\AddUserQueueSessionRequest;
+use App\Http\Requests\QueueSession\AddRemoveUserQueueSessionRequest;
 use App\Http\Requests\QueueSession\IndexQueueSessionRequest;
-use App\Http\Requests\QueueSession\RemoveUserQueueSessionRequest;
-use App\Http\Requests\QueueSession\ShowQueueSessionRequest;
 use App\Http\Requests\QueueSession\StoreQueueSessionRequest;
-/**
- * Class EventsController
- *
- * Responsible for handling HTTP requests related to events where customer queuing occurs.
- * Manages creation, retrieval, updating, and deletion of events, which can represent
- * various scenarios such as hospital operations, government relief efforts, or any
- * business process requiring a queue.
- */
+use App\Http\Resources\QueueSession\QueueSessionResource;
+use App\Services\QueueSession\QueueSessionService;
+
 class QueueSessionController extends Controller
 {
+    private QueueSessionService $queueSessionService;
+
+    public function __construct(QueueSessionService $queueSessionService)
+    {
+        $this->queueSessionService = $queueSessionService;
+    }
+
     public function index(IndexQueueSessionRequest $request)
     {
+        return QueueSessionResource::collection(
+            $this->queueSessionService->listQueueSessions($request->validated(), $request->user())
+        );
     }
 
-    // Show a single event
-    public function show(ShowQueueSessionRequest $request, $id)
+    public function show(int $id)
     {
-        // ...fetch and return a single event by $id
+        return new QueueSessionResource($this->queueSessionService->getQueueSessionById($id));
     }
 
-    // Store a new event
     public function store(StoreQueueSessionRequest $request)
     {
-        // ...validate and create a new event
+        $validated = $request->validated();
+        return new QueueSessionResource($this->queueSessionService->createQueueSession($validated));
     }
 
-    // Update an existing event
-    public function update(Request $request, $id)
+    public function update(StoreQueueSessionRequest $request, int $id)
     {
-        // ...validate and update the event by $id
+        $validated = $request->validated();
+        return new QueueSessionResource($this->queueSessionService->updateQueueSession($id, $validated));
     }
 
-    // Delete an event
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        // ...delete the event by $id
+        $this->queueSessionService->deleteQueueSession($id);
+        return response()->noContent();
     }
 
-    public function addQueueUser(AddUserQueueSessionRequest $request, $id)
+    public function addQueueUser(AddRemoveUserQueueSessionRequest $request)
     {
+        $result = $this->queueSessionService->addQueueUser($request->validated());
 
+        return response()->json([
+            'userAddedToQue' => $result['userAddedToQue'],
+            'data' => (new QueueSessionResource($result['data']))->resolve($request),
+        ]);
     }
 
-    public function removeQueueUser(RemoveUserQueueSessionRequest $request, $id, $userId)
+    public function removeQueueUser(AddRemoveUserQueueSessionRequest $request)
     {
+        $result = $this->queueSessionService->removeQueueUser($request->validated());
 
+        return response()->json([
+            'userRemovedFromQue' => $result['userRemovedFromQue'],
+            'data' => (new QueueSessionResource($result['data']))->resolve($request),
+        ]);
     }
 }

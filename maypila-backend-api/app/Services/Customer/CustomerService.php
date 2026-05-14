@@ -3,7 +3,6 @@
 namespace App\Services\Customer;
 
 use App\DTO\Customer\AddCustomerToQueDto;
-use App\DTO\Customer\UpdateCustomerDto;
 use App\Enum\CustomerStatus;
 use App\Models\Customer;
 use App\Models\User;
@@ -52,13 +51,14 @@ class CustomerService implements ICustomerService
 		return $customerDbTransaction;
 	}
 
-	public function updateCustomer(UpdateCustomerDto $updateCustomerDto, User $actor): Customer
+	public function updateCustomer(array $validatedCustomerData, User $actor): Customer
 	{
-		$customer = Customer::findOrFail($updateCustomerDto->id);
-
-		$customer->customer_status = CustomerStatus::from($updateCustomerDto->customerStatus)->value;
+		$customer = Customer::findOrFail($validatedCustomerData['id']);
+		$customer->customer_status = CustomerStatus::from($validatedCustomerData['customerStatus'])->value;
 		$customer->save();
 
+		//i will use $actor for event logging
+		
 		return $customer->refresh();
 	}
 
