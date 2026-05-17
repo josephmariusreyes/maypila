@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\Customer;
+namespace App\DTO\Customer\Requests;
 
 class AddCustomerToQueDto
 {
