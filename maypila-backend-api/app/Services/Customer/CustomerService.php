@@ -2,15 +2,16 @@
 
 namespace App\Services\Customer;
 
-use App\DTO\Customer\AddCustomerToQueDto;
+use App\DTO\Customer\Requests\AddCustomerToQueDto;
 use App\Enum\CustomerStatus;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Events\CustomerQueue\CustomerQueued;
+use App\DTO\Customer\Response\GetCustomeQueStatusResponseDto;
 
-class CustomerService implements ICustomerService
+class CustomerService
 {
 	public function addCustomerToQue(AddCustomerToQueDto $addCustomerDto, User $actor): Customer
 	{
@@ -65,6 +66,15 @@ class CustomerService implements ICustomerService
 	public function getCustomerById(int $id): Customer
 	{
     	return Customer::findOrFail($id);
+	}
+
+	public function getCustomeQueStatus(int $mobileNumber): GetCustomeQueStatusResponseDto
+	{
+		return new GetCustomeQueStatusResponseDto(
+			queueNumber:0,
+			currentlyService:[],
+			estimatedWaitingTime:0
+		);
 	}
 
 	public function getAllCustomer(): Collection

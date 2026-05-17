@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class CompanyService implements ICompanyService
+class CompanyService
 {
     public function createCompany(CreateCompanyDto $createCompanyDto, User $actor): Company
     {

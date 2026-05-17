@@ -16,7 +16,7 @@ use App\DTO\User\{
 
 use App\QueryFilters\UserFilter;
 
-class UserService implements IUserService
+class UserService
 {
     public function createUser(CreateUserDto $createUserDto, User $actor): User
     {
