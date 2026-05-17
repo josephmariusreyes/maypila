@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\UserService\IUserService;
+use App\Services\UserService\UserService;
 use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\User\UserResource;
 
@@ -25,19 +25,17 @@ use App\Http\Requests\User\{
  */
 class UserController extends Controller
 {
-	private IUserService $userService;
 
-	public function __construct(IUserService $userService)
+	public function __construct(private UserService $userService)
 	{
-		$this->userService = $userService;
 	}
 	
 	public function index(IndexUserRequest $request)
 	{
 		$users = $this->userService->getAllUser($request->validated());
 		return ApiBaseResponse::success(
-			UserResource::collection($users),
-			'Users fetched successfully'
+			data:UserResource::collection($users),
+			message:'Users fetched successfully'
 		);
 	}
 
@@ -62,8 +60,8 @@ class UserController extends Controller
 		// );
 		
 		return ApiBaseResponse::success(
-			new UserResource($user),
-			'User fetched successfully'
+			data:new UserResource($user),
+			message:'User fetched successfully'
 		);
 	}
 
@@ -82,7 +80,13 @@ class UserController extends Controller
 			companyId:$validated['company_id']
 		);
 
-		return response()->json($this->userService->createUser($createdUserDto, $loggedInUser));
+		$createdUser = $this->userService->createUser($createdUserDto, $loggedInUser);
+
+		return ApiBaseResponse::success(
+			data: new UserResource($createdUser),
+			message: 'User created successfully',
+			status: 201
+		);
 	}
 	
 
@@ -100,7 +104,11 @@ class UserController extends Controller
 			companyId: $validated['company_id'],
 		);
 		$updatedUser = $this->userService->updateUser($updateUserDto, $request->user());
-		return response()->json($updatedUser);
+
+		return ApiBaseResponse::success(
+			data: new UserResource($updatedUser),
+			message: 'User updated successfully'
+		);
 	}
 
 
@@ -108,6 +116,10 @@ class UserController extends Controller
 	public function destroy(int $id)
 	{
 		$result = $this->userService->deleteUser($id);
-		return response()->json(['success' => $result]);
+
+		return ApiBaseResponse::success(
+			data: ['deleted' => $result],
+			message: 'User deleted successfully'
+		);
 	}
 }

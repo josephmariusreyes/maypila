@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\Customer\AddCustomerToQueDto;
+use App\DTO\Customer\Requests\AddCustomerToQueDto;
 use App\Http\Requests\Customer\StoreCustomerRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
+use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\Customer\CustomerResource;
-use App\Services\Customer\ICustomerService;
+use App\Services\Customer\CustomerService;
 
 class CustomerController extends Controller
 {
-    private ICustomerService $customerService;
 
-    public function __construct(ICustomerService $customerService)
+    public function __construct( private CustomerService $customerService)
     {
-        $this->customerService = $customerService;
     }
 
     public function index()
     {
-        return CustomerResource::collection(
-            $this->customerService->getAllCustomer()
+        return ApiBaseResponse::success(
+            data: CustomerResource::collection(
+                $this->customerService->getAllCustomer()
+            ),
+            message: 'Customers fetched successfully'
         );
     }
 
@@ -28,8 +30,11 @@ class CustomerController extends Controller
     {
         //jephnote: for now i am just passing ID here but this can potentially grow
         //when it does thats when i will use a request OBJ
-        return new CustomerResource(
-            $this->customerService->getCustomerById((int) $id)
+        return ApiBaseResponse::success(
+            data: new CustomerResource(
+                $this->customerService->getCustomerById((int) $id)
+            ),
+            message: 'Customer fetched successfully'
         );
     }
 
@@ -44,8 +49,12 @@ class CustomerController extends Controller
             mobileNumber: $validated['mobileNumber'],
         );
 
-        return new CustomerResource(
-            $this->customerService->addCustomerToQue($addCustomerToQueDto, $request->user())
+        return ApiBaseResponse::success(
+            data: new CustomerResource(
+                $this->customerService->addCustomerToQue($addCustomerToQueDto, $request->user())
+            ),
+            message: 'Customer created successfully',
+            status: 201
         );
     }
 
@@ -53,11 +62,14 @@ class CustomerController extends Controller
     {
         $validated = $request->validated();
 
-        return new CustomerResource(
-            $this->customerService->updateCustomer(
-                $validated,
-                $request->user()
-            )
+        return ApiBaseResponse::success(
+            data: new CustomerResource(
+                $this->customerService->updateCustomer(
+                    $validated,
+                    $request->user()
+                )
+            ),
+            message: 'Customer updated successfully'
         );
     }
 
