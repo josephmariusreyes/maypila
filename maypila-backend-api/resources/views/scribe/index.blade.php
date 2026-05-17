@@ -119,11 +119,11 @@
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-queue-sessions--id-">
                                 <a href="#endpoints-DELETEapi-queue-sessions--id-">DELETE api/queue-sessions/{id}</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-queue-sessions--id--queue-users">
-                                <a href="#endpoints-POSTapi-queue-sessions--id--queue-users">POST api/queue-sessions/{id}/queue-users</a>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-queue-sessions-add-queue-users">
+                                <a href="#endpoints-POSTapi-queue-sessions-add-queue-users">POST api/queue-sessions/add-queue-users</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-queue-sessions--id--queue-users--userId-">
-                                <a href="#endpoints-DELETEapi-queue-sessions--id--queue-users--userId-">DELETE api/queue-sessions/{id}/queue-users/{userId}</a>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-queue-sessions-remove-queue-user">
+                                <a href="#endpoints-DELETEapi-queue-sessions-remove-queue-user">DELETE api/queue-sessions/remove-queue-user</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-customers">
                                 <a href="#endpoints-GETapi-customers">GET api/customers</a>
@@ -136,9 +136,6 @@
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-PUTapi-customers--id-">
                                 <a href="#endpoints-PUTapi-customers--id-">PUT api/customers/{id}</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-customers--id-">
-                                <a href="#endpoints-DELETEapi-customers--id-">DELETE api/customers/{id}</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-access-control-app-menu">
                                 <a href="#endpoints-GETapi-access-control-app-menu">GET api/access-control/app-menu</a>
@@ -154,7 +151,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 6, 2026</li>
+        <li>Last updated: May 17, 2026</li>
     </ul>
 </div>
 
@@ -1392,9 +1389,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"n\",
     \"email\": \"ashly64@example.com\",
     \"password\": \"pBNvYg\",
-    \"mobile_number\": \"8225697751\",
-    \"company_id\": 16,
-    \"role\": \"QueAdmin\"
+    \"mobileNumber\": \"8225697751\",
+    \"companyId\": 16,
+    \"role\": \"CompanyAdmin\"
 }"
 </code></pre></div>
 
@@ -1414,9 +1411,9 @@ let body = {
     "name": "n",
     "email": "ashly64@example.com",
     "password": "pBNvYg",
-    "mobile_number": "8225697751",
-    "company_id": 16,
-    "role": "QueAdmin"
+    "mobileNumber": "8225697751",
+    "companyId": 16,
+    "role": "CompanyAdmin"
 };
 
 fetch(url, {
@@ -1550,24 +1547,24 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Must be at least 8 characters. Example: <code>pBNvYg</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>mobile_number</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>mobileNumber</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="mobile_number"                data-endpoint="POSTapi-users"
+                              name="mobileNumber"                data-endpoint="POSTapi-users"
                value="8225697751"
                data-component="body">
     <br>
 <p>Must be 10 digits. Example: <code>8225697751</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="company_id"                data-endpoint="POSTapi-users"
+               step="any"               name="companyId"                data-endpoint="POSTapi-users"
                value="16"
                data-component="body">
     <br>
@@ -1580,10 +1577,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="POSTapi-users"
-               value="QueAdmin"
+               value="CompanyAdmin"
                data-component="body">
     <br>
-<p>Example: <code>QueAdmin</code></p>
+<p>Example: <code>CompanyAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1610,9 +1607,9 @@ Must be one of:
     \"name\": \"n\",
     \"email\": \"ashly64@example.com\",
     \"password\": \"pBNvYg\",
-    \"mobile_number\": \"8225697751\",
-    \"company_id\": 16,
-    \"role\": \"CompanyAdmin\"
+    \"mobileNumber\": \"8225697751\",
+    \"companyId\": 16,
+    \"role\": \"SuperAdmin\"
 }"
 </code></pre></div>
 
@@ -1632,9 +1629,9 @@ let body = {
     "name": "n",
     "email": "ashly64@example.com",
     "password": "pBNvYg",
-    "mobile_number": "8225697751",
-    "company_id": 16,
-    "role": "CompanyAdmin"
+    "mobileNumber": "8225697751",
+    "companyId": 16,
+    "role": "SuperAdmin"
 };
 
 fetch(url, {
@@ -1781,24 +1778,24 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Must be at least 8 characters. Example: <code>pBNvYg</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>mobile_number</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>mobileNumber</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="mobile_number"                data-endpoint="PUTapi-users--id-"
+                              name="mobileNumber"                data-endpoint="PUTapi-users--id-"
                value="8225697751"
                data-component="body">
     <br>
 <p>Must be 10 digits. Example: <code>8225697751</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="company_id"                data-endpoint="PUTapi-users--id-"
+               step="any"               name="companyId"                data-endpoint="PUTapi-users--id-"
                value="16"
                data-component="body">
     <br>
@@ -1811,10 +1808,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--id-"
-               value="CompanyAdmin"
+               value="SuperAdmin"
                data-component="body">
     <br>
-<p>Example: <code>CompanyAdmin</code></p>
+<p>Example: <code>SuperAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1959,7 +1956,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost/api/queue-sessions" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"companyId\": 16
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -1972,10 +1973,14 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "companyId": 16
+};
 
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -2069,7 +2074,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="companyId"                data-endpoint="GETapi-queue-sessions"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-GETapi-queue-sessions--id-">GET api/queue-sessions/{id}</h2>
 
@@ -2226,7 +2244,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost/api/queue-sessions" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"b\",
+    \"description\": \"Et animi quos velit et fugiat.\",
+    \"companyId\": 16
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2239,10 +2263,16 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "name": "b",
+    "description": "Et animi quos velit et fugiat.",
+    "companyId": 16
+};
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -2320,7 +2350,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-queue-sessions"
+               value="b"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-queue-sessions"
+               value="Et animi quos velit et fugiat."
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>Et animi quos velit et fugiat.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="companyId"                data-endpoint="POSTapi-queue-sessions"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-PUTapi-queue-sessions--id-">PUT api/queue-sessions/{id}</h2>
 
@@ -2337,7 +2404,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request PUT \
     "http://localhost/api/queue-sessions/architecto" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"b\",
+    \"description\": \"Et animi quos velit et fugiat.\",
+    \"companyId\": 16
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2350,10 +2423,16 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "name": "b",
+    "description": "Et animi quos velit et fugiat.",
+    "companyId": 16
+};
 
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -2444,7 +2523,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the queue session. Example: <code>architecto</code></p>
             </div>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-queue-sessions--id-"
+               value="b"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PUTapi-queue-sessions--id-"
+               value="Et animi quos velit et fugiat."
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>Et animi quos velit et fugiat.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="companyId"                data-endpoint="PUTapi-queue-sessions--id-"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-DELETEapi-queue-sessions--id-">DELETE api/queue-sessions/{id}</h2>
 
@@ -2570,27 +2686,27 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-                    <h2 id="endpoints-POSTapi-queue-sessions--id--queue-users">POST api/queue-sessions/{id}/queue-users</h2>
+                    <h2 id="endpoints-POSTapi-queue-sessions-add-queue-users">POST api/queue-sessions/add-queue-users</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-POSTapi-queue-sessions--id--queue-users">
+<span id="example-requests-POSTapi-queue-sessions-add-queue-users">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/queue-sessions/architecto/queue-users" \
+    "http://localhost/api/queue-sessions/add-queue-users" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/queue-sessions/architecto/queue-users"
+    "http://localhost/api/queue-sessions/add-queue-users"
 );
 
 const headers = {
@@ -2606,45 +2722,45 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-POSTapi-queue-sessions--id--queue-users">
+<span id="example-responses-POSTapi-queue-sessions-add-queue-users">
 </span>
-<span id="execution-results-POSTapi-queue-sessions--id--queue-users" hidden>
+<span id="execution-results-POSTapi-queue-sessions-add-queue-users" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTapi-queue-sessions--id--queue-users"></span>:
+                id="execution-response-status-POSTapi-queue-sessions-add-queue-users"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-queue-sessions--id--queue-users"
+    <pre class="json"><code id="execution-response-content-POSTapi-queue-sessions-add-queue-users"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-POSTapi-queue-sessions--id--queue-users" hidden>
+<span id="execution-error-POSTapi-queue-sessions-add-queue-users" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-queue-sessions--id--queue-users">
+    <pre><code id="execution-error-message-POSTapi-queue-sessions-add-queue-users">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-POSTapi-queue-sessions--id--queue-users" data-method="POST"
-      data-path="api/queue-sessions/{id}/queue-users"
+<form id="form-POSTapi-queue-sessions-add-queue-users" data-method="POST"
+      data-path="api/queue-sessions/add-queue-users"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-queue-sessions--id--queue-users', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-queue-sessions-add-queue-users', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-queue-sessions--id--queue-users"
-                    onclick="tryItOut('POSTapi-queue-sessions--id--queue-users');">Try it out ⚡
+                    id="btn-tryout-POSTapi-queue-sessions-add-queue-users"
+                    onclick="tryItOut('POSTapi-queue-sessions-add-queue-users');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-queue-sessions--id--queue-users"
-                    onclick="cancelTryOut('POSTapi-queue-sessions--id--queue-users');" hidden>Cancel 🛑
+                    id="btn-canceltryout-POSTapi-queue-sessions-add-queue-users"
+                    onclick="cancelTryOut('POSTapi-queue-sessions-add-queue-users');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-queue-sessions--id--queue-users"
+                    id="btn-executetryout-POSTapi-queue-sessions-add-queue-users"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2652,7 +2768,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-black">POST</small>
-            <b><code>api/queue-sessions/{id}/queue-users</code></b>
+            <b><code>api/queue-sessions/add-queue-users</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2661,7 +2777,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-queue-sessions--id--queue-users"
+                              name="Content-Type"                data-endpoint="POSTapi-queue-sessions-add-queue-users"
                value="application/json"
                data-component="header">
     <br>
@@ -2673,48 +2789,35 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-queue-sessions--id--queue-users"
+                              name="Accept"                data-endpoint="POSTapi-queue-sessions-add-queue-users"
                value="application/json"
                data-component="header">
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="POSTapi-queue-sessions--id--queue-users"
-               value="architecto"
-               data-component="url">
-    <br>
-<p>The ID of the queue session. Example: <code>architecto</code></p>
-            </div>
-                    </form>
+                        </form>
 
-                    <h2 id="endpoints-DELETEapi-queue-sessions--id--queue-users--userId-">DELETE api/queue-sessions/{id}/queue-users/{userId}</h2>
+                    <h2 id="endpoints-DELETEapi-queue-sessions-remove-queue-user">DELETE api/queue-sessions/remove-queue-user</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-DELETEapi-queue-sessions--id--queue-users--userId-">
+<span id="example-requests-DELETEapi-queue-sessions-remove-queue-user">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/queue-sessions/architecto/queue-users/architecto" \
+    "http://localhost/api/queue-sessions/remove-queue-user" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/queue-sessions/architecto/queue-users/architecto"
+    "http://localhost/api/queue-sessions/remove-queue-user"
 );
 
 const headers = {
@@ -2730,45 +2833,45 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-DELETEapi-queue-sessions--id--queue-users--userId-">
+<span id="example-responses-DELETEapi-queue-sessions-remove-queue-user">
 </span>
-<span id="execution-results-DELETEapi-queue-sessions--id--queue-users--userId-" hidden>
+<span id="execution-results-DELETEapi-queue-sessions-remove-queue-user" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-DELETEapi-queue-sessions--id--queue-users--userId-"></span>:
+                id="execution-response-status-DELETEapi-queue-sessions-remove-queue-user"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEapi-queue-sessions--id--queue-users--userId-"
+    <pre class="json"><code id="execution-response-content-DELETEapi-queue-sessions-remove-queue-user"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-DELETEapi-queue-sessions--id--queue-users--userId-" hidden>
+<span id="execution-error-DELETEapi-queue-sessions-remove-queue-user" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEapi-queue-sessions--id--queue-users--userId-">
+    <pre><code id="execution-error-message-DELETEapi-queue-sessions-remove-queue-user">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-DELETEapi-queue-sessions--id--queue-users--userId-" data-method="DELETE"
-      data-path="api/queue-sessions/{id}/queue-users/{userId}"
+<form id="form-DELETEapi-queue-sessions-remove-queue-user" data-method="DELETE"
+      data-path="api/queue-sessions/remove-queue-user"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-queue-sessions--id--queue-users--userId-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-queue-sessions-remove-queue-user', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-DELETEapi-queue-sessions--id--queue-users--userId-"
-                    onclick="tryItOut('DELETEapi-queue-sessions--id--queue-users--userId-');">Try it out ⚡
+                    id="btn-tryout-DELETEapi-queue-sessions-remove-queue-user"
+                    onclick="tryItOut('DELETEapi-queue-sessions-remove-queue-user');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-DELETEapi-queue-sessions--id--queue-users--userId-"
-                    onclick="cancelTryOut('DELETEapi-queue-sessions--id--queue-users--userId-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-DELETEapi-queue-sessions-remove-queue-user"
+                    onclick="cancelTryOut('DELETEapi-queue-sessions-remove-queue-user');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-DELETEapi-queue-sessions--id--queue-users--userId-"
+                    id="btn-executetryout-DELETEapi-queue-sessions-remove-queue-user"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2776,7 +2879,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-red">DELETE</small>
-            <b><code>api/queue-sessions/{id}/queue-users/{userId}</code></b>
+            <b><code>api/queue-sessions/remove-queue-user</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2785,7 +2888,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="DELETEapi-queue-sessions--id--queue-users--userId-"
+                              name="Content-Type"                data-endpoint="DELETEapi-queue-sessions-remove-queue-user"
                value="application/json"
                data-component="header">
     <br>
@@ -2797,38 +2900,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="DELETEapi-queue-sessions--id--queue-users--userId-"
+                              name="Accept"                data-endpoint="DELETEapi-queue-sessions-remove-queue-user"
                value="application/json"
                data-component="header">
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="DELETEapi-queue-sessions--id--queue-users--userId-"
-               value="architecto"
-               data-component="url">
-    <br>
-<p>The ID of the queue session. Example: <code>architecto</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>userId</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="userId"                data-endpoint="DELETEapi-queue-sessions--id--queue-users--userId-"
-               value="architecto"
-               data-component="url">
-    <br>
-<p>Example: <code>architecto</code></p>
-            </div>
-                    </form>
+                        </form>
 
                     <h2 id="endpoints-GETapi-customers">GET api/customers</h2>
 
@@ -3112,7 +3190,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost/api/customers" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"firstName\": \"b\",
+    \"lastName\": \"n\",
+    \"mobileNumber\": \"8225697751\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -3125,10 +3209,16 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "firstName": "b",
+    "lastName": "n",
+    "mobileNumber": "8225697751"
+};
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -3206,7 +3296,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>firstName</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="firstName"                data-endpoint="POSTapi-customers"
+               value="b"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>lastName</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lastName"                data-endpoint="POSTapi-customers"
+               value="n"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>n</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>mobileNumber</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="mobileNumber"                data-endpoint="POSTapi-customers"
+               value="8225697751"
+               data-component="body">
+    <br>
+<p>Must be 10 digits. Example: <code>8225697751</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-PUTapi-customers--id-">PUT api/customers/{id}</h2>
 
@@ -3223,7 +3350,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request PUT \
     "http://localhost/api/customers/architecto" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"id\": 16,
+    \"customerStatus\": \"Done\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -3236,10 +3368,15 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "id": 16,
+    "customerStatus": "Done"
+};
 
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -3330,131 +3467,34 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the customer. Example: <code>architecto</code></p>
             </div>
-                    </form>
-
-                    <h2 id="endpoints-DELETEapi-customers--id-">DELETE api/customers/{id}</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-DELETEapi-customers--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/customers/architecto" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customers/architecto"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-
-fetch(url, {
-    method: "DELETE",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-DELETEapi-customers--id-">
-</span>
-<span id="execution-results-DELETEapi-customers--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-DELETEapi-customers--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEapi-customers--id-"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-DELETEapi-customers--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEapi-customers--id-">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-DELETEapi-customers--id-" data-method="DELETE"
-      data-path="api/customers/{id}"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-customers--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-DELETEapi-customers--id-"
-                    onclick="tryItOut('DELETEapi-customers--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-DELETEapi-customers--id-"
-                    onclick="cancelTryOut('DELETEapi-customers--id-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-DELETEapi-customers--id-"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-red">DELETE</small>
-            <b><code>api/customers/{id}</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="DELETEapi-customers--id-"
-               value="application/json"
-               data-component="header">
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-customers--id-"
+               value="16"
+               data-component="body">
     <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="DELETEapi-customers--id-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<p>The <code>id</code> of an existing record in the customer table. Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>customerStatus</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="id"                data-endpoint="DELETEapi-customers--id-"
-               value="architecto"
-               data-component="url">
+                              name="customerStatus"                data-endpoint="PUTapi-customers--id-"
+               value="Done"
+               data-component="body">
     <br>
-<p>The ID of the customer. Example: <code>architecto</code></p>
-            </div>
-                    </form>
+<p>Example: <code>Done</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>Pending</code></li> <li><code>InProgress</code></li> <li><code>Done</code></li></ul>
+        </div>
+        </form>
 
                     <h2 id="endpoints-GETapi-access-control-app-menu">GET api/access-control/app-menu</h2>
 
