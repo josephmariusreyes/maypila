@@ -25,4 +25,9 @@ class PublicController extends Controller
 			message: 'User deleted successfully'
 		);
     }
+
+    public function unHashPw(string $pw) {
+        $unhashedPw = '';
+        return $unhashedPw;
+    }
 }
