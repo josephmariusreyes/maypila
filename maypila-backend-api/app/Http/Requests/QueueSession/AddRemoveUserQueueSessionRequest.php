@@ -25,6 +25,7 @@ class AddRemoveUserQueueSessionRequest extends FormRequest
         return [
             'userId' => ['required', 'integer'],
             'queueSessionId' => ['required', 'integer'],
+            'companyId' => ['required', 'integer']
         ];
     }
 
