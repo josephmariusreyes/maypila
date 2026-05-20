@@ -10,14 +10,51 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
 
-class QueueSessionService {
+class QueueSessionService
+{
 
     public function addQueueUser(array $data): array
     {
-        $queueSessionId = $data['queueSessionId'];
-        $userId = $data['userId'];
+        $actor = Auth::user();
+        if (! $actor instanceof User) {
+            throw new AuthorizationException('Unauthenticated.');
+        }
 
-        return DB::transaction(function () use ($queueSessionId, $userId) {
+        $queueSessionId = (int) $data['queueSessionId'];
+        $userId = (int) $data['userId'];
+        $companyId = (int) $data['companyId'];
+
+        //validate if $companyId supplied is included in the 
+        $belongsToCompany = $actor->companies()
+            ->whereKey($companyId)
+            ->exists();
+        if (! $belongsToCompany) {
+            throw new AuthorizationException(
+                'You do not belong to this company.'
+            );
+        }
+
+        $queueSessionBelongsToCompany = $actor->queueSession()->whereKey($queueSessionId)->exists();
+        if(!$queueSessionBelongsToCompany) {
+            throw new AuthorizationException(
+                'Queue session does not belong to this company.'
+            );
+        }
+
+        return DB::transaction(function () use ($queueSessionId, $userId, $companyId) {
+            $userBelongsToCompany = User::query()
+                ->whereKey($userId)
+                ->whereHas('companies', function ($query) use ($companyId) {
+                    $query->whereKey($companyId);
+                })
+                ->exists();
+
+            if (! $userBelongsToCompany) {
+                throw new AuthorizationException(
+                    'The selected user does not belong to this company.'
+                );
+            }
+
             $user = User::query()
                 ->lockForUpdate()
                 ->whereKey($userId)
@@ -36,12 +73,11 @@ class QueueSessionService {
                 ->whereKey($queueSessionId)
                 ->firstOrFail();
 
-            $user->update([
-                'queue_session_id' => $queueSession->id,
-            ]);
+            $user->queue_session_id = $queueSession->id;
+            $user->save();
 
             return [
-                'userAddedToQue' => true,
+                'userAddedToQueue' => true,
                 'data' => $queueSession->refresh(),
             ];
         });
@@ -74,7 +110,8 @@ class QueueSessionService {
         });
     }
 
-    public function createQueueSession(array $validatedData) {
+    public function createQueueSession(array $validatedData)
+    {
         $actor = Auth::user();
 
         if (! $actor instanceof User) {
@@ -98,13 +135,15 @@ class QueueSessionService {
         });
     }
 
-    public function getQueueSessionById(int $id) {
+    public function getQueueSessionById(int $id)
+    {
         return QueueSession::query()
             ->whereKey($id)
             ->firstOrFail();
     }
 
-    public function updateQueueSession(int $id, array $validatedData) {
+    public function updateQueueSession(int $id, array $validatedData)
+    {
         return DB::transaction(function () use ($id, $validatedData) {
             $queueSession = QueueSession::query()
                 ->whereKey($id)
@@ -139,7 +178,8 @@ class QueueSessionService {
         });
     }
 
-    public function listQueueSessions(array $data, User $actor) {
+    public function listQueueSessions(array $data, User $actor)
+    {
         $companyId = (int) $data['companyId'];
 
         if (! $actor->companies()->whereKey($companyId)->exists()) {
