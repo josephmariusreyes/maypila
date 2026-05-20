@@ -75,7 +75,7 @@ class QueueSessionController extends Controller
 
         return ApiBaseResponse::success(
             data: [
-                'userAddedToQue' => $result['userAddedToQue'],
+                'userAddedToQue' => $result['userAddedToQueue'],
                 'queueSession' => (new QueueSessionResource($result['data']))->resolve($request),
             ],
             message: 'User added to queue session successfully'

@@ -16,7 +16,7 @@ class CustomerService
 	public function addCustomerToQue(AddCustomerToQueDto $addCustomerDto, User $actor): Customer
 	{
 		$actor->loadMissing('queueSession');
-		$queueSessionId = $actor->queue_session?->id;
+		$queueSessionId = $actor->queue_session_id;
 		$actorId = $actor->id;
 
 		if (!$queueSessionId) {

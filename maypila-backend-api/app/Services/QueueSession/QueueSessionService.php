@@ -15,6 +15,7 @@ class QueueSessionService
 
     public function addQueueUser(array $data): array
     {
+        //retrieve logged in user
         $actor = Auth::user();
         if (! $actor instanceof User) {
             throw new AuthorizationException('Unauthenticated.');
@@ -24,36 +25,9 @@ class QueueSessionService
         $userId = (int) $data['userId'];
         $companyId = (int) $data['companyId'];
 
-        //validate if $companyId supplied is included in the 
-        $belongsToCompany = $actor->companies()
-            ->whereKey($companyId)
-            ->exists();
-        if (! $belongsToCompany) {
-            throw new AuthorizationException(
-                'You do not belong to this company.'
-            );
-        }
+        $this->validateQueueUserCompanyAccess($actor, $queueSessionId, $userId, $companyId);
 
-        $queueSessionBelongsToCompany = $actor->queueSession()->whereKey($queueSessionId)->exists();
-        if(!$queueSessionBelongsToCompany) {
-            throw new AuthorizationException(
-                'Queue session does not belong to this company.'
-            );
-        }
-
-        return DB::transaction(function () use ($queueSessionId, $userId, $companyId) {
-            $userBelongsToCompany = User::query()
-                ->whereKey($userId)
-                ->whereHas('companies', function ($query) use ($companyId) {
-                    $query->whereKey($companyId);
-                })
-                ->exists();
-
-            if (! $userBelongsToCompany) {
-                throw new AuthorizationException(
-                    'The selected user does not belong to this company.'
-                );
-            }
+        return DB::transaction(function () use ($queueSessionId, $userId) {
 
             $user = User::query()
                 ->lockForUpdate()
@@ -63,49 +37,48 @@ class QueueSessionService
             if ($user->queue_session_id !== null) {
                 return [
                     'userAddedToQue' => false,
-                    'data' => QueueSession::query()
-                        ->whereKey($user->queue_session_id)
-                        ->firstOrFail(),
+                    'data' => null
                 ];
             }
 
-            $queueSession = QueueSession::query()
-                ->whereKey($queueSessionId)
-                ->firstOrFail();
-
-            $user->queue_session_id = $queueSession->id;
+            $user->queue_session_id = $queueSessionId;
             $user->save();
 
             return [
                 'userAddedToQueue' => true,
-                'data' => $queueSession->refresh(),
+                'data' => $user->refresh(),
             ];
         });
     }
 
     public function removeQueueUser(array $data): array
     {
-        $queueSessionId = $data['queueSessionId'];
-        $userId = $data['userId'];
+        //retrieve logged in user
+        $actor = Auth::user();
+        if (! $actor instanceof User) {
+            throw new AuthorizationException('Unauthenticated.');
+        }
+
+        $queueSessionId = (int) $data['queueSessionId'];
+        $userId = (int) $data['userId'];
+        $companyId = (int) $data['companyId'];
+
+        $this->validateQueueUserCompanyAccess($actor, $queueSessionId, $userId, $companyId);
 
         return DB::transaction(function () use ($queueSessionId, $userId) {
-            $queueSession = QueueSession::query()
-                ->whereKey($queueSessionId)
-                ->firstOrFail();
 
             $user = User::query()
                 ->lockForUpdate()
                 ->whereKey($userId)
-                ->where('queue_session_id', $queueSession->id)
+                ->where('queue_session_id', $queueSessionId)
                 ->firstOrFail();
 
-            $user->update([
-                'queue_session_id' => null,
-            ]);
+            $user->queue_session_id = null;
+            $user->save();
 
             return [
                 'userRemovedFromQue' => true,
-                'data' => $queueSession->refresh(),
+                'data' => $user->refresh(),
             ];
         });
     }
@@ -190,5 +163,41 @@ class QueueSessionService
             ->where('company_id', $companyId)
             ->latest()
             ->get();
+    }
+
+    private function validateQueueUserCompanyAccess(User $actor, int $queueSessionId, int $userId, int $companyId): void
+    {
+        $belongsToCompany = $actor->companies()
+            ->whereKey($companyId)
+            ->exists();
+        if (! $belongsToCompany) {
+            throw new AuthorizationException(
+                'You do not belong to this company.'
+            );
+        }
+
+        $queueSessionBelongsToCompany = QueueSession::query()
+            ->where('company_id', $companyId)
+            ->whereKey($queueSessionId)
+            ->exists();
+
+        if (! $queueSessionBelongsToCompany) {
+            throw new AuthorizationException(
+                'Queue session does not belong to this company.'
+            );
+        }
+
+        $userBelongsToCompany = User::query()
+            ->whereKey($userId)
+            ->whereHas('companies', function ($query) use ($companyId) {
+                $query->whereKey($companyId);
+            })
+            ->exists();
+
+        if (! $userBelongsToCompany) {
+            throw new AuthorizationException(
+                'The selected user does not belong to this company.'
+            );
+        }
     }
 }
