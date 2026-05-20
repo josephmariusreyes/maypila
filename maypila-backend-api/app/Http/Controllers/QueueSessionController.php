@@ -40,6 +40,7 @@ class QueueSessionController extends Controller
 
     public function store(StoreQueueSessionRequest $request)
     {
+        //todojeph: implement expiry of session
         $validated = $request->validated();
 
         return ApiBaseResponse::success(
