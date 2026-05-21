@@ -48,11 +48,10 @@ class CustomerController extends Controller
             lastName: $validated['lastName'],
             mobileNumber: $validated['mobileNumber'],
         );
+        $customer = $this->customerService->addCustomerToQue($addCustomerToQueDto, $request->user());
 
         return ApiBaseResponse::success(
-            data: new CustomerResource(
-                $this->customerService->addCustomerToQue($addCustomerToQueDto, $request->user())
-            ),
+            data: new CustomerResource($customer),
             message: 'Customer created successfully',
             status: 201
         );

@@ -14,12 +14,12 @@ class ApiBaseResponse
         ], $status);
     }
 
-    public static function error(string $message = 'Error', int $status = 400, $errors = null)
+    public static function error(string $message = 'Error', int $status = 400, array $meta = [])
     {
         return response()->json([
             'success' => false,
             'message' => $message,
-            'errors' => $errors,
+            'meta' => $meta ?: null,
         ], $status);
     }
 }
