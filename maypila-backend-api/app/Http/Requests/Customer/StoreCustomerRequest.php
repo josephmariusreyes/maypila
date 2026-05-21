@@ -25,7 +25,7 @@ class StoreCustomerRequest extends FormRequest
         return [
             'firstName' => ['required', 'string', 'max:255'],
             'lastName' => ['required', 'string', 'max:255'],
-            'mobileNumber' => ['required', 'digits:10'],
+            'mobileNumber' => ['required', 'regex:/^09\d{9}$/'],
         ];
     }
 }

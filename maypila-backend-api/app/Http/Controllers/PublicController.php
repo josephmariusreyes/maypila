@@ -12,7 +12,7 @@ class PublicController extends Controller
     {
     }
 
-    public function getQueStatus(int $mobileNumber) {
+    public function getQueStatus(string $mobileNumber) {
 
         $this->customerService->getCustomeQueStatus($mobileNumber);
 

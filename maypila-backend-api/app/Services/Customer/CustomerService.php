@@ -23,19 +23,17 @@ class CustomerService
 			throw new \RuntimeException('Actor has no active queue session.');
 		}
 
-		$customerDbTransaction = DB::transaction(function () use ($addCustomerDto, $queueSessionId, $actorId) {
-			$nextQueNumber = Customer::where('queue_session_id', $queueSessionId)
-				->lockForUpdate()
-				->max('que_number');
+		$nextQueNumber = Customer::where('queue_session_id', $queueSessionId)->max('que_number');
 
-			$customer = Customer::create([
-				'queue_session_id' => $queueSessionId,
-				'first_name' => $addCustomerDto->firstName,
-				'last_name' => $addCustomerDto->lastName,
-				'mobile_number' => $addCustomerDto->mobileNumber,
-				'customer_status' => CustomerStatus::Pending->value,
-				'que_number' => ($nextQueNumber ?? 0) + 1,
-			]);
+		$customerDbTransaction = DB::transaction(function () use ($addCustomerDto, $queueSessionId, $actorId, $nextQueNumber) {
+			$customer = new Customer();
+			$customer->queue_session_id = $queueSessionId;
+			$customer->first_name = $addCustomerDto->firstName;
+			$customer->last_name = $addCustomerDto->lastName;
+			$customer->mobile_number = $addCustomerDto->mobileNumber;
+			$customer->customer_status = CustomerStatus::Pending->value;
+			$customer->que_number = ($nextQueNumber ?? 0) + 1;
+			$customer->save();
 
 			DB::afterCommit(function () use ($customer, $actorId) {
 				CustomerQueued::dispatch(
@@ -54,31 +52,32 @@ class CustomerService
 
 	public function updateCustomer(array $validatedCustomerData, User $actor): Customer
 	{
+
 		$customer = Customer::findOrFail($validatedCustomerData['id']);
 		$customer->customer_status = CustomerStatus::from($validatedCustomerData['customerStatus'])->value;
 		$customer->save();
 
 		//i will use $actor for event logging
-		
+
 		return $customer->refresh();
 	}
 
 	public function getCustomerById(int $id): Customer
 	{
-    	return Customer::findOrFail($id);
+		return Customer::findOrFail($id);
 	}
 
-	public function getCustomeQueStatus(int $mobileNumber): GetCustomeQueStatusResponseDto
+	public function getCustomeQueStatus(string $mobileNumber): GetCustomeQueStatusResponseDto
 	{
 		return new GetCustomeQueStatusResponseDto(
-			queueNumber:0,
-			currentlyService:[],
-			estimatedWaitingTime:0
+			queueNumber: 0,
+			currentlyService: [],
+			estimatedWaitingTime: 0
 		);
 	}
 
 	public function getAllCustomer(): Collection
 	{
-    	return Customer::all();
+		return Customer::all();
 	}
 }

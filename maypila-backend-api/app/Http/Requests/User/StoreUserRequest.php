@@ -39,7 +39,7 @@ class StoreUserRequest extends FormRequest
                 : ['required', 'string', 'min:8'],
             'mobileNumber' => [
                 'required',
-                'digits:10',
+                'regex:/^09\d{9}$/',
                 Rule::unique('users', 'mobile_number')->ignore($userId),
             ],
             'companyId' => ['required', 'integer'],
