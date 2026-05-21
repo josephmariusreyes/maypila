@@ -19,6 +19,8 @@ class QueueSession extends Model
 {
     use HasFactory;
 
+    protected $table = 'queue_sessions';
+
     /**
      * The attributes that are mass assignable.
      *
