@@ -28,7 +28,7 @@ class CustomerService
 			->select('queue_session_id')
 			->with('queueSession:id,name')
 			->where('mobile_number', $addCustomerDto->mobileNumber)
-			->first();
+			->firstOrFail();
 
 		if ($existingCustomerQueue !== null) {
 
@@ -103,6 +103,10 @@ class CustomerService
 
 	public function getCustomeQueStatus(string $mobileNumber): GetCustomeQueStatusResponseDto
 	{
+		$customer = Customer::query()
+			->where('mobile_number', $mobileNumber)
+			->firstOrFail();
+
 		return new GetCustomeQueStatusResponseDto(
 			queueNumber: 0,
 			currentlyService: [],

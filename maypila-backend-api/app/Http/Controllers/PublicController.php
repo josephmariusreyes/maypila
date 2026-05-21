@@ -13,7 +13,6 @@ class PublicController extends Controller
     }
 
     public function getQueStatus(string $mobileNumber) {
-
         $this->customerService->getCustomeQueStatus($mobileNumber);
 
 		return ApiBaseResponse::success(
