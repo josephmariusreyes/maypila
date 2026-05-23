@@ -6,8 +6,8 @@ class GetCustomeQueStatusResponseDto
 {
     public function __construct(
         public readonly int $queueNumber,
-        public readonly array $currentlyService,
-        public readonly int $estimatedWaitingTime,
+        public readonly array $currentlyServing,
+        public readonly int $estimatedWaitingTime
     )
     {
     }
