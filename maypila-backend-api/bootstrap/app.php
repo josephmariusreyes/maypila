@@ -18,11 +18,14 @@ return Application::configure(basePath: dirname(__DIR__))
     // Later, when enabling Laravel broadcasting, add:
     // ->withBroadcasting(__DIR__.'/../routes/channels.php')
     ->withMiddleware(function (Middleware $middleware): void {
+        
         $middleware->alias([
             'role.check' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
         $exceptions->render(function (AppBaseException $exception, Request $request) {
             $status = is_int($exception->getCode()) && $exception->getCode() >= 400 && $exception->getCode() < 600
                 ? $exception->getCode()

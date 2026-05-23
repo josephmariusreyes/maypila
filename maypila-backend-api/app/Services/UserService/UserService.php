@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Gate;
 
 use App\DTO\User\{
     CreateUserDto,
-	UpdateUserDto
+    UpdateUserDto
 };
 
 use App\QueryFilters\UserFilter;
+use App\Http\Constants\AppConstants;
+use App\Enum\UserRole;
 
 class UserService
 {
     public function createUser(CreateUserDto $createUserDto, User $actor): User
     {
-        
+
         $loggedInUser = User::with(['roles:id,name', 'companies:id,name'])->findOrFail($actor->id);
 
         return DB::transaction(function () use ($createUserDto, $loggedInUser) {
@@ -127,5 +129,39 @@ class UserService
     public function getAllUser(array $filters)
     {
         return (new UserFilter($filters))->apply(User::query())->get();
+    }
+
+    public function getAppMenu(User $actor): array
+    {
+        $actor->loadMissing('roles:id,name');
+
+        $roleName = $actor->roles->first()?->name;
+
+        $menuKeysByRole = [
+            UserRole::SuperAdmin->value => [
+                'createNewCompany',
+            ],
+            UserRole::CompanyAdmin->value => [
+                'startQueueSession',
+                'manageUsers',
+                'dashboard',
+                'addUsers',
+            ],
+            UserRole::QueAdmin->value => [
+                'dashboard',
+            ],
+            UserRole::QueEncoder->value => [
+                'dashboard',
+            ],
+        ];
+
+        $allowedMenus = $menuKeysByRole[$roleName] ?? [];
+
+        return array_values(
+            array_filter(
+                AppConstants::Menu,
+                fn(array $menuItem): bool => in_array($menuItem['key'], $allowedMenus, true)
+            )
+        );
     }
 }

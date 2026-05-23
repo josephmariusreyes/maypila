@@ -103,13 +103,36 @@ class CustomerService
 
 	public function getCustomeQueStatus(string $mobileNumber): GetCustomeQueStatusResponseDto
 	{
+		//select que_number, queue_session_id field only from this query
 		$customer = Customer::query()
+			->select(['que_number', 'queue_session_id'])
 			->where('mobile_number', $mobileNumber)
 			->firstOrFail();
 
+		if ($customer === null) {
+			throw new AppBaseException(
+				message:'Customer was not found using mobile number.',
+				code:302,
+				meta:[
+					'mobileNumber' => $mobileNumber
+				]
+			);
+		}
+
+		//query all the customer where queue_session_id is equal to $customer->queue_session_id and customer_status is equal to CustomerStatus::inprogress
+		//select only the que_number from this query and assign it to array named $currentlyServing
+		$currentlyServing = Customer::query()
+			->where('queue_session_id', $customer->queue_session_id)
+			->where('customer_status', CustomerStatus::InProgress->value)
+			->pluck('que_number')
+			->all();
+
 		return new GetCustomeQueStatusResponseDto(
-			queueNumber: 0,
-			currentlyService: [],
+			//assigned que_number here from $customer result
+			queueNumber: (int) $customer->que_number,
+			//assign $currentlyServing here
+			currentlyServing: $currentlyServing,
+			//leave this as is for now i will implement this later
 			estimatedWaitingTime: 0
 		);
 	}

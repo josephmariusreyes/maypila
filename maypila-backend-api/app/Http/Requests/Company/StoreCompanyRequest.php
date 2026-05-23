@@ -25,6 +25,7 @@ class StoreCompanyRequest extends FormRequest
         return [
             'id' => ['sometimes', 'integer', 'exists:companies,id'],
             'name' => ['required', 'string'],
+            'company_email' => 'required|email|unique:companies,company_email',
             'description' => ['required', 'string'],
         ];
     }
