@@ -13,20 +13,16 @@ class PublicController extends Controller
     }
 
     public function getQueStatus(string $mobileNumber) {
-        $this->customerService->getCustomeQueStatus($mobileNumber);
+        $customerQueStatus = $this->customerService->getCustomeQueStatus($mobileNumber);
 
 		return ApiBaseResponse::success(
 			data: [
-                'queueNumber' => 0,
-                'currentlyService' => [],
+                'queueNumber' => $customerQueStatus->queueNumber,
+                'currentlyService' => $customerQueStatus->currentlyServing,
                 'estimatedWaitingTime' => 0 
             ],
-			message: 'User deleted successfully'
+			message: 'Successfully retrieve customer status'
 		);
     }
 
-    public function unHashPw(string $pw) {
-        $unhashedPw = '';
-        return $unhashedPw;
-    }
 }

@@ -11,11 +11,10 @@ use App\Services\CompanyService\CompanyService;
 
 class CompanyController extends Controller
 {
-    private CompanyService $companyService;
 
-    public function __construct(CompanyService $companyService)
+    public function __construct(
+        private CompanyService $companyService)
     {
-        $this->companyService = $companyService;
     }
 
     public function index()
@@ -39,6 +38,7 @@ class CompanyController extends Controller
         $validated = $request->validated();
         $createCompanyDto = new CreateCompanyDto(
             name: $validated['name'],
+            company_email: $validated['company_email'],
             description: $validated['description'],
         );
 
