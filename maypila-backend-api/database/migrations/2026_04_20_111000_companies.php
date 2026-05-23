@@ -14,6 +14,7 @@ public function up(): void
     Schema::create('companies', function (Blueprint $table) {
         $table->id(); // auto-increment BIGINT primary key
         $table->string('name');
+        $table->string('company_email');
         $table->text('description')->nullable();
         $table->timestamps(); // created_at and updated_at
     });
