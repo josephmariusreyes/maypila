@@ -5,16 +5,16 @@
 services:
 
   vue-ui:
-    container_name: my-website-ui
+    container_name: maypila-ui
     build:
-      context: ./vue-ui
+      context: ./maypila-vue-ui
     networks:
       - web-network
 
   api:
-    container_name: my-website-api
+    container_name: maypila-api
     build:
-      context: ./website-backend-api
+      context: ./maypila-backend-api
     networks:
       - web-network
 
