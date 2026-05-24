@@ -21,8 +21,4 @@ class AccessControlController extends Controller
             message: 'App menu fetched successfully'
         );
     }
-
-    public function createCompanyAndUser()
-    {
-    }
 }
