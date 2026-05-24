@@ -1,0 +1,23 @@
+# Base shared config. Always combine with an override file:
+#   Staging:    docker compose -f docker-compose.yml -f docker-compose.staging.yml up
+#   Production: docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+
+services:
+
+  vue-ui:
+    container_name: my-website-ui
+    build:
+      context: ./vue-ui
+    networks:
+      - web-network
+
+  api:
+    container_name: my-website-api
+    build:
+      context: ./website-backend-api
+    networks:
+      - web-network
+
+networks:
+  web-network:
+    external: true

@@ -1,0 +1,22 @@
+version: "3.9"
+
+# Staging overrides. Run with:
+#   docker compose -f docker-compose.yml -f docker-compose.staging.yml up --build
+
+services:
+
+  vue-ui:
+    build:
+      # Target the 'production' stage which serves the compiled Vite build via nginx
+      target: staging
+
+    # Automatically restart the container if it crashes or the host reboots
+    restart: always
+
+  api:
+    build:
+      # Target the 'staging' stage which uses .env.staging for a VPS-ready image
+      target: staging
+
+    # Automatically restart the container if it crashes or the host reboots
+    restart: always

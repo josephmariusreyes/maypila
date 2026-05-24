@@ -1,0 +1,21 @@
+version: "3.9"
+
+# Production overrides. Run with:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+
+services:
+
+  vue-ui:
+    build:
+      # Target the 'production' stage which serves the compiled Vite build via nginx
+      target: production
+    # Automatically restart the container if it crashes or the host reboots
+    restart: always
+
+  api:
+    build:
+      # Target the 'prod' stage which excludes dev dependencies for a leaner image
+      target: production
+
+    # Automatically restart the container if it crashes or the host reboots
+    restart: always
