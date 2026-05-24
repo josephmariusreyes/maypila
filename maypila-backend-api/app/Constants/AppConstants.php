@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Constants;
+namespace App\Constants;
 
 class AppConstants {
 

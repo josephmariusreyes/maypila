@@ -15,7 +15,7 @@ use App\DTO\User\{
 };
 
 use App\QueryFilters\UserFilter;
-use App\Http\Constants\AppConstants;
+use App\Constants\AppConstants;
 use App\Enum\UserRole;
 
 class UserService
