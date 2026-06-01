@@ -2,6 +2,10 @@
 #   Staging:    docker compose -f docker-compose.yml -f docker-compose.staging.yml up
 #   Production: docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
 
+# to run individual container
+#  docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d maypila-ui
+#  docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d maypila-api
+
 services:
 
   maypila-ui:
