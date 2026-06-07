@@ -1,3 +1,3 @@
 <template>
-	create users page
+	user listing page
 </template>
