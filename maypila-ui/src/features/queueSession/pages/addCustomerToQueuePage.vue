@@ -1,3 +1,3 @@
 <template>
-	customer status page
+	add customer to que
 </template>
