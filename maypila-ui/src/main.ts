@@ -2,4 +2,10 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import { registerAppProviders } from '@/app/providers/app-provider'
+
+const app = createApp(App)
+
+registerAppProviders(app)
+
+app.mount('#app')
