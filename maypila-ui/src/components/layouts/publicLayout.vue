@@ -7,7 +7,7 @@
 	  auth-layout-background
   -->
   <div
-    class="min-h-screen
+    class="min-h-screen main-theme-bg-color
 	"
   >
     <!--
