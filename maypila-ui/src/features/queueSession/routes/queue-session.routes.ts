@@ -1,12 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router'
-import appMainLayout from '@/components/layouts/appMainLayout.vue';
+import appMainLayout from '@/components/layouts/AppMainLayout.vue';
 import { UserRole } from '@/features/company/enums/userRoleEnums';
 import QueueSessionListingPage from '@/features/queueSession/pages/queueSessionListingPage.vue';
 import AddCustomerToQueuePage from '@/features/queueSession/pages/addCustomerToQueuePage.vue';
 import CreateQueueSessionPage from '@/features/queueSession/pages/createQueueSessionPage.vue';
 import QueueDetailsPage from '@/features/queueSession/pages/queueDetailsPage.vue';
 import CustomerStatusPage from '@/features/queueSession/pages/customerStatusPage.vue';
-import PublicLayout from '@/components/layouts/publicLayout.vue';
+import PublicLayout from '@/components/layouts/PublicLayout.vue';
 
 export const queueSessionRoutes: RouteRecordRaw = {
     path:'/queue-session',

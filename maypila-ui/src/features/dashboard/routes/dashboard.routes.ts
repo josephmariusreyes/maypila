@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import appMainLayout from '@/components/layouts/appMainLayout.vue'
+import appMainLayout from '@/components/layouts/AppMainLayout.vue'
 import DashboardPage from '@/features/dashboard/pages/dashboardPage.vue'
 
 export const dashboardRoutes: RouteRecordRaw = {
