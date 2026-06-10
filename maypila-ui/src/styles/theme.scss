@@ -1,0 +1,41 @@
+/* Custom global styles */
+
+
+@layer utilities {
+  .main-theme-bg-color {
+    @apply min-h-screen;
+
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.7) 0%,
+        rgba(255, 255, 255, 0) 35%
+      ),
+      linear-gradient(
+        180deg,
+        #edf5f9 0%,
+        #eef6f8 50%,
+        #ece8f6 100%
+      );
+  }
+
+  .main-theme-color {
+    background-color: #4a7ef3;
+    color: white;
+    border: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #3d72ea;
+    }
+
+    &:active {
+      background-color: #3566d9;
+    }
+
+    &:disabled {
+      background-color: #a9bff7;
+      cursor: not-allowed;
+    }
+  }  
+}
