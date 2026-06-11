@@ -91,8 +91,7 @@
 					</div>
 
 				<Button class="w-full gap-2 main-theme-color" size="lg" type="submit">
-					Create User
-					<ArrowRight class="h-4 w-4" />
+					Save Changes
 				</Button>
 			</form>
 			<div class="rounded-2xl border p-4 text-sm text-cyan-900 error-messages-wrapper">
@@ -115,9 +114,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { ArrowRight } from '@lucide/vue'
+import { reactive, ref, watch } from 'vue'
+//import { ArrowRight } from '@lucide/vue'
 //import { RouterLink } from 'vue-router'
+import type { UserAccount } from '@/features/userAccounts/types/userAccount'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -125,6 +125,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 type FormField = 'firstName' | 'lastName' | 'mobileNumber' | 'email' | 'onlineQueueSession' | 'password' | 'confirmPassword'
+
+const props = defineProps<{
+	userAccount: UserAccount | null
+}>()
 
 const onlineQueueSessionOptions = ['Morning Session', 'Afternoon Session', 'Evening Session']
 
@@ -139,6 +143,22 @@ const form = reactive({
 })
 
 const errors = ref<string[]>([])
+
+watch(
+	() => props.userAccount,
+	(value) => {
+		if (!value) return
+
+		form.firstName = value.firstName
+		form.lastName = value.lastName
+		form.mobileNumber = value.mobileNumber
+		form.email = value.email
+		form.onlineQueueSession = value.onlineQueueSession
+		form.password = ''
+		form.confirmPassword = ''
+	},
+	{ immediate: true },
+)
 
 const onInput = (field: Exclude<FormField, 'onlineQueueSession'>, event: Event) => {
 	const target = event.target as HTMLInputElement

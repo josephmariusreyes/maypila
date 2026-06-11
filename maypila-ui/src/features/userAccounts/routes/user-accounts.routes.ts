@@ -2,8 +2,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import appMainLayout from '@/components/layouts/AppMainLayout.vue'
 import CreateUserPage from '@/features/userAccounts/pages/CreateUserPage.vue'
 import LoginPage from '@/features/userAccounts/pages/LoginPage.vue'
-import UserDetails from '@/features/userAccounts/pages/UserDetails.vue'
-import UserListing from '@/features/userAccounts/pages/UserListing.vue'
+import UserDetailPage from '../pages/UserDetailPage.vue'
+import UserListingPage from '../pages/UserListingPage.vue'
 
 export const userAccountsRoutes: RouteRecordRaw = {
 	path: '/user-accounts',
@@ -40,12 +40,12 @@ export const userAccountsRoutes: RouteRecordRaw = {
 				{
 					path: 'user-details',
 					name: 'user-details',
-					component: UserDetails,
+					component: UserDetailPage,
 				},
 				{
 					path: 'user-listing',
 					name: 'user-listing',
-					component: UserListing,
+					component: UserListingPage,
 				},
 				{
 					path: 'create-users',
