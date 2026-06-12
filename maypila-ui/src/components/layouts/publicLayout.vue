@@ -39,15 +39,7 @@
         items-center: centers children vertically along the cross axis of the flex container.
         justify-center: centers children horizontally along the main axis of the flex container.
       -->
-      <section
-        class="flex
-        w-full
-        max-w-md
-        items-center
-        justify-center"
-      >
         <RouterView />
-      </section>
     </div>
   </div>
 </template>
