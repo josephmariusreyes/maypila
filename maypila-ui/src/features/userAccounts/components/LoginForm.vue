@@ -5,19 +5,15 @@
 			p-6: applies consistent padding on all sides of the card content.
 			sm:p-8: increases that padding on small screens and up for a roomier layout.
 		-->
-		<CardContent
-			class="space-y-6
-			p-6
-			sm:p-8"
-		>
-			<div class="space-y-2">
-				<h3 class="text-xl font-semibold tracking-tight text-slate-950">Sign in</h3>
-				<p class="text-sm text-slate-600">
-					Use your username and password to enter the CRM dashboard.
-				</p>
+		<CardContent class="p-6 sm:p-8">
+			<div class="text-center">
+				{LogoHere}
 			</div>
+			<p class="text-sm text-slate-600">
+				Use your username and password to enter the CRM dashboard.
+			</p>
 
-			<form class="space-y-5" @submit.prevent="onSubmit">
+			<form class="space-y-5 mt-6" @submit.prevent="onSubmit">
 				<div class="space-y-2">
 					<Label for="login-username">Username</Label>
 					<Input id="login-username" v-model="username" placeholder="Enter your username" />
@@ -26,7 +22,8 @@
 				<div class="space-y-2">
 					<div class="flex items-center justify-between gap-3">
 						<Label for="login-password">Password</Label>
-						<button type="button" class="text-sm font-medium text-cyan-700 transition hover:cursor-pointer hover:text-cyan-800">
+						<button type="button"
+							class="text-sm font-medium text-cyan-700 transition hover:cursor-pointer hover:text-cyan-800">
 							Forgot password?
 						</button>
 					</div>
@@ -35,18 +32,20 @@
 
 				<p v-if="errorMessage" class="text-sm text-destructive">{{ errorMessage }}</p>
 
-				<Button class="w-full gap-2 hover:cursor-pointer main-theme-color" size="lg" type="submit" :disabled="isLoading">
+				<Button class="w-full gap-2 hover:cursor-pointer main-theme-color" size="lg" type="submit"
+					:disabled="isLoading">
 					{{ isLoading ? 'Signing in...' : 'Login' }}
 					<ArrowRight class="h-4 w-4" />
 				</Button>
 			</form>
 
-			<div class="rounded-2xl border border-cyan-100 bg-cyan-50/80 p-4 text-sm text-cyan-900">
+			<div class="rounded-2xl mt-6 border border-cyan-100 bg-cyan-50/80 p-4 text-sm text-cyan-900">
 				<p class="font-medium">UI-only phase</p>
 				<p class="mt-1 text-cyan-800">
-					This screen is intentionally static for now so you can focus on layout, spacing, and component composition.
+					This screen is intentionally static for now so you can focus on layout, spacing, and component
+					composition.
 				</p>
-			</div> 
+			</div>
 
 			<!-- 
 			<p class="text-center text-sm text-slate-600">
