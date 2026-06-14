@@ -1,6 +1,10 @@
 <template>
-	<section class="flex w-full max-w-md items-center justify-center">
-		<div class="min-w-[550px] space-y-6">
+	<section class="flex
+	w-full
+	max-w-md
+	items-center
+	justify-center">
+		<div class="w-full max-w-[550px] space-y-6">
 			<Card class="p-6">
 				<Card class="p-6 text-center tracking-tight">
 					<h2 class="mb-1 font-heading text-4xl font-semibold  text-slate-950">
@@ -25,11 +29,12 @@
 						</div>
 					</div>
 				</Card>
+
 				<div class="mt-6">
 					<p class="text-sm font-medium text-slate-700">
 						Estimated waiting time:
 						<span class="font-semibold text-slate-950">
-							15–20 minutes
+							15 - 20 minutes
 						</span>
 					</p>
 
