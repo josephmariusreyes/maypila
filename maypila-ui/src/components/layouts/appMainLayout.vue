@@ -16,19 +16,24 @@
       min-h-screen: keeps this inner wrapper at least as tall as the viewport.
       items-center: centers children vertically along the cross axis of the flex container.
       justify-center: centers children horizontally along the main axis of the flex container.
-      px-6: adds horizontal padding on the left and right.
-      py-8: adds vertical padding on the top and bottom.
+      px-0: removes horizontal padding on mobile screens.
+      py-0: removes vertical padding on mobile screens.
+      md:px-6: adds horizontal padding on tablet screens and up.
+      md:py-8: adds vertical padding on tablet screens and up.
       lg:px-10: increases horizontal padding on large screens and up.
       lg:py-10: increases vertical padding on large screens and up.
     -->
+
     <div
       class="mx-auto
       flex
       min-h-screen
       items-center
       justify-center
-      px-6
-      py-8
+      px-2
+      py-2
+      md:px-6
+      md:py-8
       lg:px-10
       lg:py-10"
     >
