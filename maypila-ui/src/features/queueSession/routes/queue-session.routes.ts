@@ -1,16 +1,16 @@
 import type { RouteRecordRaw } from 'vue-router'
 import appMainLayout from '@/components/layouts/AppMainLayout.vue';
 import { UserRole } from '@/features/company/enums/userRoleEnums';
-import QueueSessionListingPage from '@/features/queueSession/pages/queueSessionListingPage.vue';
-import AddCustomerToQueuePage from '@/features/queueSession/pages/addCustomerToQueuePage.vue';
-import CreateQueueSessionPage from '@/features/queueSession/pages/createQueueSessionPage.vue';
-import QueueDetailsPage from '@/features/queueSession/pages/queueDetailsPage.vue';
-import CustomerStatusPage from '@/features/queueSession/pages/customerStatusPage.vue';
+import QueueSessionListingPage from '@/features/queueSession/pages/QueueSessionListingPage.vue';
+import AddCustomerToQueuePage from '@/features/queueSession/pages/AddCustomerToQueuePage.vue';
+import CreateQueueSessionPage from '@/features/queueSession/pages/CreateQueueSessionPage.vue';
+import QueueDetailsPage from '@/features/queueSession/pages/QueueDetailsPage.vue';
+import CustomerStatusPage from '@/features/queueSession/pages/CustomerStatusPage.vue';
 import PublicLayout from '@/components/layouts/PublicLayout.vue';
+import CustomersInQueueListingPage from '../pages/CustomersInQueueListingPage.vue';
 
 export const queueSessionRoutes: RouteRecordRaw = {
     path:'/queue-session',
-    component:appMainLayout,
     meta:{
 		requiresAuth: true,
     },
@@ -44,6 +44,14 @@ export const queueSessionRoutes: RouteRecordRaw = {
                 requiresAuth:true
             },    
             children:[
+                {
+                    path:'customers-in-que-listing',
+                    name:'',
+                    meta:{
+                        requiredRoles: [UserRole.QueAdmin],
+                    },
+                    component:CustomersInQueueListingPage
+                },
                 {
                     path:'queue-listing',
                     name:'queue-listing',
