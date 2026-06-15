@@ -1,100 +1,137 @@
-<template>
-	<Card>
-		<!--
-			space-y-6: adds vertical spacing between each direct child inside the card content.
-			p-6: applies consistent padding on all sides of the card content.
-			sm:p-8: increases that padding on small screens and up for a roomier layout.
-		-->
-		<CardContent
-			class="space-y-6
-			p-6"
-		>
-			<form class="space-y-5" @submit.prevent="onSubmit">
-				<div class="space-y-2">
-					<Label for="login-username">Username</Label>
-					<Input id="login-username" v-model="username" placeholder="Enter your username" />
-				</div>
-
-				<div class="space-y-2">
-					<div class="flex items-center justify-between gap-3">
-						<Label for="login-password">Password</Label>
-						<button type="button" class="text-sm font-medium text-cyan-700 transition hover:cursor-pointer hover:text-cyan-800">
-							Forgot password?
-						</button>
-					</div>
-					<Input id="login-password" v-model="password" type="password" placeholder="Enter your password" />
-				</div>
-
-				<p v-if="errorMessage" class="text-sm text-destructive">{{ errorMessage }}</p>
-
-				<Button class="w-full gap-2 hover:cursor-pointer main-theme-color" size="lg" type="submit" :disabled="isLoading">
-					{{ isLoading ? 'Signing in...' : 'Login' }}
-					<ArrowRight class="h-4 w-4" />
-				</Button>
-			</form>
-
-			<div class="rounded-2xl border border-cyan-100 bg-cyan-50/80 p-4 text-sm text-cyan-900">
-				<p class="font-medium">UI-only phase</p>
-				<p class="mt-1 text-cyan-800">
-					This screen is intentionally static for now so you can focus on layout, spacing, and component composition.
-				</p>
-			</div> 
-
-			<!-- 
-			<p class="text-center text-sm text-slate-600">
-				New here?
-				<RouterLink class="font-semibold text-cyan-700 transition hover:text-cyan-800" :to="{ name: 'auth-register' }">
-					Create an account
-				</RouterLink> 
-			</p>
-			-->
-		</CardContent>
-	</Card>
-</template>
-
 <script setup lang="ts">
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm, Field as VeeField } from 'vee-validate'
+import { h } from 'vue'
+import { toast } from 'vue-sonner'
+import { z } from 'zod'
+
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroupTextarea,
+} from '@/components/ui/input-group'
 
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+const formSchema = toTypedSchema(
+  z.object({
+    title: z
+      .string()
+      .min(5, 'Bug title must be at least 5 characters.')
+      .max(32, 'Bug title must be at most 32 characters.'),
+    description: z
+      .string()
+      .min(20, 'Description must be at least 20 characters.')
+      .max(100, 'Description must be at most 100 characters.'),
+  }),
+)
 
-const route = useRoute()
-const router = useRouter()
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: formSchema,
+  initialValues: {
+    title: '',
+    description: '',
+  },
+})
 
-const username = ref('')
-const password = ref('')
-const isLoading = ref(false)
-const errorMessage = ref('')
-
-function resolvePostLoginRedirect(rawRedirect: unknown) {
-	if (typeof rawRedirect !== 'string') {
-		return { name: 'customer-listing' }
-	}
-
-	if (!rawRedirect.startsWith('/') || rawRedirect.startsWith('//')) {
-		return { name: 'customer-listing' }
-	}
-
-	const resolved = router.resolve(rawRedirect)
-	const isKnownRoute = resolved.matched.length > 0
-	const isProtectedRoute = resolved.matched.some((record) => record.meta.requiresAuth)
-
-	if (!isKnownRoute || !isProtectedRoute) {
-		return { name: 'customer-listing' }
-	}
-
-	return resolved.fullPath
-}
-
-async function onSubmit() {
-
-
-
-	const redirectPath = resolvePostLoginRedirect(route.query.redirect)
-	await router.push(redirectPath)
-}
-
+const onSubmit = handleSubmit((data) => {
+  toast('You submitted the following values:', {
+    description: h('pre', { class: 'bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4' }, h('code', JSON.stringify(data, null, 2))),
+    position: 'bottom-right',
+    class: 'flex flex-col gap-2',
+    style: {
+      '--border-radius': 'calc(var(--radius)  + 4px)',
+    },
+  })
+})
 </script>
+
+<template>
+  <Card class="w-full sm:max-w-md">
+    <CardHeader>
+      <CardTitle>Bug Report</CardTitle>
+      <CardDescription>
+        Help us improve by reporting bugs you encounter.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <form id="form-vee-demo" @submit="onSubmit">
+        <FieldGroup>
+          <VeeField v-slot="{ field, errors }" name="title">
+            <Field :data-invalid="!!errors.length">
+              <FieldLabel for="form-vee-demo-title">
+                Bug Title
+              </FieldLabel>
+              <Input
+                id="form-vee-demo-title"
+                v-bind="field"
+                placeholder="Login button not working on mobile"
+                autocomplete="off"
+                :aria-invalid="!!errors.length"
+              />
+              <FieldError v-if="errors.length">
+                {{ errors[0] }}
+              </FieldError>
+            </Field>
+          </VeeField>
+
+          <VeeField v-slot="{ field, errors }" name="description">
+            <Field :data-invalid="!!errors.length">
+              <FieldLabel for="form-vee-demo-description">
+                Description
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupTextarea
+                  id="form-vee-demo-description"
+                  v-bind="field"
+                  placeholder="I'm having an issue with the login button on mobile."
+                  :rows="6"
+                  class="min-h-24 resize-none"
+                  :aria-invalid="!!errors.length"
+                />
+                <InputGroupAddon align="block-end">
+                  <InputGroupText class="tabular-nums">
+                    {{ field.value?.length || 0 }}/100 characters
+                  </InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
+              <FieldDescription>
+                Include steps to reproduce, expected behavior, and what actually
+                happened.
+              </FieldDescription>
+              <FieldError v-if="errors.length">
+                {{ errors[0] }}
+              </FieldError>
+            </Field>
+          </VeeField>
+        </FieldGroup>
+      </form>
+    </CardContent>
+    <CardFooter>
+      <Field orientation="horizontal">
+        <Button type="button" variant="outline" @click="resetForm">
+          Reset
+        </Button>
+        <Button type="submit" form="form-vee-demo">
+          Submit
+        </Button>
+      </Field>
+    </CardFooter>
+  </Card>
+</template>

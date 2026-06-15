@@ -46,7 +46,7 @@ export const queueSessionRoutes: RouteRecordRaw = {
             children:[
                 {
                     path:'customers-in-que-listing',
-                    name:'',
+                    name:'customers-in-que-listing',
                     meta:{
                         requiredRoles: [UserRole.QueAdmin],
                     },
