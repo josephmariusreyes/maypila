@@ -9,44 +9,39 @@ import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card'
 import {
   Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
   FieldLabel,
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import {
   InputGroup,
   InputGroupAddon,
+  InputGroupInput,
   InputGroupText,
-  InputGroupTextarea,
 } from '@/components/ui/input-group'
 
 const formSchema = toTypedSchema(
   z.object({
-    title: z
+    firstName: z
       .string()
-      .min(5, 'Bug title must be at least 5 characters.')
-      .max(32, 'Bug title must be at most 32 characters.'),
-    description: z
+      .min(1, 'Firstname is required'),
+    lastName: z
       .string()
-      .min(20, 'Description must be at least 20 characters.')
-      .max(100, 'Description must be at most 100 characters.'),
+      .min(1, 'Lastname is required'),
+    phoneNumber: z
+      .string()
+      .min(10, 'Please enter a valid 10 digit number')
   }),
 )
 
-const { handleSubmit, resetForm } = useForm({
+const { handleSubmit, errors } = useForm({
   validationSchema: formSchema,
   initialValues: {
-    title: '',
-    description: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: ''
   },
 })
 
@@ -64,74 +59,63 @@ const onSubmit = handleSubmit((data) => {
 
 <template>
   <Card class="w-full sm:max-w-md">
-    <CardHeader>
-      <CardTitle>Bug Report</CardTitle>
-      <CardDescription>
-        Help us improve by reporting bugs you encounter.
-      </CardDescription>
-    </CardHeader>
-    <CardContent>
-      <form id="form-vee-demo" @submit="onSubmit">
-        <FieldGroup>
-          <VeeField v-slot="{ field, errors }" name="title">
-            <Field :data-invalid="!!errors.length">
-              <FieldLabel for="form-vee-demo-title">
-                Bug Title
-              </FieldLabel>
-              <Input
-                id="form-vee-demo-title"
-                v-bind="field"
-                placeholder="Login button not working on mobile"
-                autocomplete="off"
-                :aria-invalid="!!errors.length"
-              />
-              <FieldError v-if="errors.length">
+    <CardContent class="mt-6">
+      <form class="space-y-5" @submit="onSubmit">
+        <VeeField v-slot="{ field, errors }" name="firstName">
+          <Field :data-invalid="!!errors.length">
+            <FieldLabel for="firstname-input">
+              Firstname
+            </FieldLabel>
+            <Input id="firstname-input" v-bind="field" autocomplete="off" :aria-invalid="!!errors.length" />
+            <!-- <FieldError v-if="errors.length">
                 {{ errors[0] }}
-              </FieldError>
-            </Field>
-          </VeeField>
+              </FieldError> -->
+          </Field>
+        </VeeField>
 
-          <VeeField v-slot="{ field, errors }" name="description">
-            <Field :data-invalid="!!errors.length">
-              <FieldLabel for="form-vee-demo-description">
-                Description
-              </FieldLabel>
-              <InputGroup>
-                <InputGroupTextarea
-                  id="form-vee-demo-description"
-                  v-bind="field"
-                  placeholder="I'm having an issue with the login button on mobile."
-                  :rows="6"
-                  class="min-h-24 resize-none"
-                  :aria-invalid="!!errors.length"
-                />
-                <InputGroupAddon align="block-end">
-                  <InputGroupText class="tabular-nums">
-                    {{ field.value?.length || 0 }}/100 characters
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-              <FieldDescription>
-                Include steps to reproduce, expected behavior, and what actually
-                happened.
-              </FieldDescription>
-              <FieldError v-if="errors.length">
+        <VeeField v-slot="{ field, errors }" name="lastName">
+          <Field :data-invalid="!!errors.length">
+            <FieldLabel for="lastname-input">
+              Lastname
+            </FieldLabel>
+            <Input id="lastname-input" v-bind="field" autocomplete="off" :aria-invalid="!!errors.length" />
+            <!-- <FieldError v-if="errors.length">
                 {{ errors[0] }}
-              </FieldError>
-            </Field>
-          </VeeField>
-        </FieldGroup>
+              </FieldError> -->
+          </Field>
+        </VeeField>
+
+        <VeeField v-slot="{ field, errors }" name="phoneNumber">
+          <Field :data-invalid="!!errors.length">
+            <FieldLabel for="phoneNumber-input">
+              Cellphone Number
+            </FieldLabel>
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>+63:</InputGroupText>
+              </InputGroupAddon>
+              <InputGroupInput id="phoneNumber-input" type="text" maxlength="10" v-bind="field" autocomplete="off"
+                :aria-invalid="!!errors.length" />
+            </InputGroup>
+            <!-- <FieldError v-if="errors.length">
+                {{ errors[0] }}
+              </FieldError> -->
+          </Field>
+        </VeeField>
+        <Button class="w-full gap-2 main-theme-color" size="lg" type="submit">
+          Add Customer to Queue
+        </Button>
       </form>
+      <div v-if="Object.keys(errors).length > 0"
+        class="mt-6 rounded-2xl border border-red-100 bg-red-50/80 p-4 text-sm text-red-900">
+        <p class="font-medium">Validation Errors</p>
+        <ul class="mt-2 list-disc space-y-1 pl-5">
+          <li v-for="(message, field) in errors" :key="field">
+            {{ message }}
+          </li>
+        </ul>
+      </div>
+
     </CardContent>
-    <CardFooter>
-      <Field orientation="horizontal">
-        <Button type="button" variant="outline" @click="resetForm">
-          Reset
-        </Button>
-        <Button type="submit" form="form-vee-demo">
-          Submit
-        </Button>
-      </Field>
-    </CardFooter>
   </Card>
 </template>
