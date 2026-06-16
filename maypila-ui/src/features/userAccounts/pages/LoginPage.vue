@@ -1,7 +1,8 @@
 <template>
-	<section class="flex
+	<section class="
+	flex
 	w-full
-	max-w-md
+	max-w-l
 	justify-center">
 		<div class="space-y-6">
 			<LoginForm />
