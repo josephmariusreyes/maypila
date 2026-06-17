@@ -58,7 +58,7 @@ const onSubmit = handleSubmit((data) => {
 </script>
 
 <template>
-  <Card class="w-full sm:max-w-md">
+  <Card class="w-full">
     <CardContent class="mt-6">
       <form class="space-y-5" @submit="onSubmit">
         <VeeField v-slot="{ field, errors }" name="firstName">

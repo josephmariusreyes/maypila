@@ -59,57 +59,45 @@ const onSubmit = handleSubmit((data) => {
   <Card class="w-full sm:max-w-md">
     <CardContent class="mt-6">
       <form class="space-y-5" @submit="onSubmit">
-          <VeeField v-slot="{ field, errors }" name="queueSessionName">
-            <Field :data-invalid="!!errors.length">
-              <FieldLabel for="queue-session-name-input">
-                Queue Session Name
-              </FieldLabel>
-              <Input
-                id="queue-session-name-input"
-                v-bind="field"
-                autocomplete="off"
-                :aria-invalid="!!errors.length"
-              />
-              <!-- <FieldError v-if="errors.length">
+        <VeeField v-slot="{ field, errors }" name="queueSessionName">
+          <Field :data-invalid="!!errors.length">
+            <FieldLabel for="queue-session-name-input">
+              Queue Session Name
+            </FieldLabel>
+            <Input id="queue-session-name-input" v-bind="field" autocomplete="off" :aria-invalid="!!errors.length" />
+            <!-- <FieldError v-if="errors.length">
                 {{ errors[0] }}
               </FieldError> -->
-            </Field>
-          </VeeField>
+          </Field>
+        </VeeField>
 
         <VeeField v-slot="{ field, errors }" name="queueDescription">
-            <Field :data-invalid="!!errors.length">
-              <FieldLabel for="queue-description-textarea">
-                Description
-              </FieldLabel>
-              <InputGroup>
-                <InputGroupTextarea
-                  id="queue-description-textarea"
-                  v-bind="field"
-                  :rows="6"
-                  class="min-h-24 resize-none"
-                  :aria-invalid="!!errors.length"
-                />
-                <InputGroupAddon align="block-end">
-                  <InputGroupText class="tabular-nums">
-                    {{ field.value?.length || 0 }}/100 characters
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-              <!-- <FieldError v-if="errors.length" :errors="errors" /> -->
-            </Field>
-          </VeeField>
+          <Field :data-invalid="!!errors.length">
+            <FieldLabel for="queue-description-textarea">
+              Description
+            </FieldLabel>
+            <InputGroup>
+              <InputGroupTextarea id="queue-description-textarea" v-bind="field" :rows="6" class="min-h-24 resize-none"
+                :aria-invalid="!!errors.length" />
+              <InputGroupAddon align="block-end">
+                <InputGroupText class="tabular-nums">
+                  {{ field.value?.length || 0 }}/100 characters
+                </InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+            <!-- <FieldError v-if="errors.length" :errors="errors" /> -->
+          </Field>
+        </VeeField>
 
-          <Button class="w-full gap-2 main-theme-color" size="lg" type="submit">
-            Create Queue Session
-          </Button>
+        <Button class="w-full gap-2 main-theme-color" size="lg" type="submit">
+          Create Queue Session
+        </Button>
       </form>
-      <div v-if="Object.keys(errors).length > 0" class="mt-6 rounded-2xl border border-red-100 bg-red-50/80 p-4 text-sm text-red-900">
+      <div v-if="Object.keys(errors).length > 0"
+        class="mt-6 rounded-2xl border border-red-100 bg-red-50/80 p-4 text-sm text-red-900">
         <p class="font-medium">Validation Errors</p>
         <ul class="mt-2 list-disc space-y-1 pl-5">
-          <li
-            v-for="(message, field) in errors"
-            :key="field"
-          >
+          <li v-for="(message, field) in errors" :key="field">
             {{ message }}
           </li>
         </ul>
