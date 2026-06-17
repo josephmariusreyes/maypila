@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import appMainLayout from '@/components/layouts/AppMainLayout.vue';
-import CreateCompanyPage from '@/features/company/pages/createCompanyPage.vue';
+import CreateCompanyPage from '@/features/company/pages/CreateCompanyPage.vue';
 import { UserRole } from '@/features/company/enums/userRoleEnums';
 
 export const companyRoutes: RouteRecordRaw = {
