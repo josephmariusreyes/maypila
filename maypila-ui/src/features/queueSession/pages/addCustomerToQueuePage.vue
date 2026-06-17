@@ -8,13 +8,16 @@ import AddCustomerToQueueForm from '../components/AddCustomerToQueueForm.vue';
 	w-full
 	max-w-md
 	justify-center">
-		<div>
+		<div class="min-w-120 max-w-130">
 			<Card class="p-6 mb-6">
+				<strong class="text-left text-1xl">
+					Add Customer To:
+				</strong>
 				<strong class="text-left font-main-theme-color text-2xl">
-					Add Customer To, {QueueName}
+					 {QueueName}
 				</strong>
 				<p class="text-sm leading-6 text-slate-600">
-					Input customer Firstname, Lastname and Cellphone number to add then in queue.
+					{Description about the queue session goes here}
 				</p>
 			</Card>
 			<AddCustomerToQueueForm />

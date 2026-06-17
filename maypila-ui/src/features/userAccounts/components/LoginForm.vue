@@ -10,7 +10,7 @@
 				<img src="/app-logo.png" alt="Maypila logo" class="w-[65px]" />
 			</div>
 			<strong class="text-left font-main-theme-color text-2xl">
-				AddToQueue
+				Add-2Q
 			</strong>
 			<p class="text-sm text-slate-600">
 				Customer online queue management system.
@@ -43,7 +43,7 @@
 			</form>
 
 			<div class="rounded-2xl mt-6 border border-cyan-100 bg-cyan-50/80 p-4 text-sm text-cyan-900">
-				<p class="font-medium mb-2">Try <strong>AddToQueue</strong> for free! No payment details required before signing up.</p>
+				<p class="font-medium mb-2">Try <strong>Add-2Q</strong> for free! No payment details required before signing up.</p>
 				<button type="button"
 					class="text-sm font-medium text-cyan-700 transition hover:cursor-pointer hover:text-cyan-800">
 					Create new account.
