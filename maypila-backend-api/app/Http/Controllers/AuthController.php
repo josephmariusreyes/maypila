@@ -8,9 +8,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\Auth\LoginAuthRequest;
+use App\Http\Resources\Customer\CustomerResource;
 
 class AuthController extends Controller
 {
+	/**
+	 * Login user
+	 *
+	 * @response 200 {
+	 *   "message": "Login successful.",
+	 *   "token": "1|abcdef1234567890",
+	 *   "user": {
+	 *     "id": 1,
+	 *     "name": "John Doe",
+	 *     "email": "john@example.com",
+	 *     "created_at": "2026-06-16T10:00:00.000000Z",
+	 *     "updated_at": "2026-06-16T10:00:00.000000Z"
+	 *   }
+	 * }
+	 */	
 	public function login(LoginAuthRequest $request): JsonResponse
 	{
 		//todojeph: move this logic to service
@@ -32,7 +48,9 @@ class AuthController extends Controller
 		return response()->json([
 			'message' => 'Login successful.',
 			'token' => $token,
-			'user' => $user,
+			'user' =>new CustomerResource(
+               $user
+            )
 		]);
 	}
 
