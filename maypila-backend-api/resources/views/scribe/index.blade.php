@@ -30,9 +30,9 @@
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="{{ asset("/vendor/scribe/js/tryitout-5.9.0.js") }}"></script>
+    <script src="{{ asset("/vendor/scribe/js/tryitout-5.10.0.js") }}"></script>
 
-    <script src="{{ asset("/vendor/scribe/js/theme-default-5.9.0.js") }}"></script>
+    <script src="{{ asset("/vendor/scribe/js/theme-default-5.10.0.js") }}"></script>
 
 </head>
 
@@ -151,7 +151,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 17, 2026</li>
+        <li>Last updated: June 18, 2026</li>
     </ul>
 </div>
 
@@ -223,7 +223,28 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-login">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 8,
+        &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
+        &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-06-18T01:37:28.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-06-18T01:37:28.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-06-18T01:37:28.000000Z&quot;,
+        &quot;mobile_number&quot;: &quot;0&quot;,
+        &quot;queue_session_id&quot;: null
+    },
+    &quot;meta&quot;: null
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-login" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-login"></span>:
@@ -371,7 +392,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-logout">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: [],
+    &quot;meta&quot;: null
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-logout" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-logout"></span>:
@@ -483,7 +516,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-companies">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -495,7 +528,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -610,7 +645,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-companies--id-">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -622,7 +657,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -731,6 +768,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"id\": 16,
     \"name\": \"architecto\",
+    \"company_email\": \"zbailey@example.net\",
     \"description\": \"Eius et animi quos velit et.\"
 }"
 </code></pre></div>
@@ -749,6 +787,7 @@ const headers = {
 let body = {
     "id": 16,
     "name": "architecto",
+    "company_email": "zbailey@example.net",
     "description": "Eius et animi quos velit et."
 };
 
@@ -859,6 +898,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_email"                data-endpoint="POSTapi-companies"
+               value="zbailey@example.net"
+               data-component="body">
+    <br>
+<p>Must be a valid email address. Example: <code>zbailey@example.net</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
@@ -891,6 +942,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"id\": 16,
     \"name\": \"architecto\",
+    \"company_email\": \"zbailey@example.net\",
     \"description\": \"Eius et animi quos velit et.\"
 }"
 </code></pre></div>
@@ -909,6 +961,7 @@ const headers = {
 let body = {
     "id": 16,
     "name": "architecto",
+    "company_email": "zbailey@example.net",
     "description": "Eius et animi quos velit et."
 };
 
@@ -1032,6 +1085,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_email"                data-endpoint="PUTapi-companies--id-"
+               value="zbailey@example.net"
+               data-component="body">
+    <br>
+<p>Must be a valid email address. Example: <code>zbailey@example.net</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
@@ -1093,7 +1158,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1105,7 +1170,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -1220,7 +1287,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/architecto" \
+    --get "http://localhost/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1231,7 +1298,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/architecto"
+    "http://localhost/api/users/1"
 );
 
 const headers = {
@@ -1253,7 +1320,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users--id-">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1265,7 +1332,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -1343,15 +1412,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="GETapi-users--id-"
-               value="architecto"
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-users--id-"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>architecto</code></p>
+<p>The ID of the user. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1389,9 +1458,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"n\",
     \"email\": \"ashly64@example.com\",
     \"password\": \"pBNvYg\",
-    \"mobileNumber\": \"8225697751\",
+    \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"CompanyAdmin\"
+    \"role\": \"SuperAdmin\"
 }"
 </code></pre></div>
 
@@ -1411,9 +1480,9 @@ let body = {
     "name": "n",
     "email": "ashly64@example.com",
     "password": "pBNvYg",
-    "mobileNumber": "8225697751",
+    "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "CompanyAdmin"
+    "role": "SuperAdmin"
 };
 
 fetch(url, {
@@ -1553,10 +1622,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mobileNumber"                data-endpoint="POSTapi-users"
-               value="8225697751"
+               value="09564255931"
                data-component="body">
     <br>
-<p>Must be 10 digits. Example: <code>8225697751</code></p>
+<p>Must match the regex /^09\d{9}$/. Example: <code>09564255931</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
@@ -1577,10 +1646,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="POSTapi-users"
-               value="CompanyAdmin"
+               value="SuperAdmin"
                data-component="body">
     <br>
-<p>Example: <code>CompanyAdmin</code></p>
+<p>Example: <code>SuperAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1599,7 +1668,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/users/architecto" \
+    "http://localhost/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1607,16 +1676,16 @@ Must be one of:
     \"name\": \"n\",
     \"email\": \"ashly64@example.com\",
     \"password\": \"pBNvYg\",
-    \"mobileNumber\": \"8225697751\",
+    \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"SuperAdmin\"
+    \"role\": \"QueAdmin\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/architecto"
+    "http://localhost/api/users/1"
 );
 
 const headers = {
@@ -1629,9 +1698,9 @@ let body = {
     "name": "n",
     "email": "ashly64@example.com",
     "password": "pBNvYg",
-    "mobileNumber": "8225697751",
+    "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "SuperAdmin"
+    "role": "QueAdmin"
 };
 
 fetch(url, {
@@ -1718,15 +1787,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="PUTapi-users--id-"
-               value="architecto"
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-users--id-"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>architecto</code></p>
+<p>The ID of the user. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1784,10 +1853,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mobileNumber"                data-endpoint="PUTapi-users--id-"
-               value="8225697751"
+               value="09564255931"
                data-component="body">
     <br>
-<p>Must be 10 digits. Example: <code>8225697751</code></p>
+<p>Must match the regex /^09\d{9}$/. Example: <code>09564255931</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
@@ -1808,10 +1877,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--id-"
-               value="SuperAdmin"
+               value="QueAdmin"
                data-component="body">
     <br>
-<p>Example: <code>SuperAdmin</code></p>
+<p>Example: <code>QueAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1830,14 +1899,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/users/architecto" \
+    "http://localhost/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/architecto"
+    "http://localhost/api/users/1"
 );
 
 const headers = {
@@ -1929,15 +1998,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="DELETEapi-users--id-"
-               value="architecto"
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="DELETEapi-users--id-"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>architecto</code></p>
+<p>The ID of the user. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -1987,7 +2056,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-queue-sessions">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1999,7 +2068,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -2127,7 +2198,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-queue-sessions--id-">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2139,7 +2210,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -2701,7 +2774,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost/api/queue-sessions/add-queue-users" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"userId\": 16,
+    \"queueSessionId\": 16,
+    \"companyId\": 16
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2714,10 +2793,16 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "userId": 16,
+    "queueSessionId": 16,
+    "companyId": 16
+};
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -2795,7 +2880,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>userId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="userId"                data-endpoint="POSTapi-queue-sessions-add-queue-users"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>queueSessionId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="queueSessionId"                data-endpoint="POSTapi-queue-sessions-add-queue-users"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="companyId"                data-endpoint="POSTapi-queue-sessions-add-queue-users"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-DELETEapi-queue-sessions-remove-queue-user">DELETE api/queue-sessions/remove-queue-user</h2>
 
@@ -2812,7 +2934,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request DELETE \
     "http://localhost/api/queue-sessions/remove-queue-user" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"userId\": 16,
+    \"queueSessionId\": 16,
+    \"companyId\": 16
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2825,10 +2953,16 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "userId": 16,
+    "queueSessionId": 16,
+    "companyId": 16
+};
 
 fetch(url, {
     method: "DELETE",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -2906,7 +3040,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>userId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="userId"                data-endpoint="DELETEapi-queue-sessions-remove-queue-user"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>queueSessionId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="queueSessionId"                data-endpoint="DELETEapi-queue-sessions-remove-queue-user"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="companyId"                data-endpoint="DELETEapi-queue-sessions-remove-queue-user"
+               value="16"
+               data-component="body">
+    <br>
+<p>Example: <code>16</code></p>
+        </div>
+        </form>
 
                     <h2 id="endpoints-GETapi-customers">GET api/customers</h2>
 
@@ -2946,7 +3117,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-customers">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2958,7 +3129,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -3073,7 +3246,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-customers--id-">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3085,7 +3258,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
@@ -3194,7 +3369,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"firstName\": \"b\",
     \"lastName\": \"n\",
-    \"mobileNumber\": \"8225697751\"
+    \"mobileNumber\": \"09564255931\"
 }"
 </code></pre></div>
 
@@ -3212,7 +3387,7 @@ const headers = {
 let body = {
     "firstName": "b",
     "lastName": "n",
-    "mobileNumber": "8225697751"
+    "mobileNumber": "09564255931"
 };
 
 fetch(url, {
@@ -3328,10 +3503,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mobileNumber"                data-endpoint="POSTapi-customers"
-               value="8225697751"
+               value="09564255931"
                data-component="body">
     <br>
-<p>Must be 10 digits. Example: <code>8225697751</code></p>
+<p>Must match the regex /^09\d{9}$/. Example: <code>09564255931</code></p>
         </div>
         </form>
 
@@ -3534,7 +3709,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-access-control-app-menu">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3546,7 +3721,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
+    &quot;meta&quot;: null
 }</code>
  </pre>
     </span>
