@@ -64,7 +64,13 @@ endpoints:
       password: '|]|{+-'
       device_name: architecto
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{"id":8,"name":"Ms. Elisabeth Okuneva","email":"gulgowski.asia@example.com","email_verified_at":"2026-06-18T01:37:28.000000Z","created_at":"2026-06-18T01:37:28.000000Z","updated_at":"2026-06-18T01:37:28.000000Z","mobile_number":"0","queue_session_id":null},"meta":null}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -95,7 +101,13 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":[],"meta":null}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -129,8 +141,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -181,8 +193,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -238,6 +250,17 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      company_email:
+        custom: []
+        name: company_email
+        description: 'Must be a valid email address.'
+        required: true
+        example: zbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       description:
         custom: []
         name: description
@@ -252,6 +275,7 @@ endpoints:
     cleanBodyParameters:
       id: 16
       name: architecto
+      company_email: zbailey@example.net
       description: 'Eius et animi quos velit et.'
     fileParameters: []
     responses: []
@@ -317,6 +341,17 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      company_email:
+        custom: []
+        name: company_email
+        description: 'Must be a valid email address.'
+        required: true
+        example: zbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       description:
         custom: []
         name: description
@@ -331,6 +366,7 @@ endpoints:
     cleanBodyParameters:
       id: 16
       name: architecto
+      company_email: zbailey@example.net
       description: 'Eius et animi quos velit et.'
     fileParameters: []
     responses: []
@@ -391,8 +427,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -427,14 +463,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -455,8 +491,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -537,9 +573,9 @@ endpoints:
       mobileNumber:
         custom: []
         name: mobileNumber
-        description: 'Must be 10 digits.'
+        description: 'Must match the regex /^09\d{9}$/.'
         required: true
-        example: '8225697751'
+        example: '09564255931'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -561,7 +597,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: CompanyAdmin
+        example: SuperAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -576,9 +612,9 @@ endpoints:
       name: 'n'
       email: ashly64@example.com
       password: pBNvYg
-      mobileNumber: '8225697751'
+      mobileNumber: '09564255931'
       companyId: 16
-      role: CompanyAdmin
+      role: SuperAdmin
     fileParameters: []
     responses: []
     responseFields: []
@@ -610,14 +646,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -668,9 +704,9 @@ endpoints:
       mobileNumber:
         custom: []
         name: mobileNumber
-        description: 'Must be 10 digits.'
+        description: 'Must match the regex /^09\d{9}$/.'
         required: true
-        example: '8225697751'
+        example: '09564255931'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -692,7 +728,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: SuperAdmin
+        example: QueAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -707,9 +743,9 @@ endpoints:
       name: 'n'
       email: ashly64@example.com
       password: pBNvYg
-      mobileNumber: '8225697751'
+      mobileNumber: '09564255931'
       companyId: 16
-      role: SuperAdmin
+      role: QueAdmin
     fileParameters: []
     responses: []
     responseFields: []
@@ -741,14 +777,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -800,8 +836,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -852,8 +888,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1075,8 +1111,44 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      userId:
+        custom: []
+        name: userId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      queueSessionId:
+        custom: []
+        name: queueSessionId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      companyId:
+        custom: []
+        name: companyId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      userId: 16
+      queueSessionId: 16
+      companyId: 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -1106,8 +1178,44 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      userId:
+        custom: []
+        name: userId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      queueSessionId:
+        custom: []
+        name: queueSessionId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      companyId:
+        custom: []
+        name: companyId
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      userId: 16
+      queueSessionId: 16
+      companyId: 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -1143,8 +1251,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1195,8 +1303,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1255,9 +1363,9 @@ endpoints:
       mobileNumber:
         custom: []
         name: mobileNumber
-        description: 'Must be 10 digits.'
+        description: 'Must match the regex /^09\d{9}$/.'
         required: true
-        example: '8225697751'
+        example: '09564255931'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1266,7 +1374,7 @@ endpoints:
     cleanBodyParameters:
       firstName: b
       lastName: 'n'
-      mobileNumber: '8225697751'
+      mobileNumber: '09564255931'
     fileParameters: []
     responses: []
     responseFields: []
@@ -1372,8 +1480,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
