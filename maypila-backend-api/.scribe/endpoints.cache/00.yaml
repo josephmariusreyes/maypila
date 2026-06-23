@@ -68,7 +68,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success":true,"message":"Success","data":{"id":8,"name":"Ms. Elisabeth Okuneva","email":"gulgowski.asia@example.com","email_verified_at":"2026-06-18T01:37:28.000000Z","created_at":"2026-06-18T01:37:28.000000Z","updated_at":"2026-06-18T01:37:28.000000Z","mobile_number":"0","queue_session_id":null},"meta":null}'
+        content: '{"success":true,"message":"Success","data":{"id":1,"name":"John Doe","email":"john.doe@example.com","mobile_number":"+1234567890","queue_session_id":1,"email_verified_at":"2026-01-15T10:30:00.000000Z","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z","roles":[{"id":1,"name":"admin","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"},{"id":2,"name":"user","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"}],"companies":[{"id":1,"name":"Acme Corp","description":"Leading technology solutions provider","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"},{"id":2,"name":"Tech Innovators","description":"Innovative software development","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"}],"queue_session":{"id":1,"created_by":1,"company_id":1,"name":"Morning Queue","description":"Queue for morning shift","queue_status":"active","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"}},"meta":{}}'
         headers: []
         description: ''
     responseFields: []
@@ -105,7 +105,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success":true,"message":"Success","data":[],"meta":null}'
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
         headers: []
         description: ''
     responseFields: []
@@ -463,14 +463,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 1
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -646,14 +646,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 1
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -728,7 +728,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: QueAdmin
+        example: CompanyAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -745,7 +745,7 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: QueAdmin
+      role: CompanyAdmin
     fileParameters: []
     responses: []
     responseFields: []
@@ -777,14 +777,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 1
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1433,7 +1433,7 @@ endpoints:
         name: customerStatus
         description: ''
         required: true
-        example: Done
+        example: InProgress
         type: string
         enumValues:
           - Pending
@@ -1444,7 +1444,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       id: 16
-      customerStatus: Done
+      customerStatus: InProgress
     fileParameters: []
     responses: []
     responseFields: []
