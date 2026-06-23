@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Enum\CustomerStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -20,6 +20,7 @@ use app\Enum\CustomerStatus;
  */
 class Customer extends Model
 {
+    use HasFactory;
     protected $table = 'customers';
 
     protected $fillable = [
