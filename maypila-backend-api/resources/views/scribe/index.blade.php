@@ -151,7 +151,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 18, 2026</li>
+        <li>Last updated: June 23, 2026</li>
     </ul>
 </div>
 
@@ -232,16 +232,56 @@ fetch(url, {
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Success&quot;,
     &quot;data&quot;: {
-        &quot;id&quot;: 8,
-        &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
-        &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-06-18T01:37:28.000000Z&quot;,
-        &quot;created_at&quot;: &quot;2026-06-18T01:37:28.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-06-18T01:37:28.000000Z&quot;,
-        &quot;mobile_number&quot;: &quot;0&quot;,
-        &quot;queue_session_id&quot;: null
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;John Doe&quot;,
+        &quot;email&quot;: &quot;john.doe@example.com&quot;,
+        &quot;mobile_number&quot;: &quot;+1234567890&quot;,
+        &quot;queue_session_id&quot;: 1,
+        &quot;email_verified_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+        &quot;roles&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;admin&quot;,
+                &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;user&quot;,
+                &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+            }
+        ],
+        &quot;companies&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Acme Corp&quot;,
+                &quot;description&quot;: &quot;Leading technology solutions provider&quot;,
+                &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+            },
+            {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;Tech Innovators&quot;,
+                &quot;description&quot;: &quot;Innovative software development&quot;,
+                &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+            }
+        ],
+        &quot;queue_session&quot;: {
+            &quot;id&quot;: 1,
+            &quot;created_by&quot;: 1,
+            &quot;company_id&quot;: 1,
+            &quot;name&quot;: &quot;Morning Queue&quot;,
+            &quot;description&quot;: &quot;Queue for morning shift&quot;,
+            &quot;queue_status&quot;: &quot;active&quot;,
+            &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+        }
     },
-    &quot;meta&quot;: null
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -400,8 +440,8 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Success&quot;,
-    &quot;data&quot;: [],
-    &quot;meta&quot;: null
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -1287,7 +1327,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/1" \
+    --get "http://localhost/api/users/architecto" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1298,7 +1338,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "http://localhost/api/users/architecto"
 );
 
 const headers = {
@@ -1412,15 +1452,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="GETapi-users--id-"
-               value="1"
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-users--id-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>1</code></p>
+<p>The ID of the user. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1668,7 +1708,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/users/1" \
+    "http://localhost/api/users/architecto" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1678,14 +1718,14 @@ Must be one of:
     \"password\": \"pBNvYg\",
     \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"QueAdmin\"
+    \"role\": \"CompanyAdmin\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "http://localhost/api/users/architecto"
 );
 
 const headers = {
@@ -1700,7 +1740,7 @@ let body = {
     "password": "pBNvYg",
     "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "QueAdmin"
+    "role": "CompanyAdmin"
 };
 
 fetch(url, {
@@ -1787,15 +1827,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="PUTapi-users--id-"
-               value="1"
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="PUTapi-users--id-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>1</code></p>
+<p>The ID of the user. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1877,10 +1917,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--id-"
-               value="QueAdmin"
+               value="CompanyAdmin"
                data-component="body">
     <br>
-<p>Example: <code>QueAdmin</code></p>
+<p>Example: <code>CompanyAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1899,14 +1939,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/users/1" \
+    "http://localhost/api/users/architecto" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "http://localhost/api/users/architecto"
 );
 
 const headers = {
@@ -1998,15 +2038,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="DELETEapi-users--id-"
-               value="1"
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="DELETEapi-users--id-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>1</code></p>
+<p>The ID of the user. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -3528,7 +3568,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"id\": 16,
-    \"customerStatus\": \"Done\"
+    \"customerStatus\": \"InProgress\"
 }"
 </code></pre></div>
 
@@ -3545,7 +3585,7 @@ const headers = {
 
 let body = {
     "id": 16,
-    "customerStatus": "Done"
+    "customerStatus": "InProgress"
 };
 
 fetch(url, {
@@ -3662,10 +3702,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="customerStatus"                data-endpoint="PUTapi-customers--id-"
-               value="Done"
+               value="InProgress"
                data-component="body">
     <br>
-<p>Example: <code>Done</code></p>
+<p>Example: <code>InProgress</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>Pending</code></li> <li><code>InProgress</code></li> <li><code>Done</code></li></ul>
         </div>

@@ -131,6 +131,11 @@ class UserService
         return (new UserFilter($filters))->apply(User::query())->get();
     }
 
+    public function getUserByEmail(string $email): User
+    {
+		return User::where('email', $email)->first();
+    }
+
     public function getAppMenu(User $actor): array
     {
         $actor->loadMissing('roles:id,name');
