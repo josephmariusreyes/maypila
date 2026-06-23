@@ -12,17 +12,16 @@ use App\Services\Customer\CustomerService;
 class CustomerController extends Controller
 {
 
-    public function __construct( private CustomerService $customerService)
-    {
-    }
+    public function __construct(private CustomerService $customerService) {}
 
     public function index()
     {
         return ApiBaseResponse::success(
-            data: CustomerResource::collection(
+			data: CustomerResource::collection(
                 $this->customerService->getAllCustomer()
             ),
-            message: 'Customers fetched successfully'
+			message:'Login successful.',
+			meta: []
         );
     }
 
@@ -71,5 +70,4 @@ class CustomerController extends Controller
             message: 'Customer updated successfully'
         );
     }
-
 }

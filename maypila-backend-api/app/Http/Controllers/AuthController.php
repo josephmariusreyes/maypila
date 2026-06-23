@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use App\Http\Requests\Auth\LoginAuthRequest;
-use App\Http\Resources\Customer\CustomerResource;
 use App\Http\Resources\User\UserResource;
-use App\Http\Resources\ApiBaseResponseResource;
-use App\Http\Resources\UserResponseResource;
 use Illuminate\Auth\Access\AuthorizationException;
+use App\Services\UserService\UserService;
+use Knuckles\Scribe\Attributes\Response;
+use App\Constants\ApiDocs\UserResourceDocs;
 
-use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-
+use App\Http\Resources\ApiBaseResponse;
 
 class AuthController extends Controller
 {
-	#[ResponseFromApiResource(
-		ApiBaseResponseResource::class,
-		User::class
-	)]
-	public function login(LoginAuthRequest $request): ApiBaseResponseResource
+	public function __construct(private UserService $userService) {}
+
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => UserResourceDocs::USER,
+		'meta' =>  new \stdClass()
+	])]
+	public function login(LoginAuthRequest $request)
 	{
 		$credentials = $request->validated();
-		$user = User::where('email', $credentials['email'])->first();
+		$user = $this->userService->getUserByEmail($credentials['email']);
 		$companies = $user->companies;
 		$roles = $user->roles;
 
@@ -37,29 +37,32 @@ class AuthController extends Controller
 		$tokenName = $credentials['device_name'] ?? 'api-token';
 		$token = $user->createToken($tokenName)->plainTextToken;
 
-
-		return new ApiBaseResponseResource(
-			resource: UserResource::make($user),
-			success: true,
-			message:'Login successful.',
+		return ApiBaseResponse::success(
+			data: UserResource::make($user),
+			message: 'Login successful.',
 			meta: [
+				'companies' => $companies,
+				'roles' => $roles,
 				'token_name' => $tokenName,
 				'token' => $token
 			]
 		);
 	}
 
-	#[ResponseFromApiResource(
-		ApiBaseResponseResource::class
-	)]
-	public function logout(Request $request): ApiBaseResponseResource
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => new \stdClass(),
+		'meta' =>  new \stdClass()
+	])]
+	public function logout(Request $request)
 	{
 		$request->user()->currentAccessToken()?->delete();
 
-		return new ApiBaseResponseResource(
-			resource: [],
-			success: true,
-			message: 'Logout successful.'
+		return ApiBaseResponse::success(
+			data: [],
+			message: 'Login successful.',
+			meta: []
 		);
 	}
 }

@@ -8,15 +8,21 @@ use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\Company\CompanyResource;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Services\CompanyService\CompanyService;
+use Knuckles\Scribe\Attributes\Response;
 
 class CompanyController extends Controller
 {
 
     public function __construct(
-        private CompanyService $companyService)
-    {
-    }
+        private CompanyService $companyService
+    ) {}
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function index()
     {
         return ApiBaseResponse::success(
@@ -67,5 +73,4 @@ class CompanyController extends Controller
             message: 'Company updated successfully'
         );
     }
-
 }
