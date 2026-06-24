@@ -8,23 +8,36 @@ use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\Customer\CustomerResource;
 use App\Services\Customer\CustomerService;
+use Knuckles\Scribe\Attributes\Response;
 
 class CustomerController extends Controller
 {
 
     public function __construct(private CustomerService $customerService) {}
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function index()
     {
         return ApiBaseResponse::success(
-			data: CustomerResource::collection(
+            data: CustomerResource::collection(
                 $this->customerService->getAllCustomer()
             ),
-			message:'Login successful.',
-			meta: []
+            message: 'Login successful.',
+            meta: []
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function show(int $id)
     {
         //jephnote: for now i am just passing ID here but this can potentially grow
@@ -37,6 +50,12 @@ class CustomerController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function store(StoreCustomerRequest $request)
     {
         $validated = $request->validated();
@@ -56,6 +75,12 @@ class CustomerController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function update(UpdateCustomerRequest $request)
     {
         $validated = $request->validated();

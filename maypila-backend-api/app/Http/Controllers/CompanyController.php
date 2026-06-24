@@ -31,6 +31,12 @@ class CompanyController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function show(string $id)
     {
         return ApiBaseResponse::success(
@@ -39,6 +45,12 @@ class CompanyController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function store(StoreCompanyRequest $request)
     {
         $validated = $request->validated();
@@ -57,6 +69,12 @@ class CompanyController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function update(StoreCompanyRequest $request, $id)
     {
         $validated = $request->validated();

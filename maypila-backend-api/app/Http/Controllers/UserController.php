@@ -12,10 +12,12 @@ use App\DTO\User\{
 };
 
 use App\Http\Requests\User\{
-    ShowUserRequest,
-    StoreUserRequest,
-    IndexUserRequest
+	ShowUserRequest,
+	StoreUserRequest,
+	IndexUserRequest
 };
+use Knuckles\Scribe\Attributes\Response;
+
 /**
  * Class UserController
  *
@@ -26,26 +28,37 @@ use App\Http\Requests\User\{
 class UserController extends Controller
 {
 
-	public function __construct(private UserService $userService)
-	{
-	}
-	
+	public function __construct(private UserService $userService) {}
+
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => new \stdClass(),
+		'meta' =>  new \stdClass()
+	])]
 	public function index(IndexUserRequest $request)
 	{
 		$users = $this->userService->getAllUser($request->validated());
 		return ApiBaseResponse::success(
-			data:UserResource::collection($users),
-			message:'Users fetched successfully'
+			data: UserResource::collection($users),
+			message: 'Users fetched successfully'
 		);
 	}
 
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => new \stdClass(),
+		'meta' =>  new \stdClass()
+	])]
 	public function show(ShowUserRequest $request)
 	{
 		$validated = $request->validated();
 		$user = $this->userService->getUserById($validated['id']);
 
 		//NOTE
-		//If you want roles, companies, and queue_sessions to appear, you need to load those relations before wrapping the model, because your resource uses whenLoaded(...):
+		//If you want roles, companies, and queue_sessions to appear, 
+		//you need to load those relations before wrapping the model, because your resource uses whenLoaded(...):
 		//$user = User::with(['roles', 'companies', 'queueSession'])->findOrFail($id);
 
 		// NOTE: sample of how to use the base response with meta data
@@ -58,14 +71,19 @@ class UserController extends Controller
 		//         'page' => $users->currentPage(),
 		//     ]
 		// );
-		
+
 		return ApiBaseResponse::success(
-			data:new UserResource($user),
-			message:'User fetched successfully'
+			data: new UserResource($user),
+			message: 'User fetched successfully'
 		);
 	}
 
-	// Store a new user
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => new \stdClass(),
+		'meta' =>  new \stdClass()
+	])]
 	public function store(StoreUserRequest $request)
 	{
 		$validated = $request->validated();
@@ -75,9 +93,9 @@ class UserController extends Controller
 			name: $validated['name'],
 			email: $validated['email'],
 			password: $validated['password'],
-			mobileNumber:$validated['mobileNumber'],
+			mobileNumber: $validated['mobileNumber'],
 			role: $validated['role'],
-			companyId:$validated['company_id']
+			companyId: $validated['company_id']
 		);
 
 		$createdUser = $this->userService->createUser($createdUserDto, $loggedInUser);
@@ -88,9 +106,14 @@ class UserController extends Controller
 			status: 201
 		);
 	}
-	
 
-	// Update an existing user
+
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => new \stdClass(),
+		'meta' =>  new \stdClass()
+	])]
 	public function update(StoreUserRequest $request, int $id)
 	{
 		$validated = $request->validated();
@@ -112,7 +135,12 @@ class UserController extends Controller
 	}
 
 
-	// Delete a user
+	#[Response([
+		'success' => true,
+		'message' => 'Success',
+		'data' => new \stdClass(),
+		'meta' =>  new \stdClass()
+	])]
 	public function destroy(int $id)
 	{
 		$result = $this->userService->deleteUser($id);

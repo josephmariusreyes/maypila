@@ -8,16 +8,21 @@ use App\Http\Requests\QueueSession\StoreQueueSessionRequest;
 use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\QueueSession\QueueSessionResource;
 use App\Services\QueueSession\QueueSessionService;
+use Knuckles\Scribe\Attributes\Response;
 
 class QueueSessionController extends Controller
 {
 
     public function __construct(
         private QueueSessionService $queueSessionService
-        )
-    {
-    }
+    ) {}
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function index(IndexQueueSessionRequest $request)
     {
         return ApiBaseResponse::success(
@@ -28,6 +33,12 @@ class QueueSessionController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function show(int $id)
     {
         return ApiBaseResponse::success(
@@ -38,6 +49,12 @@ class QueueSessionController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function store(StoreQueueSessionRequest $request)
     {
         //todojeph: implement expiry of session
@@ -50,29 +67,44 @@ class QueueSessionController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function update(StoreQueueSessionRequest $request, int $id)
     {
         $validated = $request->validated();
-
         return ApiBaseResponse::success(
             data: new QueueSessionResource($this->queueSessionService->updateQueueSession($id, $validated)),
             message: 'Queue session updated successfully'
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function destroy(int $id)
     {
         $this->queueSessionService->deleteQueueSession($id);
-
         return ApiBaseResponse::success(
             message: 'Queue session deleted successfully'
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function addQueueUser(AddRemoveUserQueueSessionRequest $request)
     {
         $result = $this->queueSessionService->addQueueUser($request->validated());
-
         return ApiBaseResponse::success(
             data: [
                 'userAddedToQue' => $result['userAddedToQueue'],
@@ -82,10 +114,15 @@ class QueueSessionController extends Controller
         );
     }
 
+    #[Response([
+        'success' => true,
+        'message' => 'Success',
+        'data' => new \stdClass(),
+        'meta' =>  new \stdClass()
+    ])]
     public function removeQueueUser(AddRemoveUserQueueSessionRequest $request)
     {
         $result = $this->queueSessionService->removeQueueUser($request->validated());
-
         return ApiBaseResponse::success(
             data: [
                 'userRemovedFromQue' => $result['userRemovedFromQue'],
