@@ -556,21 +556,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-companies">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -685,21 +679,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-companies--id-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -840,7 +828,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-companies">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-companies" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-companies"></span>:
@@ -1014,7 +1014,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-companies--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-companies--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-companies--id-"></span>:
@@ -1198,21 +1210,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -1360,21 +1366,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users--id-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -1500,7 +1500,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"password\": \"pBNvYg\",
     \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"SuperAdmin\"
+    \"role\": \"QueAdmin\"
 }"
 </code></pre></div>
 
@@ -1522,7 +1522,7 @@ let body = {
     "password": "pBNvYg",
     "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "SuperAdmin"
+    "role": "QueAdmin"
 };
 
 fetch(url, {
@@ -1534,7 +1534,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-users">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-users" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-users"></span>:
@@ -1686,10 +1698,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="POSTapi-users"
-               value="SuperAdmin"
+               value="QueAdmin"
                data-component="body">
     <br>
-<p>Example: <code>SuperAdmin</code></p>
+<p>Example: <code>QueAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1718,7 +1730,7 @@ Must be one of:
     \"password\": \"pBNvYg\",
     \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"CompanyAdmin\"
+    \"role\": \"QueAdmin\"
 }"
 </code></pre></div>
 
@@ -1740,7 +1752,7 @@ let body = {
     "password": "pBNvYg",
     "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "CompanyAdmin"
+    "role": "QueAdmin"
 };
 
 fetch(url, {
@@ -1752,7 +1764,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-users--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-users--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-users--id-"></span>:
@@ -1917,10 +1941,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--id-"
-               value="CompanyAdmin"
+               value="QueAdmin"
                data-component="body">
     <br>
-<p>Example: <code>CompanyAdmin</code></p>
+<p>Example: <code>QueAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1963,7 +1987,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-users--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-users--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-users--id-"></span>:
@@ -2096,21 +2132,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-queue-sessions">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -2238,21 +2268,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-queue-sessions--id-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -2391,7 +2415,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-queue-sessions">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-queue-sessions" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-queue-sessions"></span>:
@@ -2551,7 +2587,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-queue-sessions--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-queue-sessions--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-queue-sessions--id-"></span>:
@@ -2712,7 +2760,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-queue-sessions--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-queue-sessions--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-queue-sessions--id-"></span>:
@@ -2848,7 +2908,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-queue-sessions-add-queue-users">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-queue-sessions-add-queue-users" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-queue-sessions-add-queue-users"></span>:
@@ -3008,7 +3080,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-queue-sessions-remove-queue-user">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-queue-sessions-remove-queue-user" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-queue-sessions-remove-queue-user"></span>:
@@ -3157,21 +3241,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-customers">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -3286,21 +3364,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-customers--id-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
@@ -3439,7 +3511,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-customers">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-customers" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-customers"></span>:
@@ -3568,7 +3652,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"id\": 16,
-    \"customerStatus\": \"InProgress\"
+    \"customerStatus\": \"Pending\"
 }"
 </code></pre></div>
 
@@ -3585,7 +3669,7 @@ const headers = {
 
 let body = {
     "id": 16,
-    "customerStatus": "InProgress"
+    "customerStatus": "Pending"
 };
 
 fetch(url, {
@@ -3597,7 +3681,19 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-customers--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-customers--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-customers--id-"></span>:
@@ -3702,10 +3798,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="customerStatus"                data-endpoint="PUTapi-customers--id-"
-               value="InProgress"
+               value="Pending"
                data-component="body">
     <br>
-<p>Example: <code>InProgress</code></p>
+<p>Example: <code>Pending</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>Pending</code></li> <li><code>InProgress</code></li> <li><code>Done</code></li></ul>
         </div>
@@ -3749,21 +3845,15 @@ fetch(url, {
 
 <span id="example-responses-GETapi-access-control-app-menu">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Internal server error, check exception logs!&quot;,
-    &quot;meta&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Success&quot;,
+    &quot;data&quot;: {},
+    &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
