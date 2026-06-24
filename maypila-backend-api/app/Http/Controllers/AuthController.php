@@ -27,8 +27,8 @@ class AuthController extends Controller
 	{
 		$credentials = $request->validated();
 		$user = $this->userService->getUserByEmail($credentials['email']);
-		$companies = $user->companies;
-		$roles = $user->roles;
+		$user->companies;
+		$user->roles;
 
 		if (!$user || !Hash::check($credentials['password'], $user->password)) {
 			throw new AuthorizationException('The provided credentials are incorrect.');
@@ -41,8 +41,8 @@ class AuthController extends Controller
 			data: UserResource::make($user),
 			message: 'Login successful.',
 			meta: [
-				'companies' => $companies,
-				'roles' => $roles,
+				//'companies' => $companies,
+				//'roles' => $roles,
 				'token_name' => $tokenName,
 				'token' => $token
 			]
