@@ -1,4 +1,4 @@
-import type { UserAccount } from '@/features/userAccounts/types/userAccount'
+import type { UserAccount } from '@/features/user-accounts/types/user-accounts.types'
 
 const createStaticUsers = (): UserAccount[] => [
     {

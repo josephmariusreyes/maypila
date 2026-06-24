@@ -12,7 +12,7 @@ import {
 	FieldLabel,
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import type { UserAccount } from '@/features/userAccounts/types/userAccount'
+import type { UserAccount } from '@/features/user-accounts/types/user-accounts.types'
 
 const props = defineProps<{
 	userAccount: UserAccount | null

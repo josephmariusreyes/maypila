@@ -30,9 +30,9 @@ import Card from '@/components/ui/card/Card.vue'
 import CreateUserForm from '../components/CreateUserForm.vue';
 
 //Services
-import { userAccountsService } from '../services/user-accounts.service.ts'
+import { UserAccountsService } from '../services/user-accounts.service.ts'
 
-const userAccount = computed(() => userAccountsService.GetUser(1));
+const userAccount = computed(() => UserAccountsService.getUser(1));
 
 
 </script>

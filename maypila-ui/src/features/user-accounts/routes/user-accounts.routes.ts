@@ -1,14 +1,14 @@
 import type { RouteRecordRaw } from 'vue-router'
 import appMainLayout from '@/components/layouts/AppMainLayout.vue'
-import CreateUserPage from '@/features/userAccounts/pages/CreateUserPage.vue'
-import LoginPage from '@/features/userAccounts/pages/LoginPage.vue'
+import CreateUserPage from '@/features/user-accounts/pages/CreateUserPage.vue'
+import LoginPage from '@/features/user-accounts/pages/LoginPage.vue'
 import UserDetailPage from '../pages/UserDetailPage.vue'
 import UserListingPage from '../pages/UserListingPage.vue'
 
 export const userAccountsRoutes: RouteRecordRaw = {
 	path: '/user-accounts',
 	children: [
-        //public routes
+		//public routes
 		{
 			path: '',
 			redirect: {
@@ -29,7 +29,7 @@ export const userAccountsRoutes: RouteRecordRaw = {
 				},
 			],
 		},
-        //logged in routes
+		//logged in routes
 		{
 			path: '',
 			component: appMainLayout,
