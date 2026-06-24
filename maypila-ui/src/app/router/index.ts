@@ -3,6 +3,7 @@ import { dashboardRoutes } from '@/features/dashboard/routes/dashboard.routes'
 import { queueSessionRoutes } from '@/features/queueSession/routes/queue-session.routes'
 import { userAccountsRoutes } from '@/features/userAccounts/routes/user-accounts.routes'
 import { createRouter, createWebHistory } from 'vue-router'
+import { canAccessRoute } from '@/app/guards/app.guard'
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -17,5 +18,6 @@ const router = createRouter({
 		dashboardRoutes,
 	],
 })
+router.beforeEach((to) => canAccessRoute(to))
 
 export default router
