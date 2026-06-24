@@ -1,7 +1,8 @@
 import { client } from './generated/client.gen';
+import { API_BASE_URL } from '@/config';
 
 client.setConfig({
-    baseUrl: import.meta.env.VITE_API_URL,
+    baseUrl: API_BASE_URL,
     headers: {
         Accept: 'application/json',
     },
