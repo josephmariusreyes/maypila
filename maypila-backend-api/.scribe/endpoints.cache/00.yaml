@@ -141,13 +141,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -193,13 +190,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -278,7 +272,13 @@ endpoints:
       company_email: zbailey@example.net
       description: 'Eius et animi quos velit et.'
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -369,7 +369,13 @@ endpoints:
       company_email: zbailey@example.net
       description: 'Eius et animi quos velit et.'
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -427,13 +433,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -491,13 +494,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -597,7 +597,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: SuperAdmin
+        example: QueAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -614,9 +614,15 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: SuperAdmin
+      role: QueAdmin
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -728,7 +734,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: CompanyAdmin
+        example: QueAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -745,9 +751,15 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: CompanyAdmin
+      role: QueAdmin
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -790,7 +802,13 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -836,13 +854,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -888,13 +903,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -961,7 +973,13 @@ endpoints:
       description: 'Et animi quos velit et fugiat.'
       companyId: 16
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1040,7 +1058,13 @@ endpoints:
       description: 'Et animi quos velit et fugiat.'
       companyId: 16
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1083,7 +1107,13 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1150,7 +1180,13 @@ endpoints:
       queueSessionId: 16
       companyId: 16
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1217,7 +1253,13 @@ endpoints:
       queueSessionId: 16
       companyId: 16
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1251,13 +1293,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1303,13 +1342,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1376,7 +1412,13 @@ endpoints:
       lastName: 'n'
       mobileNumber: '09564255931'
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1433,7 +1475,7 @@ endpoints:
         name: customerStatus
         description: ''
         required: true
-        example: InProgress
+        example: Pending
         type: string
         enumValues:
           - Pending
@@ -1444,9 +1486,15 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       id: 16
-      customerStatus: InProgress
+      customerStatus: Pending
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
@@ -1480,13 +1528,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"Internal server error, check exception logs!","meta":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 200
+        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        headers: []
+        description: ''
     responseFields: []
     auth: []
     controller: null
