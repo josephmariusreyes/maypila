@@ -6,10 +6,8 @@
     text-foreground
 	  auth-layout-background
   -->
-  <div
-    class="min-h-screen main-theme-bg-color
-	"
-  >
+  <div class="min-h-screen main-theme-bg-color
+	">
     <!--
       mx-auto: centers this block horizontally within its parent by using automatic left and right margins.
       flex: makes this div a flex container so its children can be aligned with flexbox utilities.
@@ -23,20 +21,17 @@
       lg:px-10: increases horizontal padding on large screens and up.
       lg:py-10: increases vertical padding on large screens and up.
     -->
-
-    <div
-      class="mx-auto
+    <AppHeaderMenu />
+    <div class="mx-auto
       flex
       min-h-screen
       items-center
       justify-center
       px-2
-      py-2
+      py-14
       md:px-6
-      md:py-8
       lg:px-10
-      lg:py-10"
-    >
+      ">
       <!--
         flex: makes the section a flex container so its content can be aligned with flexbox utilities.
         w-full: makes the section take the full available width of its parent.
@@ -44,11 +39,12 @@
         items-center: centers children vertically along the cross axis of the flex container.
         justify-center: centers children horizontally along the main axis of the flex container.
       -->
-        <RouterView />
+      <RouterView />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import AppHeaderMenu from '../AppHeaderMenu.vue';
 </script>
