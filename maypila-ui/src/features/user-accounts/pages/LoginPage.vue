@@ -26,7 +26,6 @@ import { UserRole } from '@/features/company/enums/userRoleEnums';
 //#endregion
 
 //#region > Component variables
-const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore();
 
@@ -73,9 +72,16 @@ const onSubmit = handleSubmit(async (values) => {
 			});
 		}
 
-		//JephTodo: 6/25 continue tomorrow handling the redirects
-		if (authStore.hasAnyRole([UserRole.CompanyAdmin])) {
-
+		if (authStore.hasAnyRole([UserRole.SuperAdmin])) {
+			router.push('/company/create-company');
+		} else if (authStore.hasAnyRole([UserRole.CompanyAdmin])) {
+			router.push('/queue-session/queue-listing');
+		} else if (authStore.hasAnyRole([UserRole.QueAdmin])) {
+			router.push('/queue-session/customers-in-que-listing');
+		} else if (authStore.hasAnyRole([UserRole.QueEncoder])) {
+			router.push('/queue-session/add-customer-to-que');
+		} else {
+			UserAccountsService.logout();
 		}
 
 

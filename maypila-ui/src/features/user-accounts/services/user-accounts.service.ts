@@ -168,10 +168,11 @@ export const UserAccountsService = {
 				password: request.password,
 			},
 		})
+		const resData = response.data;
 
-		if (response.data?.success) {
-			authStore.setLoginResponse(response.data);
-			const meta = response.data.meta as LoginMeta | undefined;
+		if (resData?.success) {
+			authStore.setLoginResponse(resData);
+			const meta = resData.meta as LoginMeta | undefined;
 			const tokenValue = typeof meta?.token === 'string' ? meta.token : '';
 			const tokenName = typeof meta?.token_name === 'string' ? meta.token_name : '';
 			localStorage.setItem(AUTH_RESPONSE_STORAGE_KEY, JSON.stringify(response));
