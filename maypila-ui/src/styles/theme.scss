@@ -6,17 +6,13 @@
     @apply min-h-screen;
 
     background:
-      radial-gradient(
-        circle at center,
+      radial-gradient(circle at center,
         rgba(255, 255, 255, 0.7) 0%,
-        rgba(255, 255, 255, 0) 35%
-      ),
-      linear-gradient(
-        180deg,
+        rgba(255, 255, 255, 0) 35%),
+      linear-gradient(180deg,
         #edf5f9 0%,
         #eef6f8 50%,
-        #ece8f6 100%
-      );
+        #ece8f6 100%);
   }
 
   .main-theme-color {
@@ -37,8 +33,13 @@
       background-color: #a9bff7;
       cursor: not-allowed;
     }
-  }  
+  }
 }
+
+.main-theme-color-bg {
+  background-color: #4a7ef3;
+}
+
 .font-main-theme-color {
-  color:#4a7ef3;
+  color: #4a7ef3;
 }

@@ -4,6 +4,7 @@ import CreateUserPage from '@/features/user-accounts/pages/CreateUserPage.vue'
 import LoginPage from '@/features/user-accounts/pages/LoginPage.vue'
 import UserDetailPage from '../pages/UserDetailPage.vue'
 import UserListingPage from '../pages/UserListingPage.vue'
+import PublicLayout from '@/components/layouts/PublicLayout.vue';
 
 export const userAccountsRoutes: RouteRecordRaw = {
 	path: '/user-accounts',
@@ -17,7 +18,7 @@ export const userAccountsRoutes: RouteRecordRaw = {
 		},
 		{
 			path: '',
-			component: appMainLayout,
+			component: PublicLayout,
 			meta: {
 				guestOnly: true
 			},

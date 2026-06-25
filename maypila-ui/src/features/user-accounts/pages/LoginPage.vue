@@ -1,22 +1,10 @@
-<template>
-	<section class="
-	flex
-	w-full
-	max-w-l
-	justify-center">
-		<div class="space-y-6">
-			<LoginForm :errors="errors" :error-message="errorMessage" :is-loading="isLoading" @submit="onSubmit" />
-		</div>
-	</section>
-</template>
-
 <script setup lang="ts">
 
 //#region > Imports
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { z } from 'zod'
 
 import LoginForm from '../components/LoginForm.vue';
@@ -48,7 +36,6 @@ const { handleSubmit, errors, setErrors } = useForm({
 		password: '',
 	},
 })
-
 //#endregion
 
 //#region > Component methods
@@ -97,3 +84,15 @@ const onSubmit = handleSubmit(async (values) => {
 })
 //#endregion
 </script>
+
+<template>
+	<section class="
+	flex
+	w-full
+	max-w-l
+	justify-center">
+		<div class="space-y-6">
+			<LoginForm :errors="errors" :error-message="errorMessage" :is-loading="isLoading" @submit="onSubmit" />
+		</div>
+	</section>
+</template>

@@ -172,10 +172,11 @@ export const UserAccountsService = {
 
 		if (resData?.success) {
 			authStore.setLoginResponse(resData);
+
 			const meta = resData.meta as LoginMeta | undefined;
 			const tokenValue = typeof meta?.token === 'string' ? meta.token : '';
 			const tokenName = typeof meta?.token_name === 'string' ? meta.token_name : '';
-			localStorage.setItem(AUTH_RESPONSE_STORAGE_KEY, JSON.stringify(response));
+			localStorage.setItem(AUTH_RESPONSE_STORAGE_KEY, JSON.stringify(resData));
 
 			if (tokenValue) {
 				localStorage.setItem(TOKEN_STORAGE_KEY, tokenValue)

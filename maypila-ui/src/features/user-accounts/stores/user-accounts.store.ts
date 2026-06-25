@@ -23,13 +23,10 @@ export const useAuthStore = defineStore('auth', {
 
 	actions: {
 		setLoginResponse(response: PostApiLoginResponse) {
-			this.authResponse = response
-
+			this.authResponse = response;
 			const meta = response.meta as LoginMeta | undefined
 			const tokenValue = typeof meta?.token === 'string' ? meta.token : ''
-
 			if (tokenValue) {
-				localStorage.setItem(TOKEN_STORAGE_KEY, tokenValue)
 				this.token = tokenValue
 			}
 		},
