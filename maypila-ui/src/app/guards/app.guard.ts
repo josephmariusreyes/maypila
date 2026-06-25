@@ -2,7 +2,8 @@ import type { RouteLocationNormalized } from 'vue-router'
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store'
 
 export function canAccessRoute(to: RouteLocationNormalized) {
-	const authStore = useAuthStore()
+	const authStore = useAuthStore();
+
 	const guestOnly = to.matched.some((routeRecord) => routeRecord.meta.guestOnly)
 
 	if (guestOnly) {
@@ -23,7 +24,6 @@ export function canAccessRoute(to: RouteLocationNormalized) {
 			},
 		}
 	}
-
 	const requiredRoles = to.matched.flatMap((routeRecord) => {
 		const roles = routeRecord.meta.requiredRoles
 		return Array.isArray(roles) ? roles.map(String) : []
