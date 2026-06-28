@@ -95,7 +95,7 @@ class UserController extends Controller
 			password: $validated['password'],
 			mobileNumber: $validated['mobileNumber'],
 			role: $validated['role'],
-			companyId: $validated['company_id']
+			companyId: $validated['companyId']
 		);
 
 		$createdUser = $this->userService->createUser($createdUserDto, $loggedInUser);

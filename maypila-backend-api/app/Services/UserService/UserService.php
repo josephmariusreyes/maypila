@@ -22,7 +22,6 @@ class UserService
 {
     public function createUser(CreateUserDto $createUserDto, User $actor): User
     {
-
         $loggedInUser = User::with(['roles:id,name', 'companies:id,name'])->findOrFail($actor->id);
 
         return DB::transaction(function () use ($createUserDto, $loggedInUser) {
@@ -81,19 +80,25 @@ class UserService
         ?string $roleName,
         ?int $companyId
     ): void {
+
+        //retrieve role by name
+        $roleRecord = Role::where('name', $roleName)->firstOrFail();
+
         if (Gate::forUser($actor)->allows('assignToAnyCompany', User::class)) {
-            $role = Role::where('name', $roleName)->firstOrFail();
+            //Only 'SuperAdmin' role can assign a user to any company 
+            //This means that we can assign the companyId based on the supplied companyId from request
+            //else we use the logged in user companyId
             $company = Company::findOrFail($companyId);
         } else {
-            $role = $actor->roles->firstOrFail();
             $company = $actor->companies->firstOrFail();
 
-            if (! Gate::forUser($actor)->allows('assignRole', [User::class, $role->name])) {
+            //Check if logged in user can assign a role
+            if (!Gate::forUser($actor)->allows('assignRole', [User::class, $roleRecord->name])) {
                 throw new \Exception('You do not have permission to assign this role');
             }
         }
 
-        $user->roles()->sync([$role->id]);
+        $user->roles()->sync([$roleRecord->id]);
         $user->companies()->sync([$company->id]);
     }
 
@@ -133,7 +138,7 @@ class UserService
 
     public function getUserByEmail(string $email): User
     {
-		return User::where('email', $email)->first();
+        return User::where('email', $email)->first();
     }
 
     public function getAppMenu(User $actor): array
