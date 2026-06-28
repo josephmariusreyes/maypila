@@ -12,9 +12,9 @@ const router = createRouter({
 			path: '/',
 			redirect: '/user-accounts/login',
 		},
+		queueSessionRoutes,
 		userAccountsRoutes,
 		companyRoutes,
-		queueSessionRoutes,
 		dashboardRoutes,
 	],
 })
