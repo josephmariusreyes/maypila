@@ -21,7 +21,6 @@
       lg:px-10: increases horizontal padding on large screens and up.
       lg:py-10: increases vertical padding on large screens and up.
     -->
-    <AppHeaderMenu />
     <div class="mx-auto
       flex
       min-h-screen
@@ -46,5 +45,4 @@
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import AppHeaderMenu from '../AppHeaderMenu.vue';
 </script>

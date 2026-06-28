@@ -6,29 +6,83 @@ import {
     DialogContent,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import Card from './ui/card/Card.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store.ts';
+import { UserRole } from '@/features/company/enums/userRoleEnums.ts';
+import { UserAccountsService } from '@/features/user-accounts/services/user-accounts.service.ts';
 //#endregion
 
 //#region > Component variables
 const authStore = useAuthStore();
-const isMenuOpen = ref(false);
+const route = useRoute();
+let isMenuOpen = ref(false);
 
 const appMenu = [
+    //queue session feature
     {
         'name': 'create-queue-session',
         'redirectTo': '/queue-session/create-queue-session',
         'label': 'CREATE ONLINE QUEUE',
-        'requiredRoles': ''
+        'requiredRoles': [UserRole.CompanyAdmin]
+    },
+    {
+        'name': 'queue-listing',
+        'redirectTo': '/queue-session/queue-listing',
+        'label': 'QUEUE LISTING',
+        'requiredRoles': [UserRole.CompanyAdmin]
+    },
+    {
+        'name': 'customers-in-que-listing',
+        'redirectTo': '/queue-session/customers-in-que-listing',
+        'label': 'CUSTOMERS IN QUEUE',
+        'requiredRoles': [UserRole.QueAdmin, UserRole.CompanyAdmin]
+    },
+    //user accounts feature
+    {
+        'name': 'user-listing',
+        'redirectTo': '/user-accounts/user-listing',
+        'label': 'USERS ACCOUNTS',
+        'requiredRoles': [UserRole.CompanyAdmin]
+    },
+    {
+        'name': 'create-users',
+        'redirectTo': '/user-accounts/create-users',
+        'label': 'CREATE USERS',
+        'requiredRoles': [UserRole.CompanyAdmin]
+    },
+    //company features
+    {
+        'name': 'create-company',
+        'redirectTo': '/company/create-company',
+        'label': 'CREATE COMPANY',
+        'requiredRoles': [UserRole.SuperAdmin]
+    },
+    //dashboard features
+    {
+        'name': 'dashboard',
+        'redirectTo': '/dashboard',
+        'label': 'COMPANY ADMIN',
+        'requiredRoles': [UserRole.CompanyAdmin]
     }
+
 ];
+
+const visibleAppMenu = computed(() => {
+    return appMenu.filter((menuItem) => authStore.hasAnyRole(menuItem.requiredRoles));
+});
+
+const isActiveMenuItem = (menuItemName: string) => {
+    return route.name === menuItemName;
+};
 
 //#endregion
 
 //#region > Event methods
 const handleLogout = () => {
+    isMenuOpen.value = false;
+    UserAccountsService.logout();
 }
 //#endregion
 
@@ -70,31 +124,11 @@ const handleLogout = () => {
             <DialogContent class="sm:max-w-sm">
                 <nav>
                     <ul class="flex flex-col items-center gap-6 py-6 text-center text-lg font-medium">
-                        <li>
-                            <RouterLink to="/queue-session/create-queue-session"
-                                class="transition-colors hover:text-blue-600" @click="isMenuOpen = false">
-                                CREATE ONLINE QUEUE
-                            </RouterLink>
-                        </li>
-
-                        <li>
-                            <RouterLink to="/user-accounts/user-listing" class="transition-colors hover:text-blue-600"
+                        <li v-for="menuItem in visibleAppMenu" :key="menuItem.name">
+                            <RouterLink :to="menuItem.redirectTo" class="transition-colors hover:text-blue-600"
+                                :class="{ 'font-bold text-blue-600': isActiveMenuItem(menuItem.name) }"
                                 @click="isMenuOpen = false">
-                                MANAGE USERS
-                            </RouterLink>
-                        </li>
-
-                        <li>
-                            <RouterLink to="/user-accounts/create-users" class="transition-colors hover:text-blue-600"
-                                @click="isMenuOpen = false">
-                                CREATE USERS
-                            </RouterLink>
-                        </li>
-
-                        <li>
-                            <RouterLink to="/dashboard" class="transition-colors hover:text-blue-600"
-                                @click="isMenuOpen = false">
-                                DASHBOARD
+                                {{ menuItem.label }}
                             </RouterLink>
                         </li>
 
