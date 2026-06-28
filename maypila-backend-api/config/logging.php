@@ -65,6 +65,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'local_file' => [
+            'driver' => 'single',
+            'path' => base_path('logs/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
