@@ -121,7 +121,7 @@ import { queueSessionService } from '../services/queue-session.service'
 const router = useRouter()
 
 const userAccounts = computed(() =>
-	queueSessionService.GetAllUsers()
+	queueSessionService.getAllUsers()
 )
 
 // Display only first 5 users

@@ -8,6 +8,7 @@ import QueueDetailsPage from '@/features/queue-sessions/pages/QueueDetailsPage.v
 import CustomerStatusPage from '@/features/queue-sessions/pages/CustomerStatusPage.vue';
 import PublicLayout from '@/components/layouts/PublicLayout.vue';
 import CustomersInQueueListingPage from '../pages/CustomersInQueueListingPage.vue';
+import CustomerQueueBoard from '../pages/CustomerQueueBoard.vue';
 
 export const queueSessionRoutes: RouteRecordRaw = {
     path: '/queue-session',
@@ -33,6 +34,11 @@ export const queueSessionRoutes: RouteRecordRaw = {
                     path: 'customer-status',
                     name: 'customer-status',
                     component: CustomerStatusPage
+                },
+                {
+                    path: 'customer-queue-board/:queueSessionId',
+                    name: 'customer-queue-board',
+                    component: CustomerQueueBoard
                 }
             ]
         },
@@ -48,7 +54,7 @@ export const queueSessionRoutes: RouteRecordRaw = {
                     path: 'customers-in-que-listing',
                     name: 'customers-in-que-listing',
                     meta: {
-                        requiredRoles: [UserRole.QueAdmin],
+                        requiredRoles: [UserRole.QueAdmin, UserRole.CompanyAdmin],
                     },
                     component: CustomersInQueueListingPage
                 },
@@ -72,7 +78,7 @@ export const queueSessionRoutes: RouteRecordRaw = {
                     path: 'queue-details',
                     name: 'queue-details',
                     meta: {
-                        requiredRoles: [UserRole.QueAdmin],
+                        requiredRoles: [UserRole.CompanyAdmin],
                     },
                     component: QueueDetailsPage
                 },

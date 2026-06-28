@@ -1,6 +1,84 @@
 <script setup lang="ts">
+import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { ref } from 'vue';
+import { z } from 'zod';
+
 import Card from '@/components/ui/card/Card.vue';
+import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store';
+import { queueSessionService } from '@/features/queue-sessions/services/queue-session.service';
+import type { AddCustomerToQueueFormValues } from '@/features/queue-sessions/types/queue-session.types';
 import AddCustomerToQueueForm from '../components/AddCustomerToQueueForm.vue';
+
+const authStore = useAuthStore();
+const addCustomerResponse = ref<unknown>(null);
+const isResponseDialogOpen = ref(false);
+
+const formSchema = toTypedSchema(
+	z.object({
+		firstName: z
+			.string()
+			.min(1, 'Firstname is required'),
+		lastName: z
+			.string()
+			.min(1, 'Lastname is required'),
+		phoneNumber: z
+			.string()
+			.min(10, 'Please enter a valid 10 digit number')
+	}),
+)
+
+const { handleSubmit, errors, setErrors, isSubmitting } = useForm<AddCustomerToQueueFormValues>({
+	validationSchema: formSchema,
+	initialValues: {
+		firstName: '',
+		lastName: '',
+		phoneNumber: ''
+	},
+})
+
+const onSubmit = handleSubmit(async () => {
+	const userId = authStore.user?.id;
+	const queueSessionId = authStore.user?.queue_session_id;
+	const companyId = authStore.user?.companies?.[0]?.id ?? authStore.user?.queue_session?.company_id;
+
+	if (!userId || !queueSessionId || !companyId) {
+		setErrors({
+			firstName: 'Unable to add customer because the current user is missing queue session details.',
+		});
+		return;
+	}
+
+	try {
+		const response = await queueSessionService.addCustomerToQueue({
+			userId,
+			queueSessionId,
+			companyId,
+		});
+
+		if (response.error) {
+			setErrors({
+				firstName: getErrorMessage(response.error),
+			});
+			return;
+		}
+
+		addCustomerResponse.value = response.data ?? response;
+		isResponseDialogOpen.value = true;
+	} catch (error) {
+		setErrors({
+			firstName: error instanceof Error ? error.message : 'Unable to add customer to queue.',
+		});
+	}
+})
+
+function getErrorMessage(error: unknown) {
+	if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
+		return error.message;
+	}
+
+	return 'Unable to add customer to queue.';
+}
 </script>
 
 <template>
@@ -20,7 +98,13 @@ import AddCustomerToQueueForm from '../components/AddCustomerToQueueForm.vue';
 					{Description about the queue session goes here}
 				</p>
 			</Card>
-			<AddCustomerToQueueForm />
+			<AddCustomerToQueueForm
+				v-model:response-dialog-open="isResponseDialogOpen"
+				:errors="errors"
+				:is-submitting="isSubmitting"
+				:submit-response="addCustomerResponse"
+				:on-submit="onSubmit"
+			/>
 		</div>
 	</section>
 </template>

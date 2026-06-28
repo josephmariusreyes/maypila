@@ -1,4 +1,6 @@
 import type { UserAccount } from '@/features/user-accounts/types/user-accounts.types'
+import { client, postApiQueueSessionsAddQueueUsers } from '@/app/api'
+import type { addCustomerToQueueRequest } from '@/features/queue-sessions/types/queue-session.types'
 
 const createStaticUsers = (): UserAccount[] => [
     {
@@ -114,21 +116,23 @@ const createStaticUsers = (): UserAccount[] => [
 ]
 
 export const queueSessionService = {
-    GetUser(id: number): UserAccount | null {
+
+    //Temporary methods for UI
+    getUser(id: number): UserAccount | null {
         const users = createStaticUsers()
         return users.find((user) => user.id === id) ?? null
     },
 
-    GetAllUsers(): UserAccount[] {
+    getAllUsers(): UserAccount[] {
         return createStaticUsers()
     },
 
-    UpdateUser(user: UserAccount): UserAccount {
+    updateUser(user: UserAccount): UserAccount {
         window.alert(`UpdateUser payload: ${JSON.stringify(user, null, 2)}`)
         return user
     },
 
-    DeleteUser(id: number): UserAccount | null {
+    deleteUser(id: number): UserAccount | null {
         const users = createStaticUsers()
         const user = users.find((item) => item.id === id)
 
@@ -145,4 +149,14 @@ export const queueSessionService = {
         window.alert(`DeleteUser result: ${JSON.stringify(updatedUser, null, 2)}`)
         return updatedUser
     },
+
+    async addCustomerToQueue(request: addCustomerToQueueRequest) {
+        return postApiQueueSessionsAddQueueUsers({
+            client,
+            body: request,
+        })
+    },
+
+
+
 }
