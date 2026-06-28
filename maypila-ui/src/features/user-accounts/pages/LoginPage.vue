@@ -14,7 +14,7 @@ import { UserRole } from '@/features/company/enums/userRoleEnums';
 //#endregion
 
 //#region > Component variables
-const router = useRouter()
+const router = useRouter();
 const authStore = useAuthStore();
 
 const isLoading = ref(false)

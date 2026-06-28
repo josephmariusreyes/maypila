@@ -7,6 +7,7 @@ import type { LoginMeta } from '@/features/user-accounts/types/user-accounts.typ
 import { TOKEN_STORAGE_KEY } from '@/app/constants/app.constants';
 import { AUTH_RESPONSE_STORAGE_KEY } from '@/app/constants/app.constants';
 import { TOKEN_NAME_STORAGE_KEY } from '@/app/constants/app.constants';
+import { useRouter } from 'vue-router';
 
 //JephNote: This is temporary code will remove this later on once API is integrated
 const createStaticUsers = (): UserAccount[] => [
@@ -122,7 +123,7 @@ const createStaticUsers = (): UserAccount[] => [
 	},
 ]
 
-//Local types
+const router = useRouter();
 
 export const UserAccountsService = {
 
@@ -191,12 +192,14 @@ export const UserAccountsService = {
 	},
 
 	logout() {
-		const authStore = useAuthStore()
+		const authStore = useAuthStore();
 		authStore.logout();
 
-		localStorage.removeItem(AUTH_RESPONSE_STORAGE_KEY)
-		localStorage.removeItem(TOKEN_STORAGE_KEY)
-		localStorage.removeItem(TOKEN_NAME_STORAGE_KEY)
+		localStorage.removeItem(AUTH_RESPONSE_STORAGE_KEY);
+		localStorage.removeItem(TOKEN_STORAGE_KEY);
+		localStorage.removeItem(TOKEN_NAME_STORAGE_KEY);
+
+		router.push('user-accounts/');
 	}
 }
 
