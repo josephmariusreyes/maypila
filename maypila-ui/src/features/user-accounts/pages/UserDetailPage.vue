@@ -16,7 +16,7 @@
 				</p>
 			</Card>
 
-			<CreateUserForm :userAccount="null" />
+			<!-- <CreateUserForm :userAccount="null" /> -->
 		</div>
 	</section>
 </template>
@@ -27,7 +27,7 @@ import { computed } from 'vue'
 
 //UI components
 import Card from '@/components/ui/card/Card.vue'
-import CreateUserForm from '../components/CreateUserForm.vue';
+// import CreateUserForm from '../components/CreateUserForm.vue';
 
 //Services
 import { UserAccountsService } from '../services/user-accounts.service.ts'

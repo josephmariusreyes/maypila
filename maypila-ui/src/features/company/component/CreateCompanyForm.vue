@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { toTypedSchema } from '@vee-validate/zod'
-import { useForm, Field as VeeField } from 'vee-validate'
-import { h } from 'vue'
-import { toast } from 'vue-sonner'
-import { z } from 'zod'
+import { Field as VeeField } from 'vee-validate'
+import { computed, ref } from 'vue'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ref } from 'vue'
 import { ArrowRight } from '@lucide/vue'
 
 import { Button } from '@/components/ui/button'
@@ -13,6 +9,12 @@ import {
     Card,
     CardContent,
 } from '@/components/ui/card'
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog'
 import {
     Field,
     FieldDescription,
@@ -25,48 +27,37 @@ import {
     InputGroupTextarea,
     InputGroupText,
 } from '@/components/ui/input-group'
+import { Label } from '@/components/ui/label'
 
-const formSchema = toTypedSchema(
-    z.object({
-        companyName: z
-            .string()
-            .min(1, 'Company name is required'),
-        companyDescription: z
-            .string()
-            .min(1, 'Company description is required'),
-        companyEmail: z
-            .string()
-            .email('Please enter a valid email address')
-            .min(10, 'Please enter a valid 10 digit number')
-    }),
-)
+const props = defineProps<{
+    errors?: Partial<Record<string, string | undefined>>
+    isSubmitting?: boolean
+    submitResponse?: unknown
+    onSubmit?: (event?: Event) => void
+}>()
 
-const { handleSubmit, errors } = useForm({
-    validationSchema: formSchema,
-    initialValues: {
-        companyName: '',
-        companyDescription: '',
-        companyEmail: ''
-    },
+const isResponseDialogOpen = defineModel<boolean>('responseDialogOpen', {
+    default: false,
 })
 
 const accepted = ref(false);
-const onSubmit = handleSubmit((data) => {
-    toast('You submitted the following values:', {
-        description: h('pre', { class: 'bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4' }, h('code', JSON.stringify(data, null, 2))),
-        position: 'bottom-right',
-        class: 'flex flex-col gap-2',
-        style: {
-            '--border-radius': 'calc(var(--radius)  + 4px)',
-        },
-    })
-})
+const formattedSubmitResponse = computed(() => JSON.stringify(props.submitResponse, null, 2))
+const currentErrors = computed(() => props.errors ?? {})
+
+function handleFormSubmit(event: Event) {
+    if (props.onSubmit) {
+        props.onSubmit(event)
+        return
+    }
+
+    event.preventDefault()
+}
 </script>
 
 <template>
     <Card class="w-full">
         <CardContent class="mt-6">
-            <form class="space-y-5" @submit="onSubmit">
+            <form class="space-y-5" @submit="handleFormSubmit">
                 <VeeField v-slot="{ field, errors }" name="companyName">
                     <Field :data-invalid="!!errors.length">
                         <FieldLabel for="company-input">
@@ -137,16 +128,16 @@ const onSubmit = handleSubmit((data) => {
                         </p>
                     </div>
                 </div>
-                <Button class="w-full gap-2 main-theme-color" size="lg" type="submit">
-                    Create AddToQueue Account.
+                <Button class="w-full gap-2 main-theme-color" size="lg" type="submit" :disabled="isSubmitting || !accepted">
+                    {{ isSubmitting ? 'Creating Account...' : 'Create AddToQueue Account.' }}
 					<ArrowRight class="h-4 w-4" />
                 </Button>
             </form>
-            <div v-if="Object.keys(errors).length > 0"
+            <div v-if="Object.keys(currentErrors).length > 0"
                 class="mt-6 rounded-2xl border border-red-100 bg-red-50/80 p-4 text-sm text-red-900">
                 <p class="font-medium">Validation Errors</p>
                 <ul class="mt-2 list-disc space-y-1 pl-5">
-                    <li v-for="(message, field) in errors" :key="field">
+                    <li v-for="(message, field) in currentErrors" :key="field">
                         {{ message }}
                     </li>
                 </ul>
@@ -154,4 +145,12 @@ const onSubmit = handleSubmit((data) => {
 
         </CardContent>
     </Card>
+    <Dialog v-model:open="isResponseDialogOpen">
+        <DialogContent class="sm:max-w-lg">
+            <DialogHeader>
+                <DialogTitle>Create Company Response</DialogTitle>
+            </DialogHeader>
+            <pre class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ formattedSubmitResponse }}</pre>
+        </DialogContent>
+    </Dialog>
 </template>

@@ -1,6 +1,7 @@
 import type { UserAccount } from '@/features/user-accounts/types/user-accounts.types'
-import { client, postApiQueueSessionsAddQueueUsers } from '@/app/api'
+import { client, postApiQueueSessions, postApiQueueSessionsAddQueueUsers } from '@/app/api'
 import type { addCustomerToQueueRequest } from '@/features/queue-sessions/types/queue-session.types'
+import type { createQueueSessionRequest } from '@/features/queue-sessions/types/queue-session.types'
 
 const createStaticUsers = (): UserAccount[] => [
     {
@@ -157,6 +158,11 @@ export const queueSessionService = {
         })
     },
 
-
+    async createQueueSession(request: createQueueSessionRequest) {
+        return postApiQueueSessions({
+            client,
+            body: request,
+        })
+    }
 
 }

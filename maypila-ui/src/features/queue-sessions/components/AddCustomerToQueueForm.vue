@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { Field as VeeField } from 'vee-validate'
 
 import { Button } from '@/components/ui/button'
@@ -7,12 +6,6 @@ import {
   Card,
   CardContent,
 } from '@/components/ui/card'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
 import {
   Field,
   FieldLabel,
@@ -28,15 +21,8 @@ import {
 const props = defineProps<{
   errors: Partial<Record<string, string | undefined>>
   isSubmitting: boolean
-  submitResponse: unknown
   onSubmit: (event?: Event) => void
 }>()
-
-const isResponseDialogOpen = defineModel<boolean>('responseDialogOpen', {
-  default: false,
-})
-
-const formattedSubmitResponse = computed(() => JSON.stringify(props.submitResponse, null, 2))
 </script>
 
 <template>
@@ -100,12 +86,4 @@ const formattedSubmitResponse = computed(() => JSON.stringify(props.submitRespon
 
     </CardContent>
   </Card>
-  <Dialog v-model:open="isResponseDialogOpen">
-    <DialogContent class="sm:max-w-lg">
-      <DialogHeader>
-        <DialogTitle>Add Customer Response</DialogTitle>
-      </DialogHeader>
-      <pre class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ formattedSubmitResponse }}</pre>
-    </DialogContent>
-  </Dialog>
 </template>

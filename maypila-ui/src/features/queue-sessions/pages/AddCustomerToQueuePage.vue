@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { z } from 'zod';
 
 import Card from '@/components/ui/card/Card.vue';
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from '@/components/ui/dialog';
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store';
 import { queueSessionService } from '@/features/queue-sessions/services/queue-session.service';
 import type { AddCustomerToQueueFormValues } from '@/features/queue-sessions/types/queue-session.types';
@@ -13,6 +19,7 @@ import AddCustomerToQueueForm from '../components/AddCustomerToQueueForm.vue';
 const authStore = useAuthStore();
 const addCustomerResponse = ref<unknown>(null);
 const isResponseDialogOpen = ref(false);
+const formattedSubmitResponse = computed(() => JSON.stringify(addCustomerResponse.value, null, 2));
 
 const formSchema = toTypedSchema(
 	z.object({
@@ -92,19 +99,23 @@ function getErrorMessage(error: unknown) {
 					Add Customer To:
 				</strong>
 				<strong class="text-left font-main-theme-color text-2xl">
-					 {QueueName}
+					{QueueName}
 				</strong>
 				<p class="text-sm leading-6 text-slate-600">
 					{Description about the queue session goes here}
 				</p>
 			</Card>
-			<AddCustomerToQueueForm
-				v-model:response-dialog-open="isResponseDialogOpen"
-				:errors="errors"
-				:is-submitting="isSubmitting"
-				:submit-response="addCustomerResponse"
-				:on-submit="onSubmit"
-			/>
+			<AddCustomerToQueueForm :errors="errors" :is-submitting="isSubmitting" :on-submit="onSubmit" />
 		</div>
 	</section>
+
+	<Dialog v-model:open="isResponseDialogOpen">
+		<DialogContent class="sm:max-w-lg">
+			<DialogHeader>
+				<DialogTitle>Add Customer Response</DialogTitle>
+			</DialogHeader>
+			<pre
+				class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ formattedSubmitResponse }}</pre>
+		</DialogContent>
+	</Dialog>
 </template>

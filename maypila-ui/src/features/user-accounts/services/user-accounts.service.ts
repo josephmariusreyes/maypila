@@ -1,13 +1,13 @@
 import type { UserAccount } from '@/features/user-accounts/types/user-accounts.types';
 import type { LoginUserRequest } from '@/features/user-accounts/types/user-accounts.types';
-import { client, postApiLogin } from '@/app/api';
+import type { createUserAccountRequest } from '@/features/user-accounts/types/user-accounts.types';
+import { client, postApiLogin, postApiUsers } from '@/app/api';
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store'
 import type { LoginMeta } from '@/features/user-accounts/types/user-accounts.types';
 
 import { TOKEN_STORAGE_KEY } from '@/app/constants/app.constants';
 import { AUTH_RESPONSE_STORAGE_KEY } from '@/app/constants/app.constants';
 import { TOKEN_NAME_STORAGE_KEY } from '@/app/constants/app.constants';
-import { useRouter } from 'vue-router';
 
 //JephNote: This is temporary code will remove this later on once API is integrated
 const createStaticUsers = (): UserAccount[] => [
@@ -123,8 +123,6 @@ const createStaticUsers = (): UserAccount[] => [
 	},
 ]
 
-const router = useRouter();
-
 export const UserAccountsService = {
 
 	getUser(id: number): UserAccount | null {
@@ -191,6 +189,13 @@ export const UserAccountsService = {
 		return response;
 	},
 
+	async createUserAccount(request: createUserAccountRequest) {
+		return postApiUsers({
+			client,
+			body: request,
+		})
+	},
+
 	logout() {
 		const authStore = useAuthStore();
 		authStore.logout();
@@ -199,7 +204,7 @@ export const UserAccountsService = {
 		localStorage.removeItem(TOKEN_STORAGE_KEY);
 		localStorage.removeItem(TOKEN_NAME_STORAGE_KEY);
 
-		router.push('user-accounts/');
+		window.location.reload();
 	}
 }
 
