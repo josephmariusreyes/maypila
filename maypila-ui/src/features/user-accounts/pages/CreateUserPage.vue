@@ -2,10 +2,12 @@
 
 //#region > Imports
 import { toTypedSchema } from '@vee-validate/zod';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
 
+import AppAlertDialog from '@/components/shared/AppAlertDialog.vue';
+import { Button } from '@/components/ui/button';
 import Card from '@/components/ui/card/Card.vue';
 import { UserRole } from '@/features/company/enums/userRoleEnums';
 import { UserAccountsService } from '@/features/user-accounts/services/user-accounts.service';
@@ -65,6 +67,7 @@ const { handleSubmit, errors, setErrors, isSubmitting } = useForm<CreateUserForm
 
 //#region > Component variables
 const authStore = useAuthStore();
+const appAlertDialog = ref<InstanceType<typeof AppAlertDialog> | null>(null);
 const createUserResponse = ref<unknown>(null);
 
 const isResponseDialogOpen = ref(false);
@@ -115,17 +118,20 @@ const onSubmit = handleSubmit(async (data) => {
 			return;
 		}
 
-		createUserResponse.value = response.data ?? response;
-		isResponseDialogOpen.value = true;
+		appAlertDialog.value?.showAlertDialog({
+			title: 'Test Alert Dialog Title',
+			description: 'Test alert dialog description. Click Continue to run the callback.',
+			cancelText: 'No',
+			continueText: 'Delete',
+			callback: () => {
+				createUserResponse.value = response.data ?? response;
+			},
+		});
 	} catch (error) {
 		isErrorDialogOpen.value = true;
 		errorDialogMsg.value = getErrorMessage(error, 'Unable to create user account.');
 	}
-})
-
-const onOk = () => {
-
-};
+});
 //#endregion
 
 //jeph.Todo: this to helper
@@ -182,4 +188,5 @@ function getErrorMessage(error: unknown, fallbackMessage: string) {
 		</DialogContent>
 	</Dialog>
 
+	<AppAlertDialog ref="appAlertDialog" />
 </template>

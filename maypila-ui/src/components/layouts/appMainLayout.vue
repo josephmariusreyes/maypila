@@ -46,5 +46,5 @@
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import AppHeaderMenu from '../AppHeaderMenu.vue';
+import AppHeaderMenu from '../shared/AppHeaderMenu.vue';
 </script>

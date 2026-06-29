@@ -7,11 +7,11 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog'
 import { RouterLink, useRoute } from 'vue-router'
-import Card from './ui/card/Card.vue';
 import { computed, ref } from 'vue';
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store.ts';
 import { UserRole } from '@/features/company/enums/userRoleEnums.ts';
 import { UserAccountsService } from '@/features/user-accounts/services/user-accounts.service.ts';
+import Card from '../ui/card/Card.vue';
 //#endregion
 
 //#region > Component variables
