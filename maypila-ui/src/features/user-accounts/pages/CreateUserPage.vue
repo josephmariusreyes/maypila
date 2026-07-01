@@ -2,24 +2,18 @@
 
 //#region > Imports
 import { toTypedSchema } from '@vee-validate/zod';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
 
 import AppAlertDialog from '@/components/shared/AppAlertDialog.vue';
-import { Button } from '@/components/ui/button';
 import Card from '@/components/ui/card/Card.vue';
 import { UserRole } from '@/features/company/enums/userRoleEnums';
 import { UserAccountsService } from '@/features/user-accounts/services/user-accounts.service';
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store';
 import type { CreateUserFormValues } from '@/features/user-accounts/types/user-accounts.types';
 import CreateUserForm from '../components/CreateUserForm.vue';
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-} from '@/components/ui/dialog';
+import { userCreationFailed } from '@/app/constants/app.generic-error-messages.ts';
 
 //#endregion
 
@@ -68,14 +62,6 @@ const { handleSubmit, errors, setErrors, isSubmitting } = useForm<CreateUserForm
 //#region > Component variables
 const authStore = useAuthStore();
 const appAlertDialog = ref<InstanceType<typeof AppAlertDialog> | null>(null);
-const createUserResponse = ref<unknown>(null);
-
-const isResponseDialogOpen = ref(false);
-const responseDialogMsg = ref('');
-
-//Error dialog
-const isErrorDialogOpen = ref(false);
-const errorDialogMsg = ref('');
 
 const roleOptions = [
 	{
@@ -87,22 +73,41 @@ const roleOptions = [
 		value: UserRole.QueEncoder,
 	},
 ];
+
 //#endregion
+
+// onMounted(() => {
+
+// 	appAlertDialog.value?.showAlertDialog({
+// 		title: 'User Successfully Created!',
+// 		description: `test`,
+// 		continueText: 'Ok',
+// 		callback: () => {
+// 			window.location.href = '/user-accounts/user-listing';
+// 		},
+// 	});
+// });
 
 //#region > Event handlers
 const onSubmit = handleSubmit(async (data) => {
+
 	const companyId = authStore.user?.companies?.[0]?.id ?? authStore.user?.queue_session?.company_id;
 
 	if (!companyId) {
-		setErrors({
-			firstName: 'Unable to create user because the current user is missing company details.',
+		appAlertDialog.value?.showAlertDialog({
+			title: 'Validation Error.',
+			description: `Company ID is missing, App will do a force logout.`,
+			callback: () => {
+				UserAccountsService.logout();
+			},
 		});
 		return;
 	}
 
+	const fullName = `${data.firstName} ${data.lastName}`.trim();
 	try {
 		const response = await UserAccountsService.createUserAccount({
-			name: `${data.firstName} ${data.lastName}`.trim(),
+			name: fullName,
 			email: data.email,
 			password: data.password,
 			mobileNumber: data.mobileNumber,
@@ -111,25 +116,21 @@ const onSubmit = handleSubmit(async (data) => {
 		});
 
 		if (response.error) {
-
-			isErrorDialogOpen.value = true;
-			errorDialogMsg.value = getErrorMessage(response.error, 'Unable to create user account.');
-
-			return;
+			throw new Error(getErrorMessage(response.error, userCreationFailed));
 		}
 
 		appAlertDialog.value?.showAlertDialog({
-			title: 'Test Alert Dialog Title',
-			description: 'Test alert dialog description. Click Continue to run the callback.',
-			cancelText: 'No',
-			continueText: 'Delete',
+			title: 'User Successfully Created.',
+			description: `User "${fullName}" successfully created, page will redirect to user listing.`,
 			callback: () => {
-				createUserResponse.value = response.data ?? response;
+				window.location.href = '/user-accounts/user-listing';
 			},
 		});
 	} catch (error) {
-		isErrorDialogOpen.value = true;
-		errorDialogMsg.value = getErrorMessage(error, 'Unable to create user account.');
+		appAlertDialog.value?.showAlertDialog({
+			title: 'User Creation Failed',
+			description: `Our system ran into an issue during the creation of account "${fullName}", Kindly refresh page and reinput user information.`,
+		});
 	}
 });
 //#endregion
@@ -167,26 +168,5 @@ function getErrorMessage(error: unknown, fallbackMessage: string) {
 				:on-submit="onSubmit" />
 		</div>
 	</section>
-	<!-- Enhance implementation of this later, make a helper for this -->
-	<Dialog v-model:open="isResponseDialogOpen">
-		<DialogContent class="sm:max-w-lg">
-			<DialogHeader>
-				<DialogTitle>Create User Response</DialogTitle>
-			</DialogHeader>
-			<pre
-				class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ responseDialogMsg }}</pre>
-		</DialogContent>
-	</Dialog>
-
-	<Dialog v-model:open="isErrorDialogOpen">
-		<DialogContent class="sm:max-w-lg">
-			<pre
-				class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ errorDialogMsg }}</pre>
-			<Button @click="">
-				Ok
-			</Button>
-		</DialogContent>
-	</Dialog>
-
 	<AppAlertDialog ref="appAlertDialog" />
 </template>

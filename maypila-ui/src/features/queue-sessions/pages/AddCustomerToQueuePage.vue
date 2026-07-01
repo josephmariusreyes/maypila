@@ -15,6 +15,7 @@ import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.stor
 import { queueSessionService } from '@/features/queue-sessions/services/queue-session.service';
 import type { AddCustomerToQueueFormValues } from '@/features/queue-sessions/types/queue-session.types';
 import AddCustomerToQueueForm from '../components/AddCustomerToQueueForm.vue';
+import { getErrorMessage } from '@/lib/utils.ts';
 
 const authStore = useAuthStore();
 const addCustomerResponse = ref<unknown>(null);
@@ -79,13 +80,7 @@ const onSubmit = handleSubmit(async () => {
 	}
 })
 
-function getErrorMessage(error: unknown) {
-	if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
-		return error.message;
-	}
 
-	return 'Unable to add customer to queue.';
-}
 </script>
 
 <template>
