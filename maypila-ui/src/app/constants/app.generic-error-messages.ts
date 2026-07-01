@@ -1,0 +1,1 @@
+export const userCreationFailed = 'We were unable to create your account. Please verify your information and try again. If the problem persists, contact support.';
