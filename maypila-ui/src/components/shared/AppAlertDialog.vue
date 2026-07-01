@@ -17,17 +17,19 @@ type AlertDialogCallback = () => void | Promise<void>
 type AlertDialogOptions = {
     title: string
     description: string
-    callback: AlertDialogCallback
+    callback?: AlertDialogCallback
     cancelText?: string
     continueText?: string
+    showCancelButton?: boolean
 }
 
 const defaultCancelText = 'Cancel'
-const defaultContinueText = 'Continue'
+const defaultContinueText = 'Ok'
 
 const isOpen = ref(false)
 const title = ref('')
 const description = ref('')
+const showCancelButton = ref(false)
 const cancelText = ref(defaultCancelText)
 const continueText = ref(defaultContinueText)
 const continueCallback = ref<AlertDialogCallback | null>(null)
@@ -38,8 +40,9 @@ function showAlertDialog(options: AlertDialogOptions) {
     description.value = options.description
     cancelText.value = options.cancelText ?? defaultCancelText
     continueText.value = options.continueText ?? defaultContinueText
-    continueCallback.value = options.callback
+    continueCallback.value = options.callback ?? null
     isOpen.value = true
+    showCancelButton.value = options.showCancelButton ?? false
 }
 
 async function onContinue() {
@@ -48,7 +51,11 @@ async function onContinue() {
     isLoading.value = true
 
     try {
-        await continueCallback.value?.()
+        if (!!continueCallback) {
+            await continueCallback.value?.()
+        } else {
+            onCancel();
+        }
     } finally {
         isLoading.value = false;
         continueCallback.value = null;
@@ -85,7 +92,7 @@ defineExpose({
                 </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-                <AlertDialogCancel @click="onCancel">{{ cancelText }}</AlertDialogCancel>
+                <AlertDialogCancel v-if="showCancelButton" @click="onCancel">{{ cancelText }}</AlertDialogCancel>
                 <AlertDialogAction :disabled="isLoading" @click="onContinue">
                     {{ isLoading ? 'Please wait...' : continueText }}
                 </AlertDialogAction>
