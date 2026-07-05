@@ -29,6 +29,7 @@ class AuthController extends Controller
 		$user = $this->userService->getUserByEmail($credentials['email']);
 		$user->companies;
 		$user->roles;
+		$user->queueSession;
 
 		if (!$user || !Hash::check($credentials['password'], $user->password)) {
 			throw new AuthorizationException('The provided credentials are incorrect.');
