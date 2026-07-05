@@ -1,27 +1,26 @@
 <script setup lang="ts">
+
+//#region > Imports
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
-import { computed, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { z } from 'zod';
 
+import AppAlertDialog from '@/components/shared/AppAlertDialog.vue';
 import Card from '@/components/ui/card/Card.vue';
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-} from '@/components/ui/dialog';
+
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store';
 import { queueSessionService } from '@/features/queue-sessions/services/queue-session.service';
 import type { AddCustomerToQueueFormValues } from '@/features/queue-sessions/types/queue-session.types';
 import AddCustomerToQueueForm from '../components/AddCustomerToQueueForm.vue';
 import { getErrorMessage } from '@/lib/utils.ts';
+import { UserAccountsService } from '@/features/user-accounts/services/user-accounts.service.ts';
 
 const authStore = useAuthStore();
-const addCustomerResponse = ref<unknown>(null);
-const isResponseDialogOpen = ref(false);
-const formattedSubmitResponse = computed(() => JSON.stringify(addCustomerResponse.value, null, 2));
+const appAlertDialog = ref<InstanceType<typeof AppAlertDialog> | null>(null);
+//#endregion
 
+//#region > Veevalidate forms
 const formSchema = toTypedSchema(
 	z.object({
 		firstName: z
@@ -44,6 +43,10 @@ const { handleSubmit, errors, setErrors, isSubmitting } = useForm<AddCustomerToQ
 		phoneNumber: ''
 	},
 })
+//#endregion
+
+//#region > Const component variables
+const queue_session_name = ref('');
 
 const onSubmit = handleSubmit(async () => {
 	const userId = authStore.user?.id;
@@ -51,9 +54,6 @@ const onSubmit = handleSubmit(async () => {
 	const companyId = authStore.user?.companies?.[0]?.id ?? authStore.user?.queue_session?.company_id;
 
 	if (!userId || !queueSessionId || !companyId) {
-		setErrors({
-			firstName: 'Unable to add customer because the current user is missing queue session details.',
-		});
 		return;
 	}
 
@@ -71,15 +71,35 @@ const onSubmit = handleSubmit(async () => {
 			return;
 		}
 
-		addCustomerResponse.value = response.data ?? response;
-		isResponseDialogOpen.value = true;
 	} catch (error) {
-		setErrors({
-			firstName: error instanceof Error ? error.message : 'Unable to add customer to queue.',
+		appAlertDialog.value?.showAlertDialog({
+			title: `Adding Customer To "${queue_session_name}" Failed`,
+			description: `Our system ran into an issue while adding customer to queue "${queue_session_name}", Kindly refresh page and reinput user information.`,
 		});
 	}
 })
+//#endregion
 
+//#region > Functions
+//#endregion
+
+//#region > on mounted life cycle
+onMounted(() => {
+	const queue_session_id = authStore.user?.queue_session_id;
+
+	if (queue_session_id) {
+		queue_session_name.value = authStore.user.queue_session?.name ?? '';
+	} else {
+		appAlertDialog.value?.showAlertDialog({
+			title: 'Your account is not part of any online queue session.',
+			description: `Kindly reach to application administrator to associate a queue session for your account your account will be logged out temporarily.`,
+			callback: () => {
+				UserAccountsService.logout();
+			}
+		});
+	}
+});
+//#endregion
 
 </script>
 
@@ -104,13 +124,6 @@ const onSubmit = handleSubmit(async () => {
 		</div>
 	</section>
 
-	<Dialog v-model:open="isResponseDialogOpen">
-		<DialogContent class="sm:max-w-lg">
-			<DialogHeader>
-				<DialogTitle>Add Customer Response</DialogTitle>
-			</DialogHeader>
-			<pre
-				class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ formattedSubmitResponse }}</pre>
-		</DialogContent>
-	</Dialog>
+
+	<AppAlertDialog ref="appAlertDialog" />
 </template>

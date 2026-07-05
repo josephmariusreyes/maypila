@@ -52,6 +52,8 @@ async function onContinue() {
 
     try {
         if (!!continueCallback) {
+            isLoading.value = false;
+            isOpen.value = false;
             await continueCallback.value?.()
         } else {
             onCancel();
