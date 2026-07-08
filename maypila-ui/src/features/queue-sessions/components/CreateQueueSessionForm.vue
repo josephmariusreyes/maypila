@@ -7,12 +7,7 @@ import {
   Card,
   CardContent,
 } from '@/components/ui/card'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+
 import {
   Field,
   FieldLabel,
@@ -26,17 +21,13 @@ import {
 } from '@/components/ui/input-group'
 
 const props = defineProps<{
-  errors?: Partial<Record<string, string | undefined>>
-  isSubmitting?: boolean
-  submitResponse?: unknown
-  onSubmit?: (event?: Event) => void
+  errors?: Partial<Record<string, string | undefined>>,
+  isSubmitting?: boolean,
+  onSubmit?: (event?: Event) => void,
+  onShowAddQueueUser?: (event?: Event) => void,
+  onRemoveQueueUser?: (event?: Event) => void,
 }>()
 
-const isResponseDialogOpen = defineModel<boolean>('responseDialogOpen', {
-  default: false,
-})
-
-const formattedSubmitResponse = computed(() => JSON.stringify(props.submitResponse, null, 2))
 const currentErrors = computed(() => props.errors ?? {})
 
 function handleFormSubmit(event: Event) {
@@ -44,9 +35,17 @@ function handleFormSubmit(event: Event) {
     props.onSubmit(event)
     return
   }
-
   event.preventDefault()
 }
+
+function handleAddQueueAdmin() {
+
+}
+
+function handleAddQueueEncoder() {
+
+}
+
 </script>
 
 <template>
@@ -82,7 +81,20 @@ function handleFormSubmit(event: Event) {
             <!-- <FieldError v-if="errors.length" :errors="errors" /> -->
           </Field>
         </VeeField>
-
+        <div>
+          <div>
+            <strong>Queue Admins</strong>
+            <span>Add Queue Admin..</span>
+          </div>
+          ListOfQueueAdminHere
+        </div>
+        <div>
+          <div>
+            <strong>Queue Encoder</strong>
+            <span @click="">Add Queue Encoder..</span>
+          </div>
+          ListOfQueueEncoderHere
+        </div>
         <Button class="w-full gap-2 main-theme-color" size="lg" type="submit" :disabled="isSubmitting">
           {{ isSubmitting ? 'Creating Queue Session...' : 'Create Queue Session' }}
         </Button>
@@ -99,12 +111,4 @@ function handleFormSubmit(event: Event) {
 
     </CardContent>
   </Card>
-  <Dialog v-model:open="isResponseDialogOpen">
-    <DialogContent class="sm:max-w-lg">
-      <DialogHeader>
-        <DialogTitle>Create Queue Session Response</DialogTitle>
-      </DialogHeader>
-      <pre class="max-h-96 overflow-auto rounded-md bg-slate-950 p-4 text-sm text-slate-50">{{ formattedSubmitResponse }}</pre>
-    </DialogContent>
-  </Dialog>
 </template>
