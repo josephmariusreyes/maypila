@@ -5,7 +5,6 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { onMounted, ref } from 'vue';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
-
 import AppAlertDialog from '@/components/shared/AppAlertDialog.vue';
 import Card from '@/components/ui/card/Card.vue';
 import { UserRole } from '@/features/company/enums/userRoleEnums';
@@ -14,7 +13,7 @@ import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.stor
 import type { CreateUserFormValues } from '@/features/user-accounts/types/user-accounts.types';
 import CreateUserForm from '../components/CreateUserForm.vue';
 import { userCreationFailed } from '@/app/constants/app.generic-error-messages.ts';
-
+import { getErrorMessage } from '@/lib/utils.ts';
 //#endregion
 
 //#region > Veevalidate forms
@@ -60,6 +59,7 @@ const { handleSubmit, errors, setErrors, isSubmitting } = useForm<CreateUserForm
 //#endregion
 
 //#region > Component variables
+
 const authStore = useAuthStore();
 const appAlertDialog = ref<InstanceType<typeof AppAlertDialog> | null>(null);
 
@@ -77,7 +77,6 @@ const roleOptions = [
 //#endregion
 
 // onMounted(() => {
-
 // 	appAlertDialog.value?.showAlertDialog({
 // 		title: 'User Successfully Created!',
 // 		description: `test`,
@@ -116,7 +115,7 @@ const onSubmit = handleSubmit(async (data) => {
 		});
 
 		if (response.error) {
-			throw new Error(getErrorMessage(response.error, userCreationFailed));
+			throw new Error(getErrorMessage(response.error));
 		}
 
 		appAlertDialog.value?.showAlertDialog({
@@ -128,21 +127,12 @@ const onSubmit = handleSubmit(async (data) => {
 		});
 	} catch (error) {
 		appAlertDialog.value?.showAlertDialog({
-			title: 'User Creation Failed',
+			title: 'User Creation Failed.',
 			description: `Our system ran into an issue during the creation of account "${fullName}", Kindly refresh page and reinput user information.`,
 		});
 	}
 });
 //#endregion
-
-//jeph.Todo: this to helper
-function getErrorMessage(error: unknown, fallbackMessage: string) {
-	if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
-		return error.message;
-	}
-
-	return fallbackMessage;
-}
 
 </script>
 
