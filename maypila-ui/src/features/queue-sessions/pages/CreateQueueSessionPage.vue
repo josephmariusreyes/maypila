@@ -1,19 +1,22 @@
 <script setup lang="ts">
+
+//#region > Imports
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { z } from 'zod';
+import AppAlertDialog from '@/components/shared/AppAlertDialog.vue';
 
 import Card from '@/components/ui/card/Card.vue';
 import { queueSessionService } from '@/features/queue-sessions/services/queue-session.service';
 import type { CreateQueueSessionFormValues } from '@/features/queue-sessions/types/queue-session.types';
 import { useAuthStore } from '@/features/user-accounts/stores/user-accounts.store';
 import CreateQueueSessionForm from '../components/CreateQueueSessionForm.vue';
+import { getErrorMessage } from '@/lib/utils.ts';
+import { queueCreationFaiiled } from '@/app/constants/app.generic-error-messages.ts';
+//#endregion
 
-const authStore = useAuthStore();
-const createQueueSessionResponse = ref<unknown>(null);
-const isResponseDialogOpen = ref(false);
-
+//#region > Veevalidate forms
 const formSchema = toTypedSchema(
 	z.object({
 		queueSessionName: z
@@ -33,6 +36,16 @@ const { handleSubmit, errors, setErrors, isSubmitting } = useForm<CreateQueueSes
 		queueDescription: ''
 	},
 })
+//#endregion
+
+//#region > Const component variables
+
+const authStore = useAuthStore();
+const appAlertDialog = ref<InstanceType<typeof AppAlertDialog> | null>(null);
+
+//#endregion
+
+//#region > Event handlers
 
 const onSubmit = handleSubmit(async (data) => {
 	const companyId = authStore.user?.companies?.[0]?.id ?? authStore.user?.queue_session?.company_id;
@@ -52,28 +65,30 @@ const onSubmit = handleSubmit(async (data) => {
 		});
 
 		if (response.error) {
-			setErrors({
-				queueSessionName: getErrorMessage(response.error, 'Unable to create queue session.'),
-			});
-			return;
+			throw new Error(queueCreationFaiiled);
 		}
 
-		createQueueSessionResponse.value = response.data ?? response;
-		isResponseDialogOpen.value = true;
 	} catch (error) {
-		setErrors({
-			queueSessionName: getErrorMessage(error, 'Unable to create queue session.'),
+		appAlertDialog.value?.showAlertDialog({
+			title: 'Queue Session Creation Failed.',
+			description: `${getErrorMessage(error)}`,
 		});
 	}
-})
+});
 
-function getErrorMessage(error: unknown, fallbackMessage: string) {
-	if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
-		return error.message;
-	}
+const onAddQueueUser = async (event: MouseEvent) => {
 
-	return fallbackMessage;
+};
+
+const onRemoveQueueUser = async (event: MouseEvent) => {
+
+};
+
+const onShowAddQueueUser = async () => {
+
 }
+
+//#endregion
 </script>
 
 <template>
@@ -88,16 +103,12 @@ function getErrorMessage(error: unknown, fallbackMessage: string) {
 					Create Queue Session
 				</strong>
 				<p class="text-sm leading-6 text-slate-600">
-					Set up a queue in seconds. Choose a name, customize your settings, and start managing customer flow instantly.
+					Set up a queue in seconds. Choose a name, customize your settings, and start managing customer flow
+					instantly.
 				</p>
 			</Card>
-			<CreateQueueSessionForm
-				v-model:response-dialog-open="isResponseDialogOpen"
-				:errors="errors"
-				:is-submitting="isSubmitting"
-				:submit-response="createQueueSessionResponse"
-				:on-submit="onSubmit"
-			/>
+			<CreateQueueSessionForm :errors="errors" :is-submitting="isSubmitting" :on-submit="onSubmit"
+				:on-show-add-queue-user="onShowAddQueueUser" />
 		</div>
 	</section>
 </template>

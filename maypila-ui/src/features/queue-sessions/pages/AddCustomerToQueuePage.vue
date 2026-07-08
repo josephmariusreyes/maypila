@@ -109,7 +109,7 @@ onMounted(() => {
 	max-w-md
 	justify-center">
 		<div class="min-w-120 max-w-130">
-			<Card class="p-6 mb-6">
+			<Card class="p-6 mb-6" v-if="queue_session_name !== ''">
 				<strong class="text-left text-1xl">
 					Add Customer To:
 				</strong>
