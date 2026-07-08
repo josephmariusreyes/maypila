@@ -1,1 +1,2 @@
 export const userCreationFailed = 'We were unable to create your account. Please verify your information and try again. If the problem persists, contact support.';
+export const queueCreationFaiiled = 'We were unable to create the queue session. AddToQueue team will look into this issue and get back to you, please try again later.';
