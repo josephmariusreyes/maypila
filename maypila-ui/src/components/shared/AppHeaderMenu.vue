@@ -19,6 +19,9 @@ const authStore = useAuthStore();
 const route = useRoute();
 let isMenuOpen = ref(false);
 
+const user = authStore.user;
+const roles = authStore.roles;
+
 const appMenu = [
     //queue session feature
     {
@@ -102,8 +105,15 @@ const handleLogout = () => {
                         <!-- User Name -->
                         <div>
                             <p class="text-sm font-semibold text-gray-900">
-                                Jon Consumer
+                                {{ user?.name }}
                             </p>
+                            <div class="text-xs">
+                                Role:
+                                <span v-for="role in roles" :key="role">
+                                    {{ role }}
+                                    <span v-if="roles.length > 1">,</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </Card>

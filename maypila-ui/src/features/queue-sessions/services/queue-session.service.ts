@@ -124,7 +124,7 @@ export const queueSessionService = {
         return users.find((user) => user.id === id) ?? null
     },
 
-    getAllUsers(): UserAccount[] {
+    getAllqueueSessions(): UserAccount[] {
         return createStaticUsers()
     },
 

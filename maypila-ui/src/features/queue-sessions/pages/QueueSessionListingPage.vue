@@ -1,3 +1,37 @@
+<script setup lang="ts">
+// Vue
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+// UI Components
+import Card from '@/components/ui/card/Card.vue'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '@/components/ui/table'
+
+// Services
+import { queueSessionService } from '../services/queue-session.service'
+// Logic
+const router = useRouter()
+
+const queueSessionsList = computed(() =>
+	queueSessionService.getAllqueueSessions()
+)
+
+// Display only first 5 users
+
+const viewDetails = () => {
+	router.push({ name: 'user-details' })
+}
+</script>
+
 <template>
 	<section class="flex w-full max-w-4xl items-center justify-center">
 		<div class="w-full space-y-4">
@@ -41,14 +75,14 @@
 					</TableHeader>
 
 					<TableBody>
-						<TableRow v-for="userAccount in displayedUsers" :key="userAccount.id">
+						<TableRow v-for="queueSesion in queueSessionsList" :key="queueSesion.id">
 							<TableCell class="font-medium">
-								{{ userAccount.firstName }}
-								{{ userAccount.lastName }}
+								{{ queueSesion.firstName }}
+								{{ queueSesion.lastName }}
 							</TableCell>
 
 							<TableCell>
-								{{ userAccount.email }}
+								{{ queueSesion.email }}
 							</TableCell>
 
 							<TableCell>
@@ -56,7 +90,7 @@
 							</TableCell>
 
 							<TableCell>
-								{{ userAccount.onlineQueueSession }}
+								{{ queueSesion.onlineQueueSession }}
 							</TableCell>
 
 							<TableCell class="text-right">
@@ -96,40 +130,3 @@
 		</div>
 	</section>
 </template>
-
-<script setup lang="ts">
-// Vue
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
-// UI Components
-import Card from '@/components/ui/card/Card.vue'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/components/ui/table'
-
-// Services
-import { queueSessionService } from '../services/queue-session.service'
-// Logic
-const router = useRouter()
-
-const userAccounts = computed(() =>
-	queueSessionService.getAllUsers()
-)
-
-// Display only first 5 users
-const displayedUsers = computed(() =>
-	userAccounts.value.slice(0, 5)
-)
-
-const viewDetails = () => {
-	router.push({ name: 'user-details' })
-}
-</script>
