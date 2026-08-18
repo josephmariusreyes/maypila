@@ -151,7 +151,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 23, 2026</li>
+        <li>Last updated: July 9, 2026</li>
     </ul>
 </div>
 
@@ -1175,14 +1175,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users" \
+    --get "http://localhost/api/users?companyId=16&amp;role=architecto" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"companyId\": 16,
-    \"role\": \"architecto\"
-}"
-</code></pre></div>
+    --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
@@ -1190,20 +1185,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost/api/users"
 );
 
+const params = {
+    "companyId": "16",
+    "role": "architecto",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
 const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
-let body = {
-    "companyId": 16,
-    "role": "architecto"
-};
 
 fetch(url, {
     method: "GET",
     headers,
-    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -1217,7 +1214,58 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Success&quot;,
-    &quot;data&quot;: {},
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;John Doe&quot;,
+            &quot;email&quot;: &quot;john.doe@example.com&quot;,
+            &quot;mobile_number&quot;: &quot;+1234567890&quot;,
+            &quot;queue_session_id&quot;: 1,
+            &quot;email_verified_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+            &quot;roles&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;admin&quot;,
+                    &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+                },
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;user&quot;,
+                    &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+                }
+            ],
+            &quot;companies&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Acme Corp&quot;,
+                    &quot;description&quot;: &quot;Leading technology solutions provider&quot;,
+                    &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+                },
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;Tech Innovators&quot;,
+                    &quot;description&quot;: &quot;Innovative software development&quot;,
+                    &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+                }
+            ],
+            &quot;queue_session&quot;: {
+                &quot;id&quot;: 1,
+                &quot;created_by&quot;: 1,
+                &quot;company_id&quot;: 1,
+                &quot;name&quot;: &quot;Morning Queue&quot;,
+                &quot;description&quot;: &quot;Queue for morning shift&quot;,
+                &quot;queue_status&quot;: &quot;active&quot;,
+                &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+            }
+        }
+    ],
     &quot;meta&quot;: {}
 }</code>
  </pre>
@@ -1293,32 +1341,32 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="companyId"                data-endpoint="GETapi-users"
                value="16"
-               data-component="body">
+               data-component="query">
     <br>
 <p>Example: <code>16</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>role</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="GETapi-users"
                value="architecto"
-               data-component="body">
+               data-component="query">
     <br>
 <p>Example: <code>architecto</code></p>
-        </div>
-        </form>
+            </div>
+                </form>
 
                     <h2 id="endpoints-GETapi-users--id-">GET api/users/{id}</h2>
 
@@ -1730,7 +1778,7 @@ Must be one of:
     \"password\": \"pBNvYg\",
     \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"QueAdmin\"
+    \"role\": \"QueEncoder\"
 }"
 </code></pre></div>
 
@@ -1752,7 +1800,7 @@ let body = {
     "password": "pBNvYg",
     "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "QueAdmin"
+    "role": "QueEncoder"
 };
 
 fetch(url, {
@@ -1941,10 +1989,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--id-"
-               value="QueAdmin"
+               value="QueEncoder"
                data-component="body">
     <br>
-<p>Example: <code>QueAdmin</code></p>
+<p>Example: <code>QueEncoder</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -2099,13 +2147,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/queue-sessions" \
+    --get "http://localhost/api/queue-sessions?companyId=16" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"companyId\": 16
-}"
-</code></pre></div>
+    --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2113,19 +2157,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost/api/queue-sessions"
 );
 
+const params = {
+    "companyId": "16",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
 const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
-let body = {
-    "companyId": 16
-};
 
 fetch(url, {
     method: "GET",
     headers,
-    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -2215,20 +2261,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>companyId</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="companyId"                data-endpoint="GETapi-queue-sessions"
                value="16"
-               data-component="body">
+               data-component="query">
     <br>
 <p>Example: <code>16</code></p>
-        </div>
-        </form>
+            </div>
+                </form>
 
                     <h2 id="endpoints-GETapi-queue-sessions--id-">GET api/queue-sessions/{id}</h2>
 

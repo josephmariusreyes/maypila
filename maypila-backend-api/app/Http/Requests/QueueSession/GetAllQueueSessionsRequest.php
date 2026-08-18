@@ -5,7 +5,10 @@ namespace App\Http\Requests\QueueSession;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexQueueSessionRequest extends FormRequest
+/**
+ * Query parameters
+ */
+class GetAllQueueSessionsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +27,8 @@ class IndexQueueSessionRequest extends FormRequest
     {
         return [
             'companyId' => ['required', 'integer'],
+            'page' => ['nullable', 'integer', 'min:1'],
+            'perPage' => ['nullable', 'integer', 'min:1', 'max:100'],
         ];
     }
 }

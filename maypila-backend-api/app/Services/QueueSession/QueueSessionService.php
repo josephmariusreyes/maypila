@@ -151,18 +151,19 @@ class QueueSessionService
         });
     }
 
-    public function listQueueSessions(array $data, User $actor)
+    public function getAllQueueSessions(array $data, User $actor)
     {
         $companyId = (int) $data['companyId'];
+        $perPage = (int) ($data['perPage'] ?? 5);
 
         if (! $actor->companies()->whereKey($companyId)->exists()) {
             throw new AuthorizationException('You do not belong to this company.');
         }
 
         return QueueSession::query()
-            ->where('company_id', $companyId)
-            ->latest()
-            ->get();
+            ->where('companyId', $companyId)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     }
 
     private function validateQueueUserCompanyAccess(User $actor, int $queueSessionId, int $userId, int $companyId): void

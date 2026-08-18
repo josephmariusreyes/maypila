@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccessControlController;
 use App\Http\Controllers\CompanyController;
@@ -49,15 +50,14 @@ Route::middleware('auth:sanctum')->group(function () {
     ]))->group(function () {
 
         Route::prefix('queue-sessions')->group(function () {
-            Route::get('/', [QueueSessionController::class, 'index']);
-            Route::get('/{id}', [QueueSessionController::class, 'show']);
-            Route::post('/', [QueueSessionController::class, 'store']);
+            Route::get('/getAllQueueSessions', [QueueSessionController::class, 'getAllQueueSessions']);
+            Route::get('/getQueueSessionDetails/{id}', [QueueSessionController::class, 'getQueueSessionDetails']);
+            Route::post('/crateQueueSession', [QueueSessionController::class, 'crateQueueSession']);
             Route::put('/{id}', [QueueSessionController::class, 'update']);
             Route::delete('/{id}', [QueueSessionController::class, 'destroy']);
             Route::post('/add-queue-users', [QueueSessionController::class, 'addQueueUser']);
             Route::delete('/remove-queue-user', [QueueSessionController::class, 'removeQueueUser']);
         });
-
     });
 
     Route::middleware('role.check:' . implode(',', [
@@ -77,5 +77,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('access-control')->group(function () {
         Route::get('/app-menu', [AccessControlController::class, 'getAppMenu']);
     });
-
 });
