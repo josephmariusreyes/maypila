@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\ApiDocs\UserResourceDocs;
 use App\Services\UserService\UserService;
 use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\User\UserResource;
@@ -33,7 +34,7 @@ class UserController extends Controller
 	#[Response([
 		'success' => true,
 		'message' => 'Success',
-		'data' => new \stdClass(),
+		'data' => UserResourceDocs::USER_COLLECTION,
 		'meta' =>  new \stdClass()
 	])]
 	public function index(IndexUserRequest $request)

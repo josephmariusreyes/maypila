@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QueueSession\AddRemoveUserQueueSessionRequest;
-use App\Http\Requests\QueueSession\IndexQueueSessionRequest;
+use App\Http\Requests\QueueSession\GetAllQueueSessionsRequest;
 use App\Http\Requests\QueueSession\StoreQueueSessionRequest;
 use App\Http\Resources\ApiBaseResponse;
 use App\Http\Resources\QueueSession\QueueSessionResource;
 use App\Services\QueueSession\QueueSessionService;
 use Knuckles\Scribe\Attributes\Response;
+use App\Constants\ApiDocs\QueueSessionDocs;
 
 class QueueSessionController extends Controller
 {
@@ -20,31 +21,32 @@ class QueueSessionController extends Controller
     #[Response([
         'success' => true,
         'message' => 'Success',
-        'data' => new \stdClass(),
+        'data' => QueueSessionDocs::QUEUE_SESSION_COLLECTION,
         'meta' =>  new \stdClass()
     ])]
-    public function index(IndexQueueSessionRequest $request)
+    public function getAllQueueSessions(GetAllQueueSessionsRequest $request)
     {
         return ApiBaseResponse::success(
             data: QueueSessionResource::collection(
-                $this->queueSessionService->listQueueSessions($request->validated(), $request->user())
+                $this->queueSessionService->getAllQueueSessions($request->validated(), $request->user())
             ),
-            message: 'Queue sessions fetched successfully'
+            message: 'Queue sessions retrieved all successfully'
         );
     }
 
     #[Response([
         'success' => true,
         'message' => 'Success',
-        'data' => new \stdClass(),
+        'data' => QueueSessionDocs::QUEUE_SESSION,
         'meta' =>  new \stdClass()
     ])]
-    public function show(int $id)
+    public function getQueueSessionDetails(int $id)
     {
+        $data = new QueueSessionResource(
+            $this->queueSessionService->getQueueSessionById($id)
+        );
         return ApiBaseResponse::success(
-            data: new QueueSessionResource(
-                $this->queueSessionService->getQueueSessionById($id)
-            ),
+            data: $data,
             message: 'Queue session fetched successfully'
         );
     }
@@ -52,16 +54,17 @@ class QueueSessionController extends Controller
     #[Response([
         'success' => true,
         'message' => 'Success',
-        'data' => new \stdClass(),
+        'data' => QueueSessionDocs::QUEUE_SESSION,
         'meta' =>  new \stdClass()
     ])]
-    public function store(StoreQueueSessionRequest $request)
+    public function crateQueueSession(StoreQueueSessionRequest $request)
     {
         //todojeph: implement expiry of session
         $validated = $request->validated();
+        $data =  new QueueSessionResource($this->queueSessionService->createQueueSession($validated));
 
         return ApiBaseResponse::success(
-            data: new QueueSessionResource($this->queueSessionService->createQueueSession($validated)),
+            data: $data,
             message: 'Queue session created successfully',
             status: 201
         );
