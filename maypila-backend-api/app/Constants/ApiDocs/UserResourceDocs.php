@@ -4,6 +4,10 @@ namespace App\Constants\ApiDocs;
 
 class UserResourceDocs
 {
+    public const USER_COLLECTION = [
+        self::USER
+    ];
+
     //User
     public const USER = [
         'id' => 1,
