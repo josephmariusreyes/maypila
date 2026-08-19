@@ -1,12 +1,8 @@
-import type { PostApiQueueSessionsData } from '@/app/api'
+import type {
+    PostApiQueueSessionsCrateQueueSessionData
+} from '@/app/api'
 
-export type addCustomerToQueueRequest = {
-    userId: number
-    queueSessionId: number
-    companyId: number
-}
-
-export type createQueueSessionRequest = PostApiQueueSessionsData['body']
+export type CreateQueueSessionRequest = PostApiQueueSessionsCrateQueueSessionData['body']
 
 export type AddCustomerToQueueFormValues = {
     firstName: string
@@ -17,4 +13,10 @@ export type AddCustomerToQueueFormValues = {
 export type CreateQueueSessionFormValues = {
     queueSessionName: string
     queueDescription: string
+}
+
+export type GetAllQueueSession = {
+    companyId: number,
+    page: number,
+    perPage: number
 }

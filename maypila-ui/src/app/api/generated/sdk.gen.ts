@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteApiQueueSessionsIdData, DeleteApiQueueSessionsIdResponses, DeleteApiQueueSessionsRemoveQueueUserData, DeleteApiQueueSessionsRemoveQueueUserResponses, DeleteApiUsersIdData, DeleteApiUsersIdResponses, GetApiAccessControlAppMenuData, GetApiAccessControlAppMenuResponses, GetApiCompaniesData, GetApiCompaniesIdData, GetApiCompaniesIdResponses, GetApiCompaniesResponses, GetApiCustomersData, GetApiCustomersIdData, GetApiCustomersIdResponses, GetApiCustomersResponses, GetApiQueueSessionsData, GetApiQueueSessionsIdData, GetApiQueueSessionsIdResponses, GetApiQueueSessionsResponses, GetApiUsersData, GetApiUsersIdData, GetApiUsersIdResponses, GetApiUsersResponses, PostApiCompaniesData, PostApiCompaniesResponses, PostApiCustomersData, PostApiCustomersResponses, PostApiLoginData, PostApiLoginResponses, PostApiLogoutData, PostApiLogoutResponses, PostApiQueueSessionsAddQueueUsersData, PostApiQueueSessionsAddQueueUsersResponses, PostApiQueueSessionsData, PostApiQueueSessionsResponses, PostApiUsersData, PostApiUsersResponses, PutApiCompaniesIdData, PutApiCompaniesIdResponses, PutApiCustomersIdData, PutApiCustomersIdResponses, PutApiQueueSessionsIdData, PutApiQueueSessionsIdResponses, PutApiUsersIdData, PutApiUsersIdResponses } from './types.gen';
+import type { DeleteApiQueueSessionsIdData, DeleteApiQueueSessionsIdResponses, DeleteApiQueueSessionsRemoveQueueUserData, DeleteApiQueueSessionsRemoveQueueUserResponses, DeleteApiUsersIdData, DeleteApiUsersIdResponses, GetApiAccessControlAppMenuData, GetApiAccessControlAppMenuResponses, GetApiCompaniesData, GetApiCompaniesIdData, GetApiCompaniesIdResponses, GetApiCompaniesResponses, GetApiCustomersData, GetApiCustomersIdData, GetApiCustomersIdResponses, GetApiCustomersResponses, GetApiQueueSessionsGetAllQueueSessionsData, GetApiQueueSessionsGetAllQueueSessionsResponses, GetApiQueueSessionsGetQueueSessionDetailsIdData, GetApiQueueSessionsGetQueueSessionDetailsIdResponses, GetApiUsersData, GetApiUsersIdData, GetApiUsersIdResponses, GetApiUsersResponses, PostApiCompaniesData, PostApiCompaniesResponses, PostApiCustomersData, PostApiCustomersResponses, PostApiLoginData, PostApiLoginResponses, PostApiLogoutData, PostApiLogoutResponses, PostApiQueueSessionsAddQueueUsersData, PostApiQueueSessionsAddQueueUsersResponses, PostApiQueueSessionsCrateQueueSessionData, PostApiQueueSessionsCrateQueueSessionResponses, PostApiUsersData, PostApiUsersResponses, PutApiCompaniesIdData, PutApiCompaniesIdResponses, PutApiCustomersIdData, PutApiCustomersIdResponses, PutApiQueueSessionsIdData, PutApiQueueSessionsIdResponses, PutApiUsersIdData, PutApiUsersIdResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -51,14 +51,7 @@ export const putApiCompaniesId = <ThrowOnError extends boolean = false>(options:
     }
 });
 
-export const getApiUsers = <ThrowOnError extends boolean = false>(options: Options<GetApiUsersData, ThrowOnError>) => (options.client ?? client).get<GetApiUsersResponses, unknown, ThrowOnError>({
-    url: '/api/users',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
+export const getApiUsers = <ThrowOnError extends boolean = false>(options: Options<GetApiUsersData, ThrowOnError>) => (options.client ?? client).get<GetApiUsersResponses, unknown, ThrowOnError>({ url: '/api/users', ...options });
 
 export const postApiUsers = <ThrowOnError extends boolean = false>(options: Options<PostApiUsersData, ThrowOnError>) => (options.client ?? client).post<PostApiUsersResponses, unknown, ThrowOnError>({
     url: '/api/users',
@@ -89,17 +82,12 @@ export const putApiUsersId = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const getApiQueueSessions = <ThrowOnError extends boolean = false>(options: Options<GetApiQueueSessionsData, ThrowOnError>) => (options.client ?? client).get<GetApiQueueSessionsResponses, unknown, ThrowOnError>({
-    url: '/api/queue-sessions',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
+export const getApiQueueSessionsGetAllQueueSessions = <ThrowOnError extends boolean = false>(options: Options<GetApiQueueSessionsGetAllQueueSessionsData, ThrowOnError>) => (options.client ?? client).get<GetApiQueueSessionsGetAllQueueSessionsResponses, unknown, ThrowOnError>({ url: '/api/queue-sessions/getAllQueueSessions', ...options });
 
-export const postApiQueueSessions = <ThrowOnError extends boolean = false>(options: Options<PostApiQueueSessionsData, ThrowOnError>) => (options.client ?? client).post<PostApiQueueSessionsResponses, unknown, ThrowOnError>({
-    url: '/api/queue-sessions',
+export const getApiQueueSessionsGetQueueSessionDetailsId = <ThrowOnError extends boolean = false>(options: Options<GetApiQueueSessionsGetQueueSessionDetailsIdData, ThrowOnError>) => (options.client ?? client).get<GetApiQueueSessionsGetQueueSessionDetailsIdResponses, unknown, ThrowOnError>({ url: '/api/queue-sessions/getQueueSessionDetails/{id}', ...options });
+
+export const postApiQueueSessionsCrateQueueSession = <ThrowOnError extends boolean = false>(options: Options<PostApiQueueSessionsCrateQueueSessionData, ThrowOnError>) => (options.client ?? client).post<PostApiQueueSessionsCrateQueueSessionResponses, unknown, ThrowOnError>({
+    url: '/api/queue-sessions/crateQueueSession',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -108,8 +96,6 @@ export const postApiQueueSessions = <ThrowOnError extends boolean = false>(optio
 });
 
 export const deleteApiQueueSessionsId = <ThrowOnError extends boolean = false>(options: Options<DeleteApiQueueSessionsIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiQueueSessionsIdResponses, unknown, ThrowOnError>({ url: '/api/queue-sessions/{id}', ...options });
-
-export const getApiQueueSessionsId = <ThrowOnError extends boolean = false>(options: Options<GetApiQueueSessionsIdData, ThrowOnError>) => (options.client ?? client).get<GetApiQueueSessionsIdResponses, unknown, ThrowOnError>({ url: '/api/queue-sessions/{id}', ...options });
 
 export const putApiQueueSessionsId = <ThrowOnError extends boolean = false>(options: Options<PutApiQueueSessionsIdData, ThrowOnError>) => (options.client ?? client).put<PutApiQueueSessionsIdResponses, unknown, ThrowOnError>({
     url: '/api/queue-sessions/{id}',

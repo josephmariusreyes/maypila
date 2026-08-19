@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Vue
-import { computed } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 // UI Components
@@ -18,18 +18,65 @@ import {
 
 // Services
 import { queueSessionService } from '../services/queue-session.service'
+
 // Logic
 const router = useRouter()
+const queueSessionList = ref<Awaited<ReturnType<typeof queueSessionService.getAllqueueSessions>> | null>(null)
+const currentPage = ref(1)
+const perPage = ref(5)
+const hasNextPage = ref(false)
+const isLoading = ref(false)
 
-const queueSessionsList = computed(() =>
-	queueSessionService.getAllqueueSessions()
-)
+const loadQueueSessions = async () => {
+	isLoading.value = true
 
-// Display only first 5 users
+	try {
+		const result = await queueSessionService.getAllqueueSessions({
+			companyId: 1, // replace with your actual company ID
+			page: currentPage.value,
+			perPage: perPage.value,
+		})
+
+		queueSessionList.value = result;
+
+		// If API returns fewer records than requested,
+		// we've reached the last page.
+		hasNextPage.value = result.length === perPage.value
+	} finally {
+		isLoading.value = false
+	}
+}
+
+const nextPage = async () => {
+	if (!hasNextPage.value) {
+		return
+	}
+
+	currentPage.value++
+	await loadQueueSessions()
+}
+
+const previousPage = async () => {
+	if (currentPage.value <= 1) {
+		return
+	}
+
+	currentPage.value--
+	await loadQueueSessions()
+}
 
 const viewDetails = () => {
 	router.push({ name: 'user-details' })
 }
+
+onMounted(async () => {
+	//queueSessionList.value = await queueSessionService.getAllqueueSessions()
+
+	await loadQueueSessions();
+})
+
+// Display only first 5 users
+
 </script>
 
 <template>
@@ -75,22 +122,21 @@ const viewDetails = () => {
 					</TableHeader>
 
 					<TableBody>
-						<TableRow v-for="queueSesion in queueSessionsList" :key="queueSesion.id">
+						<TableRow v-for="queueSesion in queueSessionList" :key="queueSesion.id">
 							<TableCell class="font-medium">
-								{{ queueSesion.firstName }}
-								{{ queueSesion.lastName }}
+								test
 							</TableCell>
 
 							<TableCell>
-								{{ queueSesion.email }}
+								test1
 							</TableCell>
 
 							<TableCell>
-								{userRole}
+								test2
 							</TableCell>
 
 							<TableCell>
-								{{ queueSesion.onlineQueueSession }}
+								test3
 							</TableCell>
 
 							<TableCell class="text-right">
@@ -102,26 +148,22 @@ const viewDetails = () => {
 					</TableBody>
 				</Table>
 				<!-- Pagination -->
-				<!-- JephTodo: This pagination can be moved to a common component -->
-				<div class="flex justify-end mt-4">
+				<div class="mt-4 flex items-center justify-between">
+					<div class="text-sm text-slate-600">
+						Page {{ currentPage }}
+					</div>
+
 					<div class="flex items-center gap-2">
-						<Button variant="outline" size="sm">
+						<Button variant="outline" size="sm" :disabled="currentPage === 1 || isLoading"
+							@click="previousPage">
 							Previous
 						</Button>
 
-						<Button size="sm" class="main-theme-color">
-							1
+						<Button size="sm" class="main-theme-color" :disabled="isLoading">
+							{{ currentPage }}
 						</Button>
 
-						<Button variant="outline" size="sm">
-							2
-						</Button>
-
-						<Button variant="outline" size="sm">
-							3
-						</Button>
-
-						<Button variant="outline" size="sm">
+						<Button variant="outline" size="sm" :disabled="!hasNextPage || isLoading" @click="nextPage">
 							Next
 						</Button>
 					</div>

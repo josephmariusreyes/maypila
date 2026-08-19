@@ -206,12 +206,12 @@ export type PutApiCompaniesIdResponses = {
 export type PutApiCompaniesIdResponse = PutApiCompaniesIdResponses[keyof PutApiCompaniesIdResponses];
 
 export type GetApiUsersData = {
-    body: {
+    body?: never;
+    path?: never;
+    query: {
         companyId: number;
         role?: string | null;
     };
-    path?: never;
-    query?: never;
     url: '/api/users';
 };
 
@@ -219,9 +219,39 @@ export type GetApiUsersResponses = {
     200: {
         success?: boolean;
         message?: string;
-        data?: {
-            [key: string]: unknown;
-        };
+        data?: Array<{
+            id?: number;
+            name?: string;
+            email?: string;
+            mobile_number?: string;
+            queue_session_id?: number;
+            email_verified_at?: string;
+            created_at?: string;
+            updated_at?: string;
+            roles?: Array<{
+                id?: number;
+                name?: string;
+                created_at?: string;
+                updated_at?: string;
+            }>;
+            companies?: Array<{
+                id?: number;
+                name?: string;
+                description?: string;
+                created_at?: string;
+                updated_at?: string;
+            }>;
+            queue_session?: {
+                id?: number;
+                created_by?: number;
+                company_id?: number;
+                name?: string;
+                description?: string;
+                queue_status?: string;
+                created_at?: string;
+                updated_at?: string;
+            };
+        }>;
         meta?: {
             [key: string]: unknown;
         };
@@ -381,21 +411,70 @@ export type PutApiUsersIdResponses = {
 
 export type PutApiUsersIdResponse = PutApiUsersIdResponses[keyof PutApiUsersIdResponses];
 
-export type GetApiQueueSessionsData = {
-    body: {
-        companyId: number;
-    };
+export type GetApiQueueSessionsGetAllQueueSessionsData = {
+    body?: never;
     path?: never;
-    query?: never;
-    url: '/api/queue-sessions';
+    query: {
+        companyId: number;
+        /**
+         * Must be at least 1.
+         */
+        page?: number | null;
+        /**
+         * Must be at least 1. Must not be greater than 100.
+         */
+        perPage?: number | null;
+    };
+    url: '/api/queue-sessions/getAllQueueSessions';
 };
 
-export type GetApiQueueSessionsResponses = {
+export type GetApiQueueSessionsGetAllQueueSessionsResponses = {
+    200: {
+        success?: boolean;
+        message?: string;
+        data?: Array<{
+            id?: number;
+            created_by?: string;
+            company_id?: number;
+            queue_status?: string;
+            name?: string;
+            description?: string;
+            created_at?: string;
+            updated_at?: string;
+        }>;
+        meta?: {
+            [key: string]: unknown;
+        };
+    };
+};
+
+export type GetApiQueueSessionsGetAllQueueSessionsResponse = GetApiQueueSessionsGetAllQueueSessionsResponses[keyof GetApiQueueSessionsGetAllQueueSessionsResponses];
+
+export type GetApiQueueSessionsGetQueueSessionDetailsIdData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the getQueueSessionDetail.
+         */
+        id: string;
+    };
+    query?: never;
+    url: '/api/queue-sessions/getQueueSessionDetails/{id}';
+};
+
+export type GetApiQueueSessionsGetQueueSessionDetailsIdResponses = {
     200: {
         success?: boolean;
         message?: string;
         data?: {
-            [key: string]: unknown;
+            id?: number;
+            created_by?: string;
+            company_id?: number;
+            queue_status?: string;
+            name?: string;
+            description?: string;
+            created_at?: string;
+            updated_at?: string;
         };
         meta?: {
             [key: string]: unknown;
@@ -403,9 +482,9 @@ export type GetApiQueueSessionsResponses = {
     };
 };
 
-export type GetApiQueueSessionsResponse = GetApiQueueSessionsResponses[keyof GetApiQueueSessionsResponses];
+export type GetApiQueueSessionsGetQueueSessionDetailsIdResponse = GetApiQueueSessionsGetQueueSessionDetailsIdResponses[keyof GetApiQueueSessionsGetQueueSessionDetailsIdResponses];
 
-export type PostApiQueueSessionsData = {
+export type PostApiQueueSessionsCrateQueueSessionData = {
     body: {
         /**
          * Must not be greater than 255 characters.
@@ -419,15 +498,22 @@ export type PostApiQueueSessionsData = {
     };
     path?: never;
     query?: never;
-    url: '/api/queue-sessions';
+    url: '/api/queue-sessions/crateQueueSession';
 };
 
-export type PostApiQueueSessionsResponses = {
+export type PostApiQueueSessionsCrateQueueSessionResponses = {
     200: {
         success?: boolean;
         message?: string;
         data?: {
-            [key: string]: unknown;
+            id?: number;
+            created_by?: string;
+            company_id?: number;
+            queue_status?: string;
+            name?: string;
+            description?: string;
+            created_at?: string;
+            updated_at?: string;
         };
         meta?: {
             [key: string]: unknown;
@@ -435,7 +521,7 @@ export type PostApiQueueSessionsResponses = {
     };
 };
 
-export type PostApiQueueSessionsResponse = PostApiQueueSessionsResponses[keyof PostApiQueueSessionsResponses];
+export type PostApiQueueSessionsCrateQueueSessionResponse = PostApiQueueSessionsCrateQueueSessionResponses[keyof PostApiQueueSessionsCrateQueueSessionResponses];
 
 export type DeleteApiQueueSessionsIdData = {
     body?: never;
@@ -463,33 +549,6 @@ export type DeleteApiQueueSessionsIdResponses = {
 };
 
 export type DeleteApiQueueSessionsIdResponse = DeleteApiQueueSessionsIdResponses[keyof DeleteApiQueueSessionsIdResponses];
-
-export type GetApiQueueSessionsIdData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of the queue session.
-         */
-        id: string;
-    };
-    query?: never;
-    url: '/api/queue-sessions/{id}';
-};
-
-export type GetApiQueueSessionsIdResponses = {
-    200: {
-        success?: boolean;
-        message?: string;
-        data?: {
-            [key: string]: unknown;
-        };
-        meta?: {
-            [key: string]: unknown;
-        };
-    };
-};
-
-export type GetApiQueueSessionsIdResponse = GetApiQueueSessionsIdResponses[keyof GetApiQueueSessionsIdResponses];
 
 export type PutApiQueueSessionsIdData = {
     body: {
