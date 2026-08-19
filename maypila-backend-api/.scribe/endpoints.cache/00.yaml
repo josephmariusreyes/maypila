@@ -597,7 +597,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: QueAdmin
+        example: QueEncoder
         type: string
         enumValues:
           - SuperAdmin
@@ -614,7 +614,7 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: QueAdmin
+      role: QueEncoder
     fileParameters: []
     responses:
       -
@@ -734,7 +734,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: QueEncoder
+        example: CompanyAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -751,7 +751,7 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: QueEncoder
+      role: CompanyAdmin
     fileParameters: []
     responses:
       -
@@ -818,7 +818,7 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/queue-sessions
+    uri: api/queue-sessions/getAllQueueSessions
     metadata:
       custom: []
       groupName: Endpoints
@@ -846,8 +846,32 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      page:
+        custom: []
+        name: page
+        description: 'Must be at least 1.'
+        required: false
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      perPage:
+        custom: []
+        name: perPage
+        description: 'Must be at least 1. Must not be greater than 100.'
+        required: false
+        example: 7
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
     cleanQueryParameters:
       companyId: 16
+      page: 22
+      perPage: 7
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
@@ -855,7 +879,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        content: '{"success":true,"message":"Success","data":[{"id":1,"created_by":"Mark","company_id":1,"queue_status":"1","name":"Test queue","description":"Test description","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"}],"meta":{}}'
         headers: []
         description: ''
     responseFields: []
@@ -867,7 +891,7 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/queue-sessions/{id}'
+    uri: 'api/queue-sessions/getQueueSessionDetails/{id}'
     metadata:
       custom: []
       groupName: Endpoints
@@ -885,7 +909,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'The ID of the queue session.'
+        description: 'The ID of the getQueueSessionDetail.'
         required: true
         example: architecto
         type: string
@@ -904,7 +928,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        content: '{"success":true,"message":"Success","data":{"id":1,"created_by":"Mark","company_id":1,"queue_status":"1","name":"Test queue","description":"Test description","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"},"meta":{}}'
         headers: []
         description: ''
     responseFields: []
@@ -916,7 +940,7 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/queue-sessions
+    uri: api/queue-sessions/crateQueueSession
     metadata:
       custom: []
       groupName: Endpoints
@@ -977,7 +1001,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success":true,"message":"Success","data":{},"meta":{}}'
+        content: '{"success":true,"message":"Success","data":{"id":1,"created_by":"Mark","company_id":1,"queue_status":"1","name":"Test queue","description":"Test description","created_at":"2026-01-15T10:30:00.000000Z","updated_at":"2026-01-15T10:30:00.000000Z"},"meta":{}}'
         headers: []
         description: ''
     responseFields: []
@@ -1475,7 +1499,7 @@ endpoints:
         name: customerStatus
         description: ''
         required: true
-        example: Pending
+        example: Done
         type: string
         enumValues:
           - Pending
@@ -1486,7 +1510,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       id: 16
-      customerStatus: Pending
+      customerStatus: Done
     fileParameters: []
     responses:
       -
