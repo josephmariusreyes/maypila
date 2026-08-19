@@ -26,10 +26,18 @@ class QueueSessionController extends Controller
     ])]
     public function getAllQueueSessions(GetAllQueueSessionsRequest $request)
     {
+        $data = $this->queueSessionService->getAllQueueSessions($request->validated(), $request->user());
+
         return ApiBaseResponse::success(
             data: QueueSessionResource::collection(
-                $this->queueSessionService->getAllQueueSessions($request->validated(), $request->user())
+                $data->items()
             ),
+            meta: [
+                'current_page' => $data->currentPage(),
+                'per_page' => $data->perPage(),
+                'total' => $data->total(),
+                'total_pages' => $data->lastPage()
+            ],
             message: 'Queue sessions retrieved all successfully'
         );
     }
@@ -45,6 +53,7 @@ class QueueSessionController extends Controller
         $data = new QueueSessionResource(
             $this->queueSessionService->getQueueSessionById($id)
         );
+
         return ApiBaseResponse::success(
             data: $data,
             message: 'Queue session fetched successfully'
@@ -59,7 +68,6 @@ class QueueSessionController extends Controller
     ])]
     public function crateQueueSession(StoreQueueSessionRequest $request)
     {
-        //todojeph: implement expiry of session
         $validated = $request->validated();
         $data =  new QueueSessionResource($this->queueSessionService->createQueueSession($validated));
 

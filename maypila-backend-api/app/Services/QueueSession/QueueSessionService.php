@@ -161,7 +161,7 @@ class QueueSessionService
         }
 
         return QueueSession::query()
-            ->where('companyId', $companyId)
+            ->where('company_id', $companyId)
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
     }

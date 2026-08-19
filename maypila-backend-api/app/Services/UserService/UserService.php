@@ -8,6 +8,7 @@ use App\Models\Company;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\AuthorizationException;
 
 use App\DTO\User\{
     CreateUserDto,
@@ -173,5 +174,27 @@ class UserService
                 fn(array $menuItem): bool => in_array($menuItem['key'], $allowedMenus, true)
             )
         );
+    }
+
+    public function loginUser(array $validatedData)
+    {
+
+        $user = $this->getUserByEmail($validatedData['email']);
+        $user->companies;
+        $user->roles;
+        $user->queueSession;
+
+        if (!$user || !Hash::check($validatedData['password'], $user->password)) {
+            throw new AuthorizationException('The provided credentials are incorrect.');
+        }
+
+        $tokenName = $validatedData['device_name'] ?? 'api-token';
+        $token = $user->createToken($tokenName)->plainTextToken;
+
+        return [
+            'user' => $user,
+            'token' => $token,
+            'tokenName' => $tokenName
+        ];
     }
 }

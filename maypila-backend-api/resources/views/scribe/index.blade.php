@@ -104,14 +104,14 @@
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-users--id-">
                                 <a href="#endpoints-DELETEapi-users--id-">DELETE api/users/{id}</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-queue-sessions">
-                                <a href="#endpoints-GETapi-queue-sessions">GET api/queue-sessions</a>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-queue-sessions-getAllQueueSessions">
+                                <a href="#endpoints-GETapi-queue-sessions-getAllQueueSessions">GET api/queue-sessions/getAllQueueSessions</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-queue-sessions--id-">
-                                <a href="#endpoints-GETapi-queue-sessions--id-">GET api/queue-sessions/{id}</a>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-queue-sessions-getQueueSessionDetails--id-">
+                                <a href="#endpoints-GETapi-queue-sessions-getQueueSessionDetails--id-">GET api/queue-sessions/getQueueSessionDetails/{id}</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-queue-sessions">
-                                <a href="#endpoints-POSTapi-queue-sessions">POST api/queue-sessions</a>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-queue-sessions-crateQueueSession">
+                                <a href="#endpoints-POSTapi-queue-sessions-crateQueueSession">POST api/queue-sessions/crateQueueSession</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-PUTapi-queue-sessions--id-">
                                 <a href="#endpoints-PUTapi-queue-sessions--id-">PUT api/queue-sessions/{id}</a>
@@ -151,7 +151,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: July 9, 2026</li>
+        <li>Last updated: August 18, 2026</li>
     </ul>
 </div>
 
@@ -1548,7 +1548,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"password\": \"pBNvYg\",
     \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"QueAdmin\"
+    \"role\": \"QueEncoder\"
 }"
 </code></pre></div>
 
@@ -1570,7 +1570,7 @@ let body = {
     "password": "pBNvYg",
     "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "QueAdmin"
+    "role": "QueEncoder"
 };
 
 fetch(url, {
@@ -1746,10 +1746,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="POSTapi-users"
-               value="QueAdmin"
+               value="QueEncoder"
                data-component="body">
     <br>
-<p>Example: <code>QueAdmin</code></p>
+<p>Example: <code>QueEncoder</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -1778,7 +1778,7 @@ Must be one of:
     \"password\": \"pBNvYg\",
     \"mobileNumber\": \"09564255931\",
     \"companyId\": 16,
-    \"role\": \"QueEncoder\"
+    \"role\": \"CompanyAdmin\"
 }"
 </code></pre></div>
 
@@ -1800,7 +1800,7 @@ let body = {
     "password": "pBNvYg",
     "mobileNumber": "09564255931",
     "companyId": 16,
-    "role": "QueEncoder"
+    "role": "CompanyAdmin"
 };
 
 fetch(url, {
@@ -1989,10 +1989,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--id-"
-               value="QueEncoder"
+               value="CompanyAdmin"
                data-component="body">
     <br>
-<p>Example: <code>QueEncoder</code></p>
+<p>Example: <code>CompanyAdmin</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>SuperAdmin</code></li> <li><code>CompanyAdmin</code></li> <li><code>QueAdmin</code></li> <li><code>QueEncoder</code></li></ul>
         </div>
@@ -2134,31 +2134,33 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-                    <h2 id="endpoints-GETapi-queue-sessions">GET api/queue-sessions</h2>
+                    <h2 id="endpoints-GETapi-queue-sessions-getAllQueueSessions">GET api/queue-sessions/getAllQueueSessions</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-GETapi-queue-sessions">
+<span id="example-requests-GETapi-queue-sessions-getAllQueueSessions">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/queue-sessions?companyId=16" \
+    --get "http://localhost/api/queue-sessions/getAllQueueSessions?companyId=16&amp;page=22&amp;perPage=7" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/queue-sessions"
+    "http://localhost/api/queue-sessions/getAllQueueSessions"
 );
 
 const params = {
     "companyId": "16",
+    "page": "22",
+    "perPage": "7",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -2176,7 +2178,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-GETapi-queue-sessions">
+<span id="example-responses-GETapi-queue-sessions-getAllQueueSessions">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -2185,48 +2187,59 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Success&quot;,
-    &quot;data&quot;: {},
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;created_by&quot;: &quot;Mark&quot;,
+            &quot;company_id&quot;: 1,
+            &quot;queue_status&quot;: &quot;1&quot;,
+            &quot;name&quot;: &quot;Test queue&quot;,
+            &quot;description&quot;: &quot;Test description&quot;,
+            &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+        }
+    ],
     &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
-<span id="execution-results-GETapi-queue-sessions" hidden>
+<span id="execution-results-GETapi-queue-sessions-getAllQueueSessions" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-GETapi-queue-sessions"></span>:
+                id="execution-response-status-GETapi-queue-sessions-getAllQueueSessions"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-queue-sessions"
+    <pre class="json"><code id="execution-response-content-GETapi-queue-sessions-getAllQueueSessions"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-GETapi-queue-sessions" hidden>
+<span id="execution-error-GETapi-queue-sessions-getAllQueueSessions" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-queue-sessions">
+    <pre><code id="execution-error-message-GETapi-queue-sessions-getAllQueueSessions">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-GETapi-queue-sessions" data-method="GET"
-      data-path="api/queue-sessions"
+<form id="form-GETapi-queue-sessions-getAllQueueSessions" data-method="GET"
+      data-path="api/queue-sessions/getAllQueueSessions"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-queue-sessions', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-queue-sessions-getAllQueueSessions', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-queue-sessions"
-                    onclick="tryItOut('GETapi-queue-sessions');">Try it out ⚡
+                    id="btn-tryout-GETapi-queue-sessions-getAllQueueSessions"
+                    onclick="tryItOut('GETapi-queue-sessions-getAllQueueSessions');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-queue-sessions"
-                    onclick="cancelTryOut('GETapi-queue-sessions');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-queue-sessions-getAllQueueSessions"
+                    onclick="cancelTryOut('GETapi-queue-sessions-getAllQueueSessions');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-queue-sessions"
+                    id="btn-executetryout-GETapi-queue-sessions-getAllQueueSessions"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2234,7 +2247,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-green">GET</small>
-            <b><code>api/queue-sessions</code></b>
+            <b><code>api/queue-sessions/getAllQueueSessions</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2243,7 +2256,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-queue-sessions"
+                              name="Content-Type"                data-endpoint="GETapi-queue-sessions-getAllQueueSessions"
                value="application/json"
                data-component="header">
     <br>
@@ -2255,7 +2268,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-queue-sessions"
+                              name="Accept"                data-endpoint="GETapi-queue-sessions-getAllQueueSessions"
                value="application/json"
                data-component="header">
     <br>
@@ -2268,35 +2281,59 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="companyId"                data-endpoint="GETapi-queue-sessions"
+               step="any"               name="companyId"                data-endpoint="GETapi-queue-sessions-getAllQueueSessions"
                value="16"
                data-component="query">
     <br>
 <p>Example: <code>16</code></p>
             </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="GETapi-queue-sessions-getAllQueueSessions"
+               value="22"
+               data-component="query">
+    <br>
+<p>Must be at least 1. Example: <code>22</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>perPage</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="perPage"                data-endpoint="GETapi-queue-sessions-getAllQueueSessions"
+               value="7"
+               data-component="query">
+    <br>
+<p>Must be at least 1. Must not be greater than 100. Example: <code>7</code></p>
+            </div>
                 </form>
 
-                    <h2 id="endpoints-GETapi-queue-sessions--id-">GET api/queue-sessions/{id}</h2>
+                    <h2 id="endpoints-GETapi-queue-sessions-getQueueSessionDetails--id-">GET api/queue-sessions/getQueueSessionDetails/{id}</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-GETapi-queue-sessions--id-">
+<span id="example-requests-GETapi-queue-sessions-getQueueSessionDetails--id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/queue-sessions/architecto" \
+    --get "http://localhost/api/queue-sessions/getQueueSessionDetails/architecto" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/queue-sessions/architecto"
+    "http://localhost/api/queue-sessions/getQueueSessionDetails/architecto"
 );
 
 const headers = {
@@ -2312,7 +2349,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-GETapi-queue-sessions--id-">
+<span id="example-responses-GETapi-queue-sessions-getQueueSessionDetails--id-">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -2321,48 +2358,57 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Success&quot;,
-    &quot;data&quot;: {},
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;created_by&quot;: &quot;Mark&quot;,
+        &quot;company_id&quot;: 1,
+        &quot;queue_status&quot;: &quot;1&quot;,
+        &quot;name&quot;: &quot;Test queue&quot;,
+        &quot;description&quot;: &quot;Test description&quot;,
+        &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+    },
     &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
-<span id="execution-results-GETapi-queue-sessions--id-" hidden>
+<span id="execution-results-GETapi-queue-sessions-getQueueSessionDetails--id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-GETapi-queue-sessions--id-"></span>:
+                id="execution-response-status-GETapi-queue-sessions-getQueueSessionDetails--id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-queue-sessions--id-"
+    <pre class="json"><code id="execution-response-content-GETapi-queue-sessions-getQueueSessionDetails--id-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-GETapi-queue-sessions--id-" hidden>
+<span id="execution-error-GETapi-queue-sessions-getQueueSessionDetails--id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-queue-sessions--id-">
+    <pre><code id="execution-error-message-GETapi-queue-sessions-getQueueSessionDetails--id-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-GETapi-queue-sessions--id-" data-method="GET"
-      data-path="api/queue-sessions/{id}"
+<form id="form-GETapi-queue-sessions-getQueueSessionDetails--id-" data-method="GET"
+      data-path="api/queue-sessions/getQueueSessionDetails/{id}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-queue-sessions--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-queue-sessions-getQueueSessionDetails--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-queue-sessions--id-"
-                    onclick="tryItOut('GETapi-queue-sessions--id-');">Try it out ⚡
+                    id="btn-tryout-GETapi-queue-sessions-getQueueSessionDetails--id-"
+                    onclick="tryItOut('GETapi-queue-sessions-getQueueSessionDetails--id-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-queue-sessions--id-"
-                    onclick="cancelTryOut('GETapi-queue-sessions--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-queue-sessions-getQueueSessionDetails--id-"
+                    onclick="cancelTryOut('GETapi-queue-sessions-getQueueSessionDetails--id-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-queue-sessions--id-"
+                    id="btn-executetryout-GETapi-queue-sessions-getQueueSessionDetails--id-"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2370,7 +2416,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-green">GET</small>
-            <b><code>api/queue-sessions/{id}</code></b>
+            <b><code>api/queue-sessions/getQueueSessionDetails/{id}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2379,7 +2425,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-queue-sessions--id-"
+                              name="Content-Type"                data-endpoint="GETapi-queue-sessions-getQueueSessionDetails--id-"
                value="application/json"
                data-component="header">
     <br>
@@ -2391,7 +2437,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-queue-sessions--id-"
+                              name="Accept"                data-endpoint="GETapi-queue-sessions-getQueueSessionDetails--id-"
                value="application/json"
                data-component="header">
     <br>
@@ -2404,28 +2450,28 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="id"                data-endpoint="GETapi-queue-sessions--id-"
+                              name="id"                data-endpoint="GETapi-queue-sessions-getQueueSessionDetails--id-"
                value="architecto"
                data-component="url">
     <br>
-<p>The ID of the queue session. Example: <code>architecto</code></p>
+<p>The ID of the getQueueSessionDetail. Example: <code>architecto</code></p>
             </div>
                     </form>
 
-                    <h2 id="endpoints-POSTapi-queue-sessions">POST api/queue-sessions</h2>
+                    <h2 id="endpoints-POSTapi-queue-sessions-crateQueueSession">POST api/queue-sessions/crateQueueSession</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-POSTapi-queue-sessions">
+<span id="example-requests-POSTapi-queue-sessions-crateQueueSession">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/queue-sessions" \
+    "http://localhost/api/queue-sessions/crateQueueSession" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2438,7 +2484,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/queue-sessions"
+    "http://localhost/api/queue-sessions/crateQueueSession"
 );
 
 const headers = {
@@ -2460,7 +2506,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-POSTapi-queue-sessions">
+<span id="example-responses-POSTapi-queue-sessions-crateQueueSession">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -2469,48 +2515,57 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Success&quot;,
-    &quot;data&quot;: {},
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;created_by&quot;: &quot;Mark&quot;,
+        &quot;company_id&quot;: 1,
+        &quot;queue_status&quot;: &quot;1&quot;,
+        &quot;name&quot;: &quot;Test queue&quot;,
+        &quot;description&quot;: &quot;Test description&quot;,
+        &quot;created_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-01-15T10:30:00.000000Z&quot;
+    },
     &quot;meta&quot;: {}
 }</code>
  </pre>
     </span>
-<span id="execution-results-POSTapi-queue-sessions" hidden>
+<span id="execution-results-POSTapi-queue-sessions-crateQueueSession" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTapi-queue-sessions"></span>:
+                id="execution-response-status-POSTapi-queue-sessions-crateQueueSession"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-queue-sessions"
+    <pre class="json"><code id="execution-response-content-POSTapi-queue-sessions-crateQueueSession"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-POSTapi-queue-sessions" hidden>
+<span id="execution-error-POSTapi-queue-sessions-crateQueueSession" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-queue-sessions">
+    <pre><code id="execution-error-message-POSTapi-queue-sessions-crateQueueSession">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-POSTapi-queue-sessions" data-method="POST"
-      data-path="api/queue-sessions"
+<form id="form-POSTapi-queue-sessions-crateQueueSession" data-method="POST"
+      data-path="api/queue-sessions/crateQueueSession"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-queue-sessions', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-queue-sessions-crateQueueSession', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-queue-sessions"
-                    onclick="tryItOut('POSTapi-queue-sessions');">Try it out ⚡
+                    id="btn-tryout-POSTapi-queue-sessions-crateQueueSession"
+                    onclick="tryItOut('POSTapi-queue-sessions-crateQueueSession');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-queue-sessions"
-                    onclick="cancelTryOut('POSTapi-queue-sessions');" hidden>Cancel 🛑
+                    id="btn-canceltryout-POSTapi-queue-sessions-crateQueueSession"
+                    onclick="cancelTryOut('POSTapi-queue-sessions-crateQueueSession');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-queue-sessions"
+                    id="btn-executetryout-POSTapi-queue-sessions-crateQueueSession"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2518,7 +2573,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-black">POST</small>
-            <b><code>api/queue-sessions</code></b>
+            <b><code>api/queue-sessions/crateQueueSession</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2527,7 +2582,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-queue-sessions"
+                              name="Content-Type"                data-endpoint="POSTapi-queue-sessions-crateQueueSession"
                value="application/json"
                data-component="header">
     <br>
@@ -2539,7 +2594,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-queue-sessions"
+                              name="Accept"                data-endpoint="POSTapi-queue-sessions-crateQueueSession"
                value="application/json"
                data-component="header">
     <br>
@@ -2552,7 +2607,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="name"                data-endpoint="POSTapi-queue-sessions"
+                              name="name"                data-endpoint="POSTapi-queue-sessions-crateQueueSession"
                value="b"
                data-component="body">
     <br>
@@ -2564,7 +2619,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="description"                data-endpoint="POSTapi-queue-sessions"
+                              name="description"                data-endpoint="POSTapi-queue-sessions-crateQueueSession"
                value="Et animi quos velit et fugiat."
                data-component="body">
     <br>
@@ -2576,7 +2631,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="companyId"                data-endpoint="POSTapi-queue-sessions"
+               step="any"               name="companyId"                data-endpoint="POSTapi-queue-sessions-crateQueueSession"
                value="16"
                data-component="body">
     <br>
@@ -3698,7 +3753,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"id\": 16,
-    \"customerStatus\": \"Pending\"
+    \"customerStatus\": \"Done\"
 }"
 </code></pre></div>
 
@@ -3715,7 +3770,7 @@ const headers = {
 
 let body = {
     "id": 16,
-    "customerStatus": "Pending"
+    "customerStatus": "Done"
 };
 
 fetch(url, {
@@ -3844,10 +3899,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="customerStatus"                data-endpoint="PUTapi-customers--id-"
-               value="Pending"
+               value="Done"
                data-component="body">
     <br>
-<p>Example: <code>Pending</code></p>
+<p>Example: <code>Done</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>Pending</code></li> <li><code>InProgress</code></li> <li><code>Done</code></li></ul>
         </div>

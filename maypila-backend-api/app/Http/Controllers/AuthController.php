@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginAuthRequest;
 use App\Http\Resources\User\UserResource;
-use Illuminate\Auth\Access\AuthorizationException;
 use App\Services\UserService\UserService;
 use Knuckles\Scribe\Attributes\Response;
 use App\Constants\ApiDocs\UserResourceDocs;
@@ -25,21 +23,15 @@ class AuthController extends Controller
 	])]
 	public function login(LoginAuthRequest $request)
 	{
-		$credentials = $request->validated();
-		$user = $this->userService->getUserByEmail($credentials['email']);
-		$user->companies;
-		$user->roles;
-		$user->queueSession;
-
-		if (!$user || !Hash::check($credentials['password'], $user->password)) {
-			throw new AuthorizationException('The provided credentials are incorrect.');
-		}
-
-		$tokenName = $credentials['device_name'] ?? 'api-token';
-		$token = $user->createToken($tokenName)->plainTextToken;
+		$validatedRequest = $request->validated();
+		$loggedInUser = $this->userService->loginUser($validatedRequest);
+		$user = $loggedInUser['user'];
+		$token = $loggedInUser['token'];
+		$tokenName = $loggedInUser['tokenName'];
+		$data = UserResource::make($user);
 
 		return ApiBaseResponse::success(
-			data: UserResource::make($user),
+			data: $data,
 			message: 'Login successful.',
 			meta: [
 				//'companies' => $companies,
