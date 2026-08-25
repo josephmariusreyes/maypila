@@ -66,7 +66,7 @@ class QueueSessionController extends Controller
         'data' => QueueSessionDocs::QUEUE_SESSION,
         'meta' =>  new \stdClass()
     ])]
-    public function crateQueueSession(StoreQueueSessionRequest $request)
+    public function createQueueSession(StoreQueueSessionRequest $request)
     {
         $validated = $request->validated();
         $data =  new QueueSessionResource($this->queueSessionService->createQueueSession($validated));
@@ -84,7 +84,7 @@ class QueueSessionController extends Controller
         'data' => new \stdClass(),
         'meta' =>  new \stdClass()
     ])]
-    public function update(StoreQueueSessionRequest $request, int $id)
+    public function updateQueueSession(StoreQueueSessionRequest $request, int $id)
     {
         $validated = $request->validated();
         return ApiBaseResponse::success(
@@ -99,7 +99,7 @@ class QueueSessionController extends Controller
         'data' => new \stdClass(),
         'meta' =>  new \stdClass()
     ])]
-    public function destroy(int $id)
+    public function deleteQueueSession(int $id)
     {
         $this->queueSessionService->deleteQueueSession($id);
         return ApiBaseResponse::success(
@@ -116,10 +116,13 @@ class QueueSessionController extends Controller
     public function addQueueUser(AddRemoveUserQueueSessionRequest $request)
     {
         $result = $this->queueSessionService->addQueueUser($request->validated());
+        $userAddedToQueue = $result['userAddedToQueue'];
+        $queueSession = (new QueueSessionResource($result['data']))->resolve($request);
+
         return ApiBaseResponse::success(
             data: [
-                'userAddedToQue' => $result['userAddedToQueue'],
-                'queueSession' => (new QueueSessionResource($result['data']))->resolve($request),
+                'userAddedToQue' => $userAddedToQueue,
+                'queueSession' => $queueSession,
             ],
             message: 'User added to queue session successfully'
         );
@@ -134,10 +137,13 @@ class QueueSessionController extends Controller
     public function removeQueueUser(AddRemoveUserQueueSessionRequest $request)
     {
         $result = $this->queueSessionService->removeQueueUser($request->validated());
+        $userRemovedFromQue = $result['userRemovedFromQue'];
+        $queueSession = (new QueueSessionResource($result['data']))->resolve($request);
+
         return ApiBaseResponse::success(
             data: [
-                'userRemovedFromQue' => $result['userRemovedFromQue'],
-                'queueSession' => (new QueueSessionResource($result['data']))->resolve($request),
+                'userRemovedFromQue' => $userRemovedFromQue,
+                'queueSession' => $queueSession,
             ],
             message: 'User removed from queue session successfully'
         );

@@ -178,7 +178,6 @@ class UserService
 
     public function loginUser(array $validatedData)
     {
-
         $user = $this->getUserByEmail($validatedData['email']);
         $user->companies;
         $user->roles;

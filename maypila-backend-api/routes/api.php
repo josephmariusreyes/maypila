@@ -52,9 +52,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('queue-sessions')->group(function () {
             Route::get('/getAllQueueSessions', [QueueSessionController::class, 'getAllQueueSessions']);
             Route::get('/getQueueSessionDetails/{id}', [QueueSessionController::class, 'getQueueSessionDetails']);
-            Route::post('/crateQueueSession', [QueueSessionController::class, 'crateQueueSession']);
-            Route::put('/{id}', [QueueSessionController::class, 'update']);
-            Route::delete('/{id}', [QueueSessionController::class, 'destroy']);
+            Route::post('/createQueueSession', [QueueSessionController::class, 'createQueueSession']);
+            Route::put('/updateQueueSession/{id}', [QueueSessionController::class, 'updateQueueSession']);
+            Route::delete('/deleteQueueSession{id}', [QueueSessionController::class, 'deleteQueueSession']);
             Route::post('/add-queue-users', [QueueSessionController::class, 'addQueueUser']);
             Route::delete('/remove-queue-user', [QueueSessionController::class, 'removeQueueUser']);
         });

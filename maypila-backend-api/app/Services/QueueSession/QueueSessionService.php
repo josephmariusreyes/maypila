@@ -44,6 +44,8 @@ class QueueSessionService
             $user->queue_session_id = $queueSessionId;
             $user->save();
 
+
+
             return [
                 'userAddedToQueue' => true,
                 'data' => $user->refresh(),
@@ -168,15 +170,18 @@ class QueueSessionService
 
     private function validateQueueUserCompanyAccess(User $actor, int $queueSessionId, int $userId, int $companyId): void
     {
+        //check if company ID belongs to logged in user
         $belongsToCompany = $actor->companies()
             ->whereKey($companyId)
             ->exists();
+
         if (! $belongsToCompany) {
             throw new AuthorizationException(
                 'You do not belong to this company.'
             );
         }
 
+        //check if queue session ID belongs to logged in company ID
         $queueSessionBelongsToCompany = QueueSession::query()
             ->where('company_id', $companyId)
             ->whereKey($queueSessionId)
@@ -188,6 +193,7 @@ class QueueSessionService
             );
         }
 
+        //check if users belongs to the company
         $userBelongsToCompany = User::query()
             ->whereKey($userId)
             ->whereHas('companies', function ($query) use ($companyId) {
