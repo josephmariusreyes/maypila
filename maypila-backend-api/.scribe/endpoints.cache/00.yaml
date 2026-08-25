@@ -597,7 +597,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: QueEncoder
+        example: CompanyAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -614,7 +614,7 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: QueEncoder
+      role: CompanyAdmin
     fileParameters: []
     responses:
       -
@@ -734,7 +734,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: CompanyAdmin
+        example: QueAdmin
         type: string
         enumValues:
           - SuperAdmin
@@ -751,7 +751,7 @@ endpoints:
       password: pBNvYg
       mobileNumber: '09564255931'
       companyId: 16
-      role: CompanyAdmin
+      role: QueAdmin
     fileParameters: []
     responses:
       -
@@ -940,7 +940,7 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/queue-sessions/crateQueueSession
+    uri: api/queue-sessions/createQueueSession
     metadata:
       custom: []
       groupName: Endpoints
@@ -1013,7 +1013,7 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/queue-sessions/{id}'
+    uri: 'api/queue-sessions/updateQueueSession/{id}'
     metadata:
       custom: []
       groupName: Endpoints
@@ -1031,7 +1031,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'The ID of the queue session.'
+        description: 'The ID of the updateQueueSession.'
         required: true
         example: architecto
         type: string
@@ -1098,7 +1098,7 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/queue-sessions/{id}'
+    uri: 'api/queue-sessions/deleteQueueSession{id}'
     metadata:
       custom: []
       groupName: Endpoints
@@ -1116,7 +1116,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'The ID of the queue session.'
+        description: 'The ID of the .'
         required: true
         example: architecto
         type: string
@@ -1499,7 +1499,7 @@ endpoints:
         name: customerStatus
         description: ''
         required: true
-        example: Done
+        example: Pending
         type: string
         enumValues:
           - Pending
@@ -1510,7 +1510,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       id: 16
-      customerStatus: Done
+      customerStatus: Pending
     fileParameters: []
     responses:
       -
