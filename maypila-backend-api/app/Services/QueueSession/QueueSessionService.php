@@ -3,7 +3,7 @@
 namespace App\Services\QueueSession;
 
 use App\Enum\QueueSessionStatus;
-use App\Events\User\UserAddedToOnlineQueue;
+use App\Jobs\sendEmail;
 use App\Models\QueueSession;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -46,7 +46,7 @@ class QueueSessionService
             $user->save();
 
             DB::afterCommit(function () use ($user, $queueSessionId, $actor) {
-                UserAddedToOnlineQueue::dispatch(
+                sendEmail::dispatch(
                     user: $user,
                     metadata: [
                         'queue_session_id' => $queueSessionId,
