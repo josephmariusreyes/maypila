@@ -3,6 +3,7 @@
 namespace App\Services\QueueSession;
 
 use App\Enum\QueueSessionStatus;
+use App\Events\User\UserAddedToOnlineQueue;
 use App\Models\QueueSession;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -27,7 +28,7 @@ class QueueSessionService
 
         $this->validateQueueUserCompanyAccess($actor, $queueSessionId, $userId, $companyId);
 
-        return DB::transaction(function () use ($queueSessionId, $userId) {
+        return DB::transaction(function () use ($queueSessionId, $userId, $actor) {
 
             $user = User::query()
                 ->lockForUpdate()
@@ -44,7 +45,15 @@ class QueueSessionService
             $user->queue_session_id = $queueSessionId;
             $user->save();
 
-
+            DB::afterCommit(function () use ($user, $queueSessionId, $actor) {
+                UserAddedToOnlineQueue::dispatch(
+                    user: $user,
+                    metadata: [
+                        'queue_session_id' => $queueSessionId,
+                        'queued_by' => $actor->id,
+                    ]
+                );
+            });
 
             return [
                 'userAddedToQueue' => true,

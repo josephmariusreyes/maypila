@@ -7,7 +7,9 @@ use App\Policies\UserPolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Events\CustomerQueue\CustomerQueued;
+use App\Events\User\UserAddedToOnlineQueue;
 use App\Listeners\CustomerQueue\HandleCustomerQueued;
+use App\Listeners\User\HandleUserAddedToOnlineQueue;
 use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,9 +17,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap any application services.
@@ -31,6 +31,6 @@ class AppServiceProvider extends ServiceProvider
         // because this listener is the place where you can later add event-log inserts
         // and dispatch the UI-facing CustomerListUpdated event.
         Event::listen(CustomerQueued::class, HandleCustomerQueued::class);
-
+        Event::listen(UserAddedToOnlineQueue::class, HandleUserAddedToOnlineQueue::class);
     }
 }
